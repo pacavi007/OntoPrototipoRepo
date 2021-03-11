@@ -27,7 +27,7 @@ import javax.ws.rs.DefaultValue;
 
 public class GenericResource 
 {
-    static String defaultNameSpace = "http://www.semanticweb.org/jegjo/ontologies/Myontology1#"; 
+    static String defaultNameSpace = "http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#"; 
     Model _student = null; 
     Model schema = null; 
     InfModel inferredStudent = null;
@@ -70,9 +70,11 @@ public class GenericResource
     { 
         _student = ModelFactory.createOntologyModel(); 
         InputStream inFoafInstance = 
-        FileManager.get().open("SampleUniversity4.owl"); 
+        FileManager.get().open("/Users/Unicauca/Desktop/OntoBLOGP/OntoPrototipoRepo/src/java/API/OntoBLOGP.owl");
+        //FileManager.get().openNoMap("SampleUniversity4.owl"); 
+        //FileManager.get().open("/Users/Unicauca/Desktop/OntoBLOGP/OntoPrototipoRepo/src/java/API/SampleUniversity4.owl");
         _student.read(inFoafInstance,defaultNameSpace); 
-        System.out.println("Rutoooa es: "+System.getProperty("user.dir"));
+        //System.out.println("Namespace es: "+defaultNameSpace);
   
     }
     
@@ -85,13 +87,9 @@ public class GenericResource
             case "1": 
             {
                 System.out.println("en linea 87");
-                query = "SELECT ?first_name ?last_name ?age ?name_group\n" +
+                query = "SELECT ?entrega ?proyecto\n" +
                 " WHERE {\n" +
-                " ?Student ROSCC:First_Name ?first_name. \n" +
-                " ?Student ROSCC:is_Enrrolled ROSCC:" + group + ".\n" +
-                " ?Student ROSCC:Last_Name ?last_name.\n" +
-                " ?Student ROSCC:Age ?age.} \n" +
-                " Orderby ?first_name";
+                " ?entrega OntoBLOGP:PDTI_comprende_E  ?proyecto.} \n" ;
             break;
             }
             case "2": 
