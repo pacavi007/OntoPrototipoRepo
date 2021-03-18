@@ -1,0 +1,833 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/jegjo/ontologies/Myontology"
+     xml:base="http://www.semanticweb.org/jegjo/ontologies/Myontology"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:Myontology1="http://www.semanticweb.org/jegjo/ontologies/Myontology1#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology">
+        <owl:versionIRI rdf:resource="urn:absolute:y"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#has_Assigment -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#has_Assigment">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#has_Grading"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#has_Enrrolled -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#has_Enrrolled">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_Enrrolled"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#has_Grading -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#has_Grading">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#has_Value -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#has_Value">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_A_Student"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_A_Student -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_A_Student">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_Course -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_Course">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_View"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_Enrrolled -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_Enrrolled">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_Imparted -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_Imparted">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_Teaching"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_Teaching -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_Teaching">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_View -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_View"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Age -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Age">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Code_Assignment -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Code_Assignment">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Code_Group -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Code_Group">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Code_Student -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Code_Student">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Code_Teacher -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Code_Teacher">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Email -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Email">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Finish_Grade -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Finish_Grade">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#First_Grade -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#First_Grade">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#First_Name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#First_Name">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Gender -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Gender">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grade_of_scholarship -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grade_of_scholarship">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Id_Person -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Id_Person">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Last_Name -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Last_Name">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Location -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Location">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Name_Assignment -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Name_Assignment">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Name_Group -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Name_Group">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Profession -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Profession">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Second_Grade -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Second_Grade">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Semester -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Semester">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Third_Grade -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Third_Grade">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group"/>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Notify -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Notify"/>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Person -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Person"/>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher -->
+
+    <owl:Class rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher">
+        <rdfs:subClassOf rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Person"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0001">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+        <Myontology1:has_Grading rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Gra00001"/>
+        <Myontology1:has_Grading rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Gra00002"/>
+        <Myontology1:is_Imparted rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0001"/>
+        <Myontology1:Name_Assignment>Telematica</Myontology1:Name_Assignment>
+        <Myontology1:Semester>VII</Myontology1:Semester>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0002 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0002">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+        <Myontology1:is_Imparted rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0002"/>
+        <Myontology1:Name_Assignment>Redes Locales</Myontology1:Name_Assignment>
+        <Myontology1:Semester>IX</Myontology1:Semester>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0003 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0003">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+        <Myontology1:is_Imparted rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0003"/>
+        <Myontology1:Name_Assignment>Bases de Datos</Myontology1:Name_Assignment>
+        <Myontology1:Semester>VI</Myontology1:Semester>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Gra00001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Gra00001">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+        <Myontology1:has_Assigment rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0001"/>
+        <Myontology1:is_A_Student rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0001"/>
+        <Myontology1:Finish_Grade>3</Myontology1:Finish_Grade>
+        <Myontology1:First_Grade>4</Myontology1:First_Grade>
+        <Myontology1:Second_Grade>2</Myontology1:Second_Grade>
+        <Myontology1:Third_Grade>3</Myontology1:Third_Grade>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Gra00002 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Gra00002">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+        <Myontology1:has_Assigment rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0001"/>
+        <Myontology1:is_A_Student rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0002"/>
+        <Myontology1:Finish_Grade>5</Myontology1:Finish_Grade>
+        <Myontology1:First_Grade>5</Myontology1:First_Grade>
+        <Myontology1:Second_Grade>5</Myontology1:Second_Grade>
+        <Myontology1:Third_Grade>5</Myontology1:Third_Grade>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Gra00003 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Gra00003">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+        <Myontology1:has_Assigment rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0003"/>
+        <Myontology1:is_A_Student rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0001"/>
+        <Myontology1:First_Grade>4</Myontology1:First_Grade>
+        <Myontology1:Second_Grade>4</Myontology1:Second_Grade>
+        <Myontology1:Third_Grade>4</Myontology1:Third_Grade>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0001">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group"/>
+        <Myontology1:is_View rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0001"/>
+        <Myontology1:Name_Group>GrpTelematica1</Myontology1:Name_Group>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0002 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0002">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group"/>
+        <Myontology1:is_View rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0002"/>
+        <Myontology1:Name_Group>GrpRedes_Locales1</Myontology1:Name_Group>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0003 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0003">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group"/>
+        <Myontology1:is_View rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0003"/>
+        <Myontology1:Name_Group>GrpBases_Datos</Myontology1:Name_Group>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0004 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0004">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Group"/>
+        <Myontology1:is_View rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0003"/>
+        <Myontology1:Name_Group>Grp_Bases_de_Datos</Myontology1:Name_Group>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0001">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0001"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0004"/>
+        <Myontology1:Age>18</Myontology1:Age>
+        <Myontology1:Email>jperez@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Jorge</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Perez</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0002 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0002">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0001"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0004"/>
+        <Myontology1:Age>16</Myontology1:Age>
+        <Myontology1:Email>slopez@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Sebastian</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Lopez</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0003 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0003">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0001"/>
+        <Myontology1:Age>21</Myontology1:Age>
+        <Myontology1:Email>castillo@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Carlos</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Castillo</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0004 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0004">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0001"/>
+        <Myontology1:Age>22</Myontology1:Age>
+        <Myontology1:Email>jriquelme@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Juan</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Riquelme</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0005 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0005">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0001"/>
+        <Myontology1:Age>19</Myontology1:Age>
+        <Myontology1:Email>abustamante@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Adriana</Myontology1:First_Name>
+        <Myontology1:Gender>F</Myontology1:Gender>
+        <Myontology1:Last_Name>Bustamante</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0006 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0006">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0002"/>
+        <Myontology1:Age>23</Myontology1:Age>
+        <Myontology1:Email>jcorrales@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Juan</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Corrales</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0007 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0007">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0002"/>
+        <Myontology1:Age>20</Myontology1:Age>
+        <Myontology1:Email>mberrio@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Marcela</Myontology1:First_Name>
+        <Myontology1:Gender>F</Myontology1:Gender>
+        <Myontology1:Last_Name>Berrio</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0008 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0008">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0002"/>
+        <Myontology1:Age>16</Myontology1:Age>
+        <Myontology1:Email>gochoa@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Gabriel</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Ochoa</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0009 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0009">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0002"/>
+        <Myontology1:Age>22</Myontology1:Age>
+        <Myontology1:Email>drosse@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Dayana</Myontology1:First_Name>
+        <Myontology1:Gender>F</Myontology1:Gender>
+        <Myontology1:Last_Name>Rosse</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0010 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0010">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0003"/>
+        <Myontology1:Age>20</Myontology1:Age>
+        <Myontology1:Email>ctafur@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Cristian</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Tafur</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0011 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0011">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0003"/>
+        <Myontology1:Age>21</Myontology1:Age>
+        <Myontology1:Email>amontalvo@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Alirio</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Montalvo</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0012 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0012">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+        <Myontology1:is_Enrrolled rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grp0003"/>
+        <Myontology1:Age>23</Myontology1:Age>
+        <Myontology1:Email>mferreira@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Marcos</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Ferreira</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0001">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher"/>
+        <Myontology1:is_Imparted rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0001"/>
+        <Myontology1:Age>50</Myontology1:Age>
+        <Myontology1:Email>vhernandez@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Velssy</Myontology1:First_Name>
+        <Myontology1:Gender>F</Myontology1:Gender>
+        <Myontology1:Last_Name>Hernandez</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0002 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0002">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher"/>
+        <Myontology1:is_Imparted rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0002"/>
+        <Myontology1:Age>36</Myontology1:Age>
+        <Myontology1:Email>pguevara@gmail.om</Myontology1:Email>
+        <Myontology1:First_Name>Pedro</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Guevara</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0003 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0003">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher"/>
+        <Myontology1:is_Imparted rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0003"/>
+        <Myontology1:Age>38</Myontology1:Age>
+        <Myontology1:Email>scastano@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Samir</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Castano</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0004 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0004">
+        <rdf:type rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teacher"/>
+        <Myontology1:is_Imparted rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0001"/>
+        <Myontology1:Age>51</Myontology1:Age>
+        <Myontology1:Email>jbula@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Harold</Myontology1:First_Name>
+        <Myontology1:Gender>M</Myontology1:Gender>
+        <Myontology1:Last_Name>Bula</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0005 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Teach0005">
+        <Myontology1:is_Imparted rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Asg0002"/>
+        <Myontology1:Age>52</Myontology1:Age>
+        <Myontology1:Email>dsalas@gmail.com</Myontology1:Email>
+        <Myontology1:First_Name>Daniel</Myontology1:First_Name>
+        <Myontology1:Last_Name>Salas</Myontology1:Last_Name>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Rules
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description rdf:about="urn:swrl:var#std">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl:var#grd">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description rdf:about="urn:swrl:var#assg">
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Variable"/>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#Imp"/>
+        <swrl:body>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Student"/>
+                        <swrl:argument1 rdf:resource="urn:swrl:var#std"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                        <rdf:first>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#is_A_Student"/>
+                                <swrl:argument1 rdf:resource="urn:swrl:var#grd"/>
+                                <swrl:argument2 rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Std0001"/>
+                            </rdf:Description>
+                        </rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                <rdf:first>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Grading"/>
+                                        <swrl:argument1 rdf:resource="urn:swrl:var#grd"/>
+                                    </rdf:Description>
+                                </rdf:first>
+                                <rdf:rest>
+                                    <rdf:Description>
+                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                        <rdf:first>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#IndividualPropertyAtom"/>
+                                                <swrl:propertyPredicate rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#has_Grading"/>
+                                                <swrl:argument1 rdf:resource="urn:swrl:var#assg"/>
+                                                <swrl:argument2 rdf:resource="urn:swrl:var#grd"/>
+                                            </rdf:Description>
+                                        </rdf:first>
+                                        <rdf:rest>
+                                            <rdf:Description>
+                                                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                                                <rdf:first>
+                                                    <rdf:Description>
+                                                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                                                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Assignment"/>
+                                                        <swrl:argument1 rdf:resource="urn:swrl:var#assg"/>
+                                                    </rdf:Description>
+                                                </rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                            </rdf:Description>
+                                        </rdf:rest>
+                                    </rdf:Description>
+                                </rdf:rest>
+                            </rdf:Description>
+                        </rdf:rest>
+                    </rdf:Description>
+                </rdf:rest>
+            </rdf:Description>
+        </swrl:body>
+        <swrl:head>
+            <rdf:Description>
+                <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#AtomList"/>
+                <rdf:first>
+                    <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/2003/11/swrl#ClassAtom"/>
+                        <swrl:classPredicate rdf:resource="http://www.semanticweb.org/jegjo/ontologies/Myontology1#Notify"/>
+                        <swrl:argument1 rdf:resource="urn:swrl:var#grd"/>
+                    </rdf:Description>
+                </rdf:first>
+                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+            </rdf:Description>
+        </swrl:head>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+

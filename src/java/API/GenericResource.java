@@ -15,7 +15,6 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.*; 
 import com.hp.hpl.jena.util.FileManager; 
-import java.io.File;
 import java.io.InputStream; 
 import javax.ws.rs.DefaultValue;
 
@@ -27,7 +26,8 @@ import javax.ws.rs.DefaultValue;
 
 public class GenericResource 
 {
-    static String defaultNameSpace = "http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#"; 
+    //static String defaultNameSpace = "http://www.semanticweb.org/jegjo/ontologies/Myontology1#";
+    static String defaultNameSpace = "http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#";
     Model _student = null; 
     Model schema = null; 
     InfModel inferredStudent = null;
@@ -61,7 +61,7 @@ public class GenericResource
             
     {
         GenericResource myontology = new GenericResource();
-        myontology.populateFOAFFriends(); System.out.println("en linea 64");
+        myontology.populateFOAFFriends();
         String json = myontology.myStudents(myontology._student, option, age, comparative, group, assignment, grade, gender); 
         return json;
     }
@@ -70,12 +70,11 @@ public class GenericResource
     { 
         _student = ModelFactory.createOntologyModel(); 
         InputStream inFoafInstance = 
-        FileManager.get().open("/Users/Unicauca/Desktop/OntoBLOGP/OntoPrototipoRepo/src/java/API/OntoBLOGP.owl");
-        //FileManager.get().openNoMap("SampleUniversity4.owl"); 
-        //FileManager.get().open("/Users/Unicauca/Desktop/OntoBLOGP/OntoPrototipoRepo/src/java/API/SampleUniversity4.owl");
+        FileManager.get().open("Onto/OntoBLOGP1.0.owl");
+        //FileManager.get().open("Onto/SampleUniversity4.owl");
+        //FileManager.get().open("/Users/Unicauca/Documents/NetBeansProjects/Example/src/java/API/SampleUniversity4.owl"); 
         _student.read(inFoafInstance,defaultNameSpace); 
-        //System.out.println("Namespace es: "+defaultNameSpace);
-  
+        System.out.println("Ruta es: "+System.getProperty("user.dir" ));
     }
     
     private String myStudents(Model model, String option, String age, String comparativeExpression, String group, String assignment, String grade, String gender)
@@ -86,10 +85,22 @@ public class GenericResource
         { 
             case "1": 
             {
-                System.out.println("en linea 87");
-                query = "SELECT ?entrega ?proyecto\n" +
+                query = "SELECT  ?nombreIN \n" +
+                "WHERE { \n" +
+                "?Interesado OntoBLOGP:nombreInteresado ?nombreIN. \n" +   
+                "?Interesado OntoBLOGP:Co_tiene_varios_Int OntoBLOGP:Consorcio_0.}";
+                
+                /*query = "SELECT ?entrega ?proyecto \n" +
+	        " WHERE {\n" + 
+		" ?Entregable   OntoBLOGP:descripcionEntregable  ?entrega.}"; */
+		                 /*       
+                query = "SELECT ?first_name ?last_name ?age ?name_group\n" +
                 " WHERE {\n" +
-                " ?entrega OntoBLOGP:PDTI_comprende_E  ?proyecto.} \n" ;
+                " ?Student ROSCC:First_Name ?first_name. \n" +
+                " ?Student ROSCC:is_Enrrolled ROSCC:" + group + ".\n" +
+                " ?Student ROSCC:Last_Name ?last_name.\n" +
+                " ?Student ROSCC:Age ?age.} \n" +
+                " Orderby ?first_name"; */
             break;
             }
             case "2": 
@@ -151,7 +162,8 @@ public class GenericResource
         
         // Establish Prefixes 
         //Set default Name space first 
-        queryStr.append("PREFIX ROSCC:<http://www.semanticweb.org/jegjo/ontologies/Myontology1#>"); 
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        //queryStr.append("PREFIX ROSCC:<http://www.semanticweb.org/jegjo/ontologies/Myontology1#>");
         queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
         queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
         queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
@@ -169,7 +181,21 @@ public class GenericResource
             while(response.hasNext())
             {
                 QuerySolution soln = response.nextSolution();
-                RDFNode firstname = soln.get("?first_name");
+                RDFNode nombreIN = soln.get("?nombreIN");
+                if((nombreIN!=null))
+                {
+                    json += "{\"nombre\":\""+ nombreIN.toString() +"\"}" ;
+                            
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                }
+                /* RDFNode firstname = soln.get("?first_name");
                 RDFNode lastname = soln.get("?last_name"); 
                 RDFNode age = soln.get("?age");
                 if( (firstname != null) && (lastname != null) && (age != null))
@@ -185,7 +211,7 @@ public class GenericResource
                 else
                 {
                     System.out.println("No data found!"); 
-                }
+                } */
             }
         }
         finally 
