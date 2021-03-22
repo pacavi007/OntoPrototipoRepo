@@ -35,8 +35,8 @@ resultDiv.innerHTML = stringHtml
 } catch (err) { console.log(err)
 } 
 }
-
-const consultar = async () => {  
+/*
+const crudproyecto = async () => {  
     //const option = document.getElementById('option').value
     const option = 1
     const group = document.getElementById('group').value
@@ -77,4 +77,4 @@ const consultar = async () => {
     { 
         console.log(err)
     }
-} 
+} */

@@ -7,88 +7,143 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" 
       integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
       crossorigin="anonymous"> 
+<link  rel="icon"   href="imagenes/favicon.ico" type="image/ico" />
 <title>ONTOBLOGP</title> 
 </head>
 
 <body style="background: #fafafa;">
     <div class="container pt-4">
         <div class="row">
-            <div class="col-4"> 
-                <div class="border bg-white rounded p-4">
-                    <h4 class="mb-4">Menu</h4> 
-                    <div class="row"> 
-                        <div class="col-6"> 
-                            <h6>Opción</h6> 
-                            <input id="option" type="text" class="form-control mb-3">
-                        </div> 
-                        <div class="col-6"> 
-                            <h6>Grupo</h6> 
-                            <input id="group" type="text" class="form-control mb-3">
-                        </div> 
-                        <div class="col-6">
-                            <h6>Signo comparativo</h6>
-                            <input id="comparative" type="text" class="form-control mb-3">
-                        </div>
-                        <div class="col-6">
-                            <h6>Curso</h6> 
-                            <input id="assignment" type="text" class="form-control mb-3">
-                        </div>
-                        <div class="col-6">
-                            <h6>Genero</h6>
-                            <input id="gender" type="text" class="form-control mb-3"> 
-                        </div> 
-                        <div class="col-6"> 
-                            <h6>Edad</h6> 
-                            <input id="age" type="text" class="form-control mb-3">
-                        </div>
-                        <div class="col-12">
-                            <h6>Nota</h6>
-                            <input id="grade" type="text" class="form-control mb-4">
-                        </div>
-                        <div class="col-12">
-                            <button class="btn btn-primary 
-                                    btn-block"
-                                    onclick="send()">Buscar
-                            </button>
-                        </div> 
-                    </div>
-                </div>
-            </div>
+            
             <div class="col-8">
                 <div class="border bg-white rounded p-4 mb-4">
                     <h4 class="mb-4" align="center">BIENVENIDO A ONTOBLOGP</h4>
                     <div class="row">
-                        <div class="col-6"> 
+                        <div class="col-3"> 
                             <button class="bt btn-primary
                                     btn-block"
-                                    onclick="send()">Insertar información
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="consultar()">Consultar información
+                                    onclick="crudproyecto()">CRUD Proyecto
                             </button>
                             <p></p>
                         </div>
-                        <div class="col-6"> 
+                        <div class="col-3">
                             <button class="bt btn-primary
                                     btn-block"
-                                    onclick="send()">Editar información
+                                    onclick="consultar()">CRUD Interesado
+                            </button>
+                            <p></p>
+                        </div>
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Entregable
                             </button> 
+                            <p></p>
                         </div> 
-                        <div class="col-6"> 
+                        <div class="col-3"> 
                             <button class="bt btn-primary
                                     btn-block"
-                                    onclick="send()">Eliminar información
+                                    onclick="send()">CRUD Ciclo Vida Proyecto
                             </button> 
                             <p></p>
                         </div>  
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Fase
+                            </button>
+                            <p></p>
+                        </div> 
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Proceso
+                            </button>
+                            <p></p>
+                        </div>
+                        <div class="col-3">
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="consultar()">CRUD Área De Conocimiento
+                            </button>
+                            <p></p>
+                        </div>
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Grupo De Proceso
+                            </button> 
+                            <p></p>
+                        </div> 
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Entrada
+                            </button> 
+                            <p></p>
+                        </div>  
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Salida
+                            </button> 
+                            <p></p>
+                        </div>
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Técnica Y Herramienta
+                            </button>
+                            <p></p>
+                        </div>
+                        <div class="col-3">
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="consultar()">CRUD Incertidumbre
+                            </button>
+                            <p></p>
+                        </div>
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Gestión Proyecto PMI
+                            </button>
+                            <p></p>
+                        </div> 
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Registro De Supuesto
+                            </button> 
+                            <p></p>
+                        </div>  
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Registro Incidente
+                            </button> 
+                            <p></p>
+                        </div>
+                        <div class="col-3"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">CRUD Riesgo
+                            </button> 
+                            <p></p>
+                        </div>
                     </div>
                 </div> 
                 <div class="border bg-white rounded p-4"> 
                     <h4 class="mb-4">Resultado</h4>
                     <div id="result">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-4"> 
+                <div class="border bg-white rounded p-4">
+                    <h4 class="mb-4" id="mensaje">Selecciona algún concepto</h4>   
+                    <div class="row" id="formulario"> 
                         
                     </div>
                 </div>
@@ -109,6 +164,9 @@
         
     </script> 
     <script src="./index.js">
+        
+    </script>
+    <script src="./js/crud-proyecto.js">
         
     </script>
 </body> 

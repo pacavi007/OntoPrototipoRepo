@@ -1,0 +1,116 @@
+<!DOCTYPE html> 
+<html lang="es"> 
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" 
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" 
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"> 
+<title>ONTOBLOGP</title> 
+</head>
+
+<body style="background: #fafafa;">
+    <div class="container pt-4">
+        <div class="row">
+            
+            <div class="col-8">
+                <div class="border bg-white rounded p-4 mb-4">
+                    <h4 class="mb-4" align="center">BIENVENIDO A ONTOBLOGP</h4>
+                    <div class="row">
+                        <div class="col-6"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">Insertar Proyecto
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="consultar()">Consultar Proyecto
+                            </button>
+                            <p></p>
+                        </div>
+                        <div class="col-6"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">Editar Proyecto
+                            </button> 
+                        </div> 
+                        <div class="col-6"> 
+                            <button class="bt btn-primary
+                                    btn-block"
+                                    onclick="send()">Eliminar Proyecto
+                            </button> 
+                            <p></p>
+                        </div>  
+                    </div>
+                </div> 
+                <div class="border bg-white rounded p-4"> 
+                    <h4 class="mb-4">Resultado</h4>
+                    <div id="result">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-4"> 
+                <div class="border bg-white rounded p-4">
+                    <h4 class="mb-4">Ingresa algún campo del proyecto</h4> 
+                    <div class="row"> 
+                        <div class="col-6"> 
+                            <h6>Título</h6> 
+                            <input id="option" type="text" class="form-control mb-3">
+                        </div> 
+                        <div class="col-6"> 
+                            <h6>Objetivo</h6> 
+                            <input id="group" type="text" class="form-control mb-3">
+                        </div> 
+                        <div class="col-6">
+                            <h6>Descripción</h6>
+                            <input id="comparative" type="text" class="form-control mb-3">
+                        </div>
+                        <div class="col-6">
+                            <h6>Presupuesto</h6> 
+                            <input id="assignment" type="text" class="form-control mb-3">
+                        </div>
+                        <div class="col-6">
+                            <h6>Fecha Inicio</h6>
+                            <input id="gender" type="text" class="form-control mb-3"> 
+                        </div> 
+                        <div class="col-6"> 
+                            <h6>Fecha Fin</h6> 
+                            <input id="age" type="text" class="form-control mb-3">
+                        </div>
+                        
+                        <div class="col-12">
+                            <button class="btn btn-primary 
+                                    btn-block"
+                                    onclick="send()">Buscar Proyecto
+                            </button>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+            crossorigin="anonymous">
+                
+    </script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" 
+            integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" 
+            crossorigin="anonymous">
+                
+    </script> 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+        
+    </script> 
+    <script src="./js/index.js">
+        
+    </script>
+    <script src="./js/proyecto.js">
+        
+    </script>
+</body> 
+</html>
