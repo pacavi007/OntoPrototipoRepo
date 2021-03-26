@@ -31,6 +31,7 @@ public class GenericResource
     Model _student = null; 
     Model schema = null; 
     InfModel inferredStudent = null;
+    int opciones=0;
     
     @Context 
     private UriInfo context;
@@ -80,7 +81,7 @@ public class GenericResource
     private String myStudents(Model model, String option, String age, String comparativeExpression, String group, String assignment, String grade, String gender)
     { 
         String query = "";
-        
+        opciones = Integer.parseInt(option);
         switch (option) 
         { 
             case "1": 
@@ -104,13 +105,21 @@ public class GenericResource
             break;
             }
             case "2": 
-                {
-                    query = "SELECT ?first_name ?last_name ?age\n" + " WHERE {\n" +
-                    " ?Student ROSCC:First_Name ?first_name. \n" +
-                    " ?Student ROSCC:is_Enrrolled ROSCC:" + group + ". \n" +
-                    " ?Student ROSCC:Last_Name ?last_name. \n" +
-                    " ?Student ROSCC:Age ?age. Filter(?age "+ comparativeExpression + "'" + age + "') } \n" + 
-                    " Orderby ?first_name";
+                {  System.out.println("en 08");
+                query = "SELECT ?Titulo ?Objetivo ?Descripcion ?FechaInicio ?FechaFin \n" +
+                "WHERE { \n" +
+                "?Proyecto_De_TI OntoBLOGP:titulo ?Titulo. \n" +
+                "?Proyecto_De_TI OntoBLOGP:objetivo ?Objetivo. \n" +
+                "?Proyecto_De_TI OntoBLOGP:descripcion ?Descripcion. \n" +
+                "?Proyecto_De_TI OntoBLOGP:fechaInicio ?FechaInicio. \n" +
+                "?Proyecto_De_TI OntoBLOGP:fechaFin ?FechaFin.}";
+ 
+                /* query = "SELECT ?first_name ?last_name ?age\n" + " WHERE {\n" +
+                " ?Student ROSCC:First_Name ?first_name. \n" +
+                " ?Student ROSCC:is_Enrrolled ROSCC:" + group + ". \n" +
+                " ?Student ROSCC:Last_Name ?last_name. \n" +
+                " ?Student ROSCC:Age ?age. Filter(?age "+ comparativeExpression + "'" + age + "') } \n" + 
+                " Orderby ?first_name"; */
                 break;
                 }
             case "3": 
@@ -172,15 +181,67 @@ public class GenericResource
         queryStr.append(queryRequest); 
         Query query = QueryFactory.create(queryStr.toString());
         QueryExecution qexec = QueryExecutionFactory.create(query, model); 
-        
+        System.out.println("en 183 "+qexec.toString());
+        //System.out.println("en 184 "+queryStr);
         String json = "";
         try 
         {
             ResultSet response = qexec.execSelect();
-            System.out.println("Starting search"); 
+            System.out.println("Starting search"); //System.out.println("en 189 "+response.hasNext());
             while(response.hasNext())
-            {
-                QuerySolution soln = response.nextSolution();
+            {System.out.println("en 191 "+opciones);
+                switch(opciones)
+                {
+                    case 2:
+                        QuerySolution soln = response.nextSolution();
+                        RDFNode titulo = soln.get("?Titulo");
+                        RDFNode objetivo = soln.get("?Objetivo");
+                        RDFNode descripcion = soln.get("?Descripcion"); 
+                        RDFNode fechainicio = soln.get("?FechaInicio");
+                        RDFNode fechafin = soln.get("?FechaFin");
+                        if( (titulo != null) && (objetivo != null) && (descripcion != null) && (fechainicio != null) && (fechafin != null))
+                        {
+                            json += "{\"titulo\":\""+ titulo.toString() +"\"," + 
+                                    "\"objetivo\":\""+ objetivo.toString() +"\"," + 
+                                    "\"descripcion\":\""+ descripcion.toString() +"\"," +
+                                    "\"fechainicio\":\""+ fechainicio.toString() +"\"," +
+                                    "\"fechafin\":\""+ fechafin.toString() +"\"}" ;
+                            if (response.hasNext())
+                            {
+                                json += ",";
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("No data found!"); 
+                        }
+                        break;
+                    case 3:
+                        QuerySolution soln3 = response.nextSolution();
+                        RDFNode nombreinteresado = soln3.get("?NombreI");
+                        RDFNode tipoinfluencia = soln3.get("?TipoI");
+                        RDFNode equipoproyecto = soln3.get("?Equipo"); 
+                        RDFNode telefono = soln3.get("?Telefono");
+                        RDFNode email = soln3.get("?Email");
+                        if( (nombreinteresado != null) && (tipoinfluencia != null) && (equipoproyecto != null) && (telefono != null) && (email != null))
+                        {
+                            json += "{\"nombreinteresado\":\""+ nombreinteresado.toString() +"\"," + 
+                                    "\"tipoinfluencia\":\""+ tipoinfluencia.toString() +"\"," + 
+                                    "\"equipoproyecto\":\""+ equipoproyecto.toString() +"\"," +
+                                    "\"telefono\":\""+ telefono.toString() +"\"," +
+                                    "\"email\":\""+ email.toString() +"\"}" ;
+                            if (response.hasNext())
+                            {
+                                json += ",";
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("No data found!"); 
+                        }
+                        break;
+                }
+                /* QuerySolution soln = response.nextSolution();
                 RDFNode nombreIN = soln.get("?nombreIN");
                 if((nombreIN!=null))
                 {
@@ -194,7 +255,7 @@ public class GenericResource
                 else
                 {
                     System.out.println("No data found!"); 
-                }
+                } */
                 /* RDFNode firstname = soln.get("?first_name");
                 RDFNode lastname = soln.get("?last_name"); 
                 RDFNode age = soln.get("?age");
