@@ -105,12 +105,12 @@ public class GenericResource
             break;
             }
             case "2": 
-                {  System.out.println("en 08");
+                {
                 query = "SELECT ?Titulo ?Objetivo ?Descripcion ?FechaInicio ?FechaFin \n" +
                 "WHERE { \n" +
                 "?Proyecto_De_TI OntoBLOGP:titulo ?Titulo. \n" +
                 "?Proyecto_De_TI OntoBLOGP:objetivo ?Objetivo. \n" +
-                "?Proyecto_De_TI OntoBLOGP:descripcion ?Descripcion. \n" +
+                "?Proyecto_De_TI OntoBLOGP:descripcionPDTI ?Descripcion. \n" +
                 "?Proyecto_De_TI OntoBLOGP:fechaInicio ?FechaInicio. \n" +
                 "?Proyecto_De_TI OntoBLOGP:fechaFin ?FechaFin.}";
  
@@ -124,13 +124,15 @@ public class GenericResource
                 }
             case "3": 
                 {   
-                    query = "SELECT ?first_name ?last_name ?age\n" +
-                    " WHERE {\n" +
-                    " ?Teacher ROSCC:First_Name ?first_name. \n" +
-                    " ?Teacher ROSCC:is_Imparted ROSCC:" + assignment + ". \n" +
-                    " ?Teacher ROSCC:Last_Name ?last_name. \n" + 
-                    " ?Teacher ROSCC:Age ?age.} \n" + 
-                    " Orderby ?first_name"; 
+                query = "SELECT ?Nombre ?TipoInfluencia ?Cargo ?RolProyecto ?EquipoProyecto ?Telefono ?Email \n" +
+                "WHERE { \n" +
+                "?Interesado OntoBLOGP:nombreInteresado ?Nombre. \n" +
+                "?Interesado OntoBLOGP:tipoInfluencia ?TipoInfluencia. \n" +
+                "?Interesado OntoBLOGP:cargo ?Cargo. \n" +
+                "?Interesado OntoBLOGP:rolProyecto ?RolProyecto. \n" +
+                "?Interesado OntoBLOGP:equipoProyecto ?EquipoProyecto. \n" +
+                "?Interesado OntoBLOGP:telefono ?Telefono. \n" +
+                "?Interesado OntoBLOGP:email ?Email.}";
                 break; 
                 } 
             case "4": 
@@ -181,8 +183,8 @@ public class GenericResource
         queryStr.append(queryRequest); 
         Query query = QueryFactory.create(queryStr.toString());
         QueryExecution qexec = QueryExecutionFactory.create(query, model); 
-        System.out.println("en 183 "+qexec.toString());
-        //System.out.println("en 184 "+queryStr);
+        //ResultSet respuesta = qexec.execSelect();
+        System.out.println("en 184 ");
         String json = "";
         try 
         {
@@ -218,15 +220,19 @@ public class GenericResource
                         break;
                     case 3:
                         QuerySolution soln3 = response.nextSolution();
-                        RDFNode nombreinteresado = soln3.get("?NombreI");
-                        RDFNode tipoinfluencia = soln3.get("?TipoI");
-                        RDFNode equipoproyecto = soln3.get("?Equipo"); 
+                        RDFNode nombreinteresado = soln3.get("?Nombre");
+                        RDFNode tipoinfluencia = soln3.get("?TipoInfluencia");
+                        RDFNode cargo = soln3.get("?Cargo"); 
+                        RDFNode rolproyecto = soln3.get("?RolProyecto");
+                        RDFNode equipoproyecto = soln3.get("?EquipoProyecto"); 
                         RDFNode telefono = soln3.get("?Telefono");
                         RDFNode email = soln3.get("?Email");
                         if( (nombreinteresado != null) && (tipoinfluencia != null) && (equipoproyecto != null) && (telefono != null) && (email != null))
                         {
                             json += "{\"nombreinteresado\":\""+ nombreinteresado.toString() +"\"," + 
                                     "\"tipoinfluencia\":\""+ tipoinfluencia.toString() +"\"," + 
+                                    "\"cargo\":\""+ cargo.toString() +"\"," +
+                                    "\"rolproyecto\":\""+ rolproyecto.toString() +"\"," +
                                     "\"equipoproyecto\":\""+ equipoproyecto.toString() +"\"," +
                                     "\"telefono\":\""+ telefono.toString() +"\"," +
                                     "\"email\":\""+ email.toString() +"\"}" ;
