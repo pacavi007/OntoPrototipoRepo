@@ -260,6 +260,16 @@
     
 
 
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ent_pertenece_PDTI -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ent_pertenece_PDTI">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#PDTI_comprende_E"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proyecto_De_TI"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ent_se_genera_Pro -->
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ent_se_genera_Pro">
@@ -331,6 +341,16 @@
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Int_forma_parte_Co">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
         <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Consorcio"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Int_pertenece_PDTI -->
+
+    <owl:ObjectProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Int_pertenece_PDTI">
+        <owl:inverseOf rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#PDTI_tiene_Int"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proyecto_De_TI"/>
     </owl:ObjectProperty>
     
 
@@ -501,7 +521,6 @@
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Pro_se_compone_H">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Herramienta"/>
     </owl:ObjectProperty>
     
 
@@ -519,7 +538,7 @@
 
     <owl:ObjectProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Pro_se_compone_T">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso"/>
-        <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica"/>
+        <rdfs:range rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica_y_Herramienta"/>
     </owl:ObjectProperty>
     
 
@@ -625,18 +644,115 @@
     
 
 
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#cargo -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#cargo">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
     <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcion -->
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcion">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entrada"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Herramienta"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proyecto_De_TI"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Registro_De_Supuesto"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Registro_Incidente"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Riesgo"/>
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Salida"/>
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica"/>
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica_y_Herramienta"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionADC -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionADC">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Area_De_Conocimiento"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionEntrada -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionEntrada">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entrada"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionHerramienta -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionHerramienta">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionPDTI -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionPDTI">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proyecto_De_TI"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionRDS -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionRDS">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Registro_De_Supuesto"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionRI -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionRI">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Registro_Incidente"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionRiesgo -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionRiesgo">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Riesgo"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionSalida -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionSalida">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Salida"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionTYH -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#descripcionTYH">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica_y_Herramienta"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#email -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#email">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
@@ -647,6 +763,24 @@
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#equipoProyecto">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#estadoEntregable -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#estadoEntregable">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#fechaEntrega -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#fechaEntrega">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
 
@@ -665,105 +799,6 @@
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#fechaInicio">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proyecto_De_TI"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idAreaConocimiento -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idAreaConocimiento">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Area_De_Conocimiento"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idCicloVidaProyecto -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idCicloVidaProyecto">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ciclo_Vida_Proyecto"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idEntrada -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idEntrada">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entrada"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idGrupoProceso -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idGrupoProceso">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Grupo_De_Proceso"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idHerramienta -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idHerramienta">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Herramienta"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idProceso -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idProceso">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idRegistroIncidente -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idRegistroIncidente">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Registro_Incidente"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idRiesgo -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idRiesgo">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Riesgo"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idSalida -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idSalida">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Salida"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idSupuesto -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idSupuesto">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Registro_De_Supuesto"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idTecnica -->
-
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#idTecnica">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
     </owl:DatatypeProperty>
     
 
@@ -795,19 +830,28 @@
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreGrupoDeProceso -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreEntregable -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreGrupoDeProceso">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Grupo_De_Proceso"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreEntregable">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreHerramienta -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreFase -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreHerramienta">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Herramienta"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreFase">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreGrupoDeProceso -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreGrupoDeProceso">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Grupo_De_Proceso"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
@@ -840,10 +884,10 @@
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreTecnica -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreTYH -->
 
-    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreTecnica">
-        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica"/>
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#nombreTYH">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica_y_Herramienta"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
@@ -871,6 +915,24 @@
 
     <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#responsable">
         <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#rolProyecto -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#rolProyecto">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#telefono -->
+
+    <owl:DatatypeProperty rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#telefono">
+        <rdfs:domain rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     </owl:DatatypeProperty>
     
@@ -1057,12 +1119,6 @@
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Herramienta -->
-
-    <owl:Class rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Herramienta"/>
-    
-
-
     <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Incertidumbre -->
 
     <owl:Class rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Incertidumbre"/>
@@ -1163,9 +1219,9 @@
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica_y_Herramienta -->
 
-    <owl:Class rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica"/>
+    <owl:Class rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Tecnica_y_Herramienta"/>
     
 
 
@@ -1204,23 +1260,12 @@
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ciclo_de_vida_post -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Cons001 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ciclo_de_vida_post">
-        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ciclo_Vida_Proyecto"/>
-        <CVP_se_estructura_F rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase_1_post"/>
-        <idCicloVidaProyecto rdf:datatype="http://www.w3.org/2001/XMLSchema#int">001</idCicloVidaProyecto>
-        <nombreCicloVidaProyecto>SCRUM</nombreCicloVidaProyecto>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Consorcio_0 -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Consorcio_0">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Cons001">
         <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Consorcio"/>
-        <Co_tiene_varios_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interasado_post_1"/>
-        <Co_tiene_varios_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interesado_post_2"/>
+        <Co_tiene_varios_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte001"/>
+        <Co_tiene_varios_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte002"/>
         <AlturaBloque rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</AlturaBloque>
         <BloqueGenesis rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</BloqueGenesis>
         <TipoPropagacion>p2p</TipoPropagacion>
@@ -1228,22 +1273,37 @@
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Desarrollar_el_Plan_para_la_Dirección_del_Proyecto -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Cvpr001 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Desarrollar_el_Plan_para_la_Dirección_del_Proyecto">
-        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso"/>
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Cvpr001">
+        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ciclo_Vida_Proyecto"/>
+        <CVP_se_estructura_F rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase001"/>
+        <CVP_se_estructura_F rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase002"/>
+        <CVP_se_estructura_F rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase003"/>
+        <nombreCicloVidaProyecto>SCRUM</nombreCicloVidaProyecto>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable_1_Post -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Cvpr002 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable_1_Post">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Cvpr002">
+        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ciclo_Vida_Proyecto"/>
+        <CVP_se_estructura_F rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase004"/>
+        <nombreCicloVidaProyecto>XP</nombreCicloVidaProyecto>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb001">
         <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable"/>
-        <Ent_se_genera_Pro rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso_1_Post"/>
-        <PDTI_comprende_E rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#ProyectoPost"/>
-        <Estado>aceptado</Estado>
-        <fechaInicio></fechaInicio>
+        <Ent_pertenece_PDTI rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proy001"/>
+        <Ent_se_genera_Pro rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc001"/>
+        <estadoEntregable>aceptado</estadoEntregable>
+        <fechaEntrega>1/03/2019</fechaEntrega>
+        <nombreEntregable>Acta de constitución del proyecto</nombreEntregable>
         <responsable>Alexis y Jose</responsable>
         <tipoEntregable>documento</tipoEntregable>
         <versionEntregable>1</versionEntregable>
@@ -1251,109 +1311,199 @@
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable_1_VideoJuegos -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb002 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable_1_VideoJuegos">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb002">
         <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable"/>
-        <PDTI_comprende_E rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#ProyectoVideoJuegos"/>
+        <Ent_pertenece_PDTI rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proy001"/>
+        <Ent_se_genera_Pro rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc002"/>
+        <estadoEntregable>Aceptado</estadoEntregable>
+        <fechaEntrega>1/03/2019</fechaEntrega>
+        <nombreEntregable>Documento de los interesados</nombreEntregable>
+        <responsable>Alexis Solano y Jose Tovar</responsable>
+        <tipoEntregable>Documento</tipoEntregable>
+        <versionEntregable>1</versionEntregable>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable_2_Post -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb003 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable_2_Post">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb003">
         <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable"/>
-        <PDTI_comprende_E rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#ProyectoPost"/>
+        <Ent_pertenece_PDTI rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proy002"/>
+        <Ent_se_genera_Pro rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc005"/>
+        <estadoEntregable>Aceptado</estadoEntregable>
+        <fechaEntrega>01/02/2021</fechaEntrega>
+        <nombreEntregable>Lista de riesgos priorizados</nombreEntregable>
+        <responsable>Juan Perez</responsable>
+        <tipoEntregable>Documento</tipoEntregable>
+        <versionEntregable>1</versionEntregable>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase_1_post -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase001 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase_1_post">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase001">
         <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase"/>
+        <nombreFase>Sprint Planning</nombreFase>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Planificar_la_Gestión_del_Alcance -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase002 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Planificar_la_Gestión_del_Alcance">
-        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso"/>
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase002">
+        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase"/>
+        <nombreFase>Daily Scrum</nombreFase>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso_1_Post -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase003 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso_1_Post">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase003">
+        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase"/>
+        <nombreFase>Sprint Review</nombreFase>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase004 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase004">
+        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Fase"/>
+        <nombreFase>Planificacion</nombreFase>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte001">
+        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
+        <Int_pertenece_PDTI rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proy001"/>
+        <cargo>Desarrollador</cargo>
+        <email>alexis@unicauca.edu.co</email>
+        <equipoProyecto>Si</equipoProyecto>
+        <nombreInteresado>Alexis Solano</nombreInteresado>
+        <rolProyecto>desarrollador front end</rolProyecto>
+        <telefono>3123253245</telefono>
+        <tipoInfluencia>Alta</tipoInfluencia>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte002 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte002">
+        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
+        <Int_pertenece_PDTI rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proy001"/>
+        <cargo>Desarrollador</cargo>
+        <email>joset@unicauca.edu.co</email>
+        <equipoProyecto>No</equipoProyecto>
+        <nombreInteresado>Jose Tovar</nombreInteresado>
+        <rolProyecto>desarrollador back end</rolProyecto>
+        <telefono>3156742387</telefono>
+        <tipoInfluencia>Alta</tipoInfluencia>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte003 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte003">
+        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
+        <Int_pertenece_PDTI rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proy002"/>
+        <cargo>Gerente de proyecto</cargo>
+        <email>juanp@unicauca.edu.co</email>
+        <equipoProyecto>Si</equipoProyecto>
+        <nombreInteresado>Juan Perez</nombreInteresado>
+        <rolProyecto>Gerente de proyecto</rolProyecto>
+        <telefono>320190876</telefono>
+        <tipoInfluencia>Alta</tipoInfluencia>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc001">
         <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso"/>
-        <Pro_genera_Ent rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable_1_Post"/>
-        <idProceso rdf:datatype="http://www.w3.org/2001/XMLSchema#int">001</idProceso>
+        <Pro_genera_Ent rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb001"/>
         <nombreProceso>Desarrollar el  acta de constitucion del proyecto</nombreProceso>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso_1_VideoJuegos -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc002 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso_1_VideoJuegos">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc002">
         <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso"/>
-        <Pro_genera_Ent rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable_1_VideoJuegos"/>
+        <Pro_genera_Ent rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb002"/>
+        <nombreProceso>Identificar a los Interesados</nombreProceso>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#ProyectoPost -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc003 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#ProyectoPost">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc003">
+        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso"/>
+        <nombreProceso>Planificar la Gestión del Alcance</nombreProceso>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc004 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc004">
+        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proceso"/>
+        <nombreProceso>Desarrollar el Acta de Constitución del Proyecto</nombreProceso>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc005 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proc005">
+        <Pro_genera_Ent rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb003"/>
+        <nombreProceso>Recopilar Requisitos</nombreProceso>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proy001 -->
+
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proy001">
         <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proyecto_De_TI"/>
-        <PDTI_comprende_E rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Entregable_1_Post"/>
-        <PDTI_tiene_CVP rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Ciclo_de_vida_post"/>
-        <PDTI_tiene_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interasado_post_1"/>
-        <PDTI_tiene_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interesado_post_2"/>
+        <PDTI_comprende_E rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb001"/>
+        <PDTI_comprende_E rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb002"/>
+        <PDTI_tiene_CVP rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Cvpr001"/>
+        <PDTI_tiene_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte001"/>
+        <PDTI_tiene_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte002"/>
+        <descripcionPDTI>adaptar los algoritmos metaheurísticos Jaya  y PSO  al problema de etiquetado, con el fin de comparar y seleccionar el mejor algoritmo</descripcionPDTI>
+        <fechaFin>13/02/2020</fechaFin>
+        <fechaInicio>13/02/2019</fechaInicio>
         <objetivo>Construir un prototipo software para etiquetar las partes del discurso de oraciones en Inglés, Castellano y Nasa Yuwe, basado en la adaptación de un algoritmo metaheurístico y su versión memética para el problema de etiquetado, buscando mejorar los resultados de precisión presentados en las referencias [24] y [25], al mismo tiempo que se pueda  aprovechar la sencillez de las soluciones propuestas por los algoritmos metaheurísticos.</objetivo>
         <titulo>Prototipo software para la identificación de partes del discurso (Part-Of-Speech Tagging) utilizando un enfoque metaheurístico</titulo>
     </owl:NamedIndividual>
     
 
 
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#ProyectoVideoJuegos -->
+    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proy002 -->
 
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#ProyectoVideoJuegos">
+    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proy002">
         <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Proyecto_De_TI"/>
-        <PDTI_tiene_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interesado_videoJuegos_1"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interasado_post_1 -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interasado_post_1">
-        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
-        <Co_tiene_varios_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Consorcio_0"/>
-        <equipoProyecto rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</equipoProyecto>
-        <nombreInteresado>Alexi Solano</nombreInteresado>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interesado_post_2 -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interesado_post_2">
-        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
-        <Co_tiene_varios_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Consorcio_0"/>
-        <equipoProyecto rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</equipoProyecto>
-        <nombreInteresado>Jose Tovar</nombreInteresado>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interesado_videoJuegos_1 -->
-
-    <owl:NamedIndividual rdf:about="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#interesado_videoJuegos_1">
-        <rdf:type rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Interesado"/>
+        <PDTI_comprende_E rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Etgb003"/>
+        <PDTI_tiene_CVP rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Cvpr002"/>
+        <PDTI_tiene_Int rdf:resource="http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#Inte003"/>
+        <descripcionPDTI>Un cliente puede pagar una cuota mensual y luego poder pedir varios videojuegos a través de Internet, recibir los juegos a través de correo urgente, devuelva esos juegos por correo urgente y siga recibiendo juegos adicionales</descripcionPDTI>
+        <fechaFin>15/12/2021</fechaFin>
+        <fechaInicio>01/01/2021</fechaInicio>
+        <objetivo>Desarrollar una aplicación basada en la web y una estructura de soporte para proporcionar a los clientes videojuegos en régimen de alquiler mensual</objetivo>
+        <titulo>Proyecto De Entrega De Videojuegos</titulo>
     </owl:NamedIndividual>
 </rdf:RDF>
 
