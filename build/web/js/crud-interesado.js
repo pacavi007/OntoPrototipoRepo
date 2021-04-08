@@ -63,7 +63,9 @@ const buscandointeresado = async () => {
     const queryParams = `?option=${option}&group=${group}&comparative=${comparative}&assignment=${assignment}&gender=${gender}&age=${age}&grade =${grade}`
     try 
     {
-        const { data } = await axios.get(`http://localhost:8080/OntoPrototipoRepo/webresources/generic${queryParams}`)
+        const ipserver = location.host
+        const { data } = await axios.get(`http://`+ipserver+`/OntoPrototipoRepo/webresources/generic${queryParams}`)
+        //const { data } = await axios.get(`http://localhost:8080/OntoPrototipoRepo/webresources/generic${queryParams}`)
         const resultDiv = document.getElementById('result')
         let stringHtml = '<div class="alert alert-primary" role="alert">Sin resultados</div>'
         if (data.length > 0) 
