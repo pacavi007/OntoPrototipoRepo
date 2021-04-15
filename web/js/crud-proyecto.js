@@ -32,13 +32,14 @@ const crudproyecto = async () => {
         <div class="col-6"> 
             <h6>Fecha Fin</h6> 
             <input id="fechafin" type="text" class="form-control mb-3">
+            
         </div>
-        <div class="col-12">
-            <button class="btn btn-primary 
-                    btn-block"
+        <div class="position-absolute bottom-100 start-100" >
+            <button style="background: #0A2269; border-color: #E6E6E6" class="btn btn-primary 
+                    mt-auto d-flex h-100"
                     onclick="buscandoproyecto()">Buscar Proyecto
             </button>
-        </div>`
+        </div>  `
         resultDiv.innerHTML = stringHTML
     }
     catch(err)

@@ -11,16 +11,16 @@
 <title>ONTOBLOGP</title> 
 </head>
 
-<body style="background: #fafafa;">
+<body style="background: url(imagenes/fondo.png) repeat-x;">
     <div class="container pt-4">
         <div class="row">
             
             <div class="col-8">
-                <div class="border bg-white rounded p-4 mb-4">
-                    <h4 class="mb-4" align="center">BIENVENIDO A ONTOBLOGP</h4>
+                <div class="border rounded p-4 mb-4" style="height: 460px; background: #E6E6E6">
+                    <h4 class="mb-4" align="center" style="color: #0A2269 ">BIENVENIDO A ONTOBLOGP</h4>
                     <div class="row">
                         <div class="col-3"> 
-                            <button class="bt btn-primary
+                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
                                     btn-block"
                                     onclick="crudproyecto()">CRUD Proyecto
                             </button>
@@ -36,7 +36,7 @@
                         <div class="col-3"> 
                             <button class="bt btn-primary
                                     btn-block"
-                                    onclick="send()">CRUD Entregable
+                                    onclick="crudentregable()">CRUD Entregable
                             </button> 
                             <p></p>
                         </div> 
@@ -136,7 +136,7 @@
                 
             </div>
             <div class="col-4"> 
-                <div class="border bg-white rounded p-4">
+                <div class="border bg-white rounded p-4" style="height: 460px">
                     <h4 class="mb-4" id="mensaje">Selecciona algún concepto</h4>   
                     <div class="row" id="formulario"> 
                         
@@ -148,7 +148,7 @@
                     <div id="result">
                         
                     </div>
-                </div>
+            </div>
         </div>
     </div> 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
@@ -171,6 +171,9 @@
         
     </script>
     <script src="./js/crud-interesado.js">
+        
+    </script>
+    <script src="./js/crud-entregable.js">
         
     </script>
 </body> 
