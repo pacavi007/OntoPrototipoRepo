@@ -4,6 +4,12 @@ const crudentregable = async () => {
     const option = 2
     document.getElementById('result').innerHTML = ""
     document.getElementById('mensaje').innerHTML= "Digita algún campo"
+    document.getElementById('nuevoboton').innerHTML= 
+    ` <button style="background: #0A2269; border-color: #E6E6E6" id="nuevoboton" class="col-2 bt btn-primary
+        btn-block"
+        onclick="send()">Nuevo Entregable
+      </button> 
+      <p></p> `
     try
     {
         const resultDiv = document.getElementById('formulario')
@@ -96,3 +102,4 @@ const buscandoentregable = async () => {
         console.log(err)
     }
 }
+

@@ -7,150 +7,114 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" 
       integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
       crossorigin="anonymous"> 
-<link  rel="icon"   href="imagenes/favicon.ico" type="image/ico" />
+<link rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
+      crossorigin="anonymous">
+<link rel="icon"   href="imagenes/favicon.ico" type="image/ico" />
 <title>ONTOBLOGP</title> 
 </head>
 
-<body style="background: url(imagenes/fondo.png) repeat-x;">
-    <div class="container pt-4">
+<body style="background: url(imagenes/fondo.png) repeat-x;" onload="iniciarfire()">
+    <div class="container-fluid">
         <div class="row">
-            
-            <div class="col-8">
-                <div class="border rounded p-4 mb-4" style="height: 460px; background: #E6E6E6">
-                    <h4 class="mb-4" align="center" style="color: #0A2269 ">BIENVENIDO A ONTOBLOGP</h4>
-                    <div class="row">
-                        <div class="col-3"> 
+        <h4 class="mb-4" align="center" style="color: #E6E6E6 ">BIENVENIDO A ONTOBLOGP</h4>
+            <nav class="navbar border rounded p-2 mb-2" style="background: #E6E6E6">
+                <div class="container-fluid">
+                    <a data-toggle="tooltip" data-placement="right" title="Pulsa  aquí para consultar, crear, modificar o eliminar proyectos." style="color: #0A2269" class="navbar-brand" href="#" onclick="consultarproyecto()">Proyecto</a>
+                    <a data-toggle="tooltip" data-placement="right" title="Pulsa  aquí para consultar, crear, modificar o eliminar interesados." style="color: #0A2269" class="navbar-brand" href="#" onclick="crudinteresado()">Interesado</a>
+                    <a data-toggle="tooltip" data-placement="right" title="Pulsa  aquí para consultar, crear, modificar o eliminar entregables." style="color: #0A2269" class="navbar-brand" href="#" onclick="crudinteresado()">Entregable</a>
+                    <a style="color: #0A2269" class="navbar-brand" href="#" onclick="crudinteresado()">Registro De Supuesto</a>
+                    <a style="color: #0A2269" class="navbar-brand" href="#" onclick="crudinteresado()">Registro Incidente</a>
+                    <a style="color: #0A2269" class="navbar-brand" href="#" onclick="crudinteresado()">Riesgo</a>
+                </div>
+            </nav>
+        <!-- comment 
+            <div class="col-2"> 
+                <div class="border rounded p-2 mb-2" style="background: #E6E6E6">
+                    
+                    <div >
+                        <div class="col-12"> 
                             <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
                                     btn-block"
-                                    onclick="crudproyecto()">CRUD Proyecto
+                                    onclick="consultarproyecto()">Proyecto
                             </button>
                             <p></p>
                         </div>
-                        <div class="col-3">
-                            <button class="bt btn-primary
+                        <div class="col-12">
+                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
                                     btn-block"
-                                    onclick="crudinteresado()">CRUD Interesado
+                                    onclick="crudinteresado()">Interesado
                             </button>
                             <p></p>
                         </div>
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
+                        <div class="col-12"> 
+                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
                                     btn-block"
-                                    onclick="crudentregable()">CRUD Entregable
+                                    onclick="crudentregable()">Entregable
                             </button> 
                             <p></p>
                         </div> 
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
+                         
+                        <div class="col-12"> 
+                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
                                     btn-block"
-                                    onclick="send()">CRUD Ciclo Vida Proyecto
+                                    onclick="send()">Registro De Supuesto
                             </button> 
                             <p></p>
                         </div>  
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
+                        <div class="col-12"> 
+                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
                                     btn-block"
-                                    onclick="send()">CRUD Fase
-                            </button>
-                            <p></p>
-                        </div> 
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">CRUD Proceso
-                            </button>
-                            <p></p>
-                        </div>
-                        <div class="col-3">
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="consultar()">CRUD Área De Conocimiento
-                            </button>
-                            <p></p>
-                        </div>
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">CRUD Grupo De Proceso
-                            </button> 
-                            <p></p>
-                        </div> 
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">CRUD Entrada
-                            </button> 
-                            <p></p>
-                        </div>  
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">CRUD Salida
+                                    onclick="send()">Registro Incidente
                             </button> 
                             <p></p>
                         </div>
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
+                        <div class="col-12"> 
+                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
                                     btn-block"
-                                    onclick="send()">CRUD Técnica Y Herramienta
-                            </button>
-                            <p></p>
-                        </div>
-                        <div class="col-3">
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="consultar()">CRUD Incertidumbre
-                            </button>
-                            <p></p>
-                        </div>
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">CRUD Gestión Proyecto PMI
-                            </button>
-                            <p></p>
-                        </div> 
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">CRUD Registro De Supuesto
-                            </button> 
-                            <p></p>
-                        </div>  
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">CRUD Registro Incidente
-                            </button> 
-                            <p></p>
-                        </div>
-                        <div class="col-3"> 
-                            <button class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">CRUD Riesgo
+                                    onclick="send()">Riesgo
                             </button> 
                             <p></p>
                         </div>
                     </div>
+                </div>    
+            </div>
+            -->
+            <div class="col-12 border rounded p-2 mb-2" style="background: #E6E6E6">
+                <div class="col-2" id="nuevoboton">
+
                 </div> 
                 
-            </div>
-            <div class="col-4"> 
-                <div class="border bg-white rounded p-4" style="height: 460px">
-                    <h4 class="mb-4" id="mensaje">Selecciona algún concepto</h4>   
-                    <div class="row" id="formulario"> 
-                        
-                    </div>
+                <div id="div-modal">
+                
                 </div>
+                <div id="div-modal-2">
+                    
+                </div>
+                <div id="div-info">
+                    
+                </div>
+                <h4 class="mb-4" align="center" style="color: #0A2269" id="mensaje">Selecciona algún concepto</h4>   
+                <div class="row rounded p-2 mb-2" id="result"> 
+
+                </div>
+                
             </div>
-            <div class="border bg-white rounded p-4"> 
-                    <h4 class="mb-4">Resultado</h4>
-                    <div id="result">
-                        
-                    </div>
+            
+           
+            
+            <div>
+                <progress style="height: 30px" value="0" max="100" id="uploader">0%</progress>
+                <input type="file" class="form-control" id="fileButton"/>
+                <button onclick="cargararchivo()">
+                    Subir
+                </button>
             </div>
-        </div>
-    </div> 
+             
+        </div> 
+    </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
             crossorigin="anonymous">
@@ -163,7 +127,9 @@
     </script> 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
         
-    </script> 
+    </script>
+    
+    
     <script src="./index.js">
         
     </script>
@@ -176,5 +142,20 @@
     <script src="./js/crud-entregable.js">
         
     </script>
+    <script src="./firebase.js">
+        
+    </script>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js">
+        
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js">
+        
+    </script>
+
+
+
+
+
 </body> 
 </html>

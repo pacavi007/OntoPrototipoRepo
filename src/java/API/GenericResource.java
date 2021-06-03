@@ -15,7 +15,11 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.*; 
 import com.hp.hpl.jena.util.FileManager; 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream; 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.DefaultValue;
 
 /**
@@ -51,19 +55,20 @@ public class GenericResource
     @Produces(MediaType.APPLICATION_JSON) 
     public String search
     ( 
-        @DefaultValue("1") @QueryParam("option") String option, 
-        @DefaultValue("Grp0001") @QueryParam("group") String group, 
-        @DefaultValue("") @QueryParam("comparative") String comparative, 
-        @DefaultValue("") @QueryParam("assignment") String assignment, 
-        @DefaultValue("") @QueryParam("gender") String gender, 
-        @DefaultValue("") @QueryParam("age") String age, 
-        @DefaultValue("") @QueryParam("grade") String grade 
-    )
+        @DefaultValue("") @QueryParam("option") String option, 
+        @DefaultValue("") @QueryParam("atributo1") String atributo1, 
+        @DefaultValue("") @QueryParam("atributo2") String atributo2, 
+        @DefaultValue("") @QueryParam("atributo3") String atributo3, 
+        @DefaultValue("") @QueryParam("atributo4") String atributo4, 
+        @DefaultValue("") @QueryParam("atributo5") String atributo5, 
+        @DefaultValue("") @QueryParam("atributo6") String atributo6,
+        @DefaultValue("") @QueryParam("atributo7") String atributo7
+    ) throws IOException
             
     {
         GenericResource myontology = new GenericResource();
         myontology.populateFOAFFriends();
-        String json = myontology.myStudents(myontology._student, option, age, comparative, group, assignment, grade, gender); 
+        String json = myontology.myStudents(myontology._student, option, atributo1, atributo2, atributo3, atributo4, atributo5, atributo6, atributo7); 
         return json;
     }
     
@@ -71,60 +76,39 @@ public class GenericResource
     { 
         _student = ModelFactory.createOntologyModel(); 
         InputStream inFoafInstance = 
-        FileManager.get().open("Onto/OntoBLOGP1.0.owl");
-        //FileManager.get().open("Onto/SampleUniversity4.owl");
-        //FileManager.get().open("/Users/Unicauca/Documents/NetBeansProjects/Example/src/java/API/SampleUniversity4.owl"); 
+        FileManager.get().open("Onto/OntoBLOGP1.0.owl"); 
         _student.read(inFoafInstance,defaultNameSpace); 
-        System.out.println("Ruta es: "+System.getProperty("user.dir" ));
+        //System.out.println("Ruta es: "+System.getProperty("user.dir" ));
     }
     
-    private String myStudents(Model model, String option, String age, String comparativeExpression, String group, String assignment, String grade, String gender)
+    private String myStudents(Model model, String option, String atributo1, String atributo2, String atributo3, String atributo4, String atributo5, String atributo6, String atributo7) throws IOException
     { 
         String query = "";
         opciones = Integer.parseInt(option);
         switch (option) 
         { 
             case "1": 
-            {
-                query = "SELECT  ?nombreIN \n" +
-                "WHERE { \n" +
-                "?Interesado OntoBLOGP:nombreInteresado ?nombreIN. \n" +   
-                "?Interesado OntoBLOGP:Co_tiene_varios_Int OntoBLOGP:Consorcio_0.}";
-                
-                /*query = "SELECT ?entrega ?proyecto \n" +
-	        " WHERE {\n" + 
-		" ?Entregable   OntoBLOGP:descripcionEntregable  ?entrega.}"; */
-		                 /*       
-                query = "SELECT ?first_name ?last_name ?age ?name_group\n" +
-                " WHERE {\n" +
-                " ?Student ROSCC:First_Name ?first_name. \n" +
-                " ?Student ROSCC:is_Enrrolled ROSCC:" + group + ".\n" +
-                " ?Student ROSCC:Last_Name ?last_name.\n" +
-                " ?Student ROSCC:Age ?age.} \n" +
-                " Orderby ?first_name"; */
-            break;
-            }
+                {
+                Proyecto proyec = new Proyecto(); 
+                query = proyec.consultarProyectos(model);
+                break;
+                }
             case "2": 
                 {
-                query = "SELECT ?Titulo ?Objetivo ?Descripcion ?FechaInicio ?FechaFin \n" +
-                "WHERE { \n" +
-                "?Proyecto_De_TI OntoBLOGP:titulo ?Titulo. \n" +
-                "?Proyecto_De_TI OntoBLOGP:objetivo ?Objetivo. \n" +
-                "?Proyecto_De_TI OntoBLOGP:descripcionPDTI ?Descripcion. \n" +
-                "?Proyecto_De_TI OntoBLOGP:fechaInicio ?FechaInicio. \n" +
-                "?Proyecto_De_TI OntoBLOGP:fechaFin ?FechaFin.}";
- 
-                /* query = "SELECT ?first_name ?last_name ?age\n" + " WHERE {\n" +
-                " ?Student ROSCC:First_Name ?first_name. \n" +
-                " ?Student ROSCC:is_Enrrolled ROSCC:" + group + ". \n" +
-                " ?Student ROSCC:Last_Name ?last_name. \n" +
-                " ?Student ROSCC:Age ?age. Filter(?age "+ comparativeExpression + "'" + age + "') } \n" + 
-                " Orderby ?first_name"; */
+                String titulo      = atributo1;
+                String objetivo    = atributo2;
+                String descripcion = atributo3;
+                String fechainicio = atributo4;
+                String fechafin    = atributo5;
+                String presupuesto = atributo6;
+                Proyecto proyec = new Proyecto();
+                
+                query = proyec.crearProyectos(titulo,objetivo,descripcion,fechainicio,fechafin,presupuesto);
                 break;
                 }
             case "3": 
                 {   
-                query = "SELECT ?Nombre ?TipoInfluencia ?Cargo ?RolProyecto ?EquipoProyecto ?Telefono ?Email \n" +
+                /*query = "SELECT ?Nombre ?TipoInfluencia ?Cargo ?RolProyecto ?EquipoProyecto ?Telefono ?Email \n" +
                 "WHERE { \n" +
                 "?Interesado OntoBLOGP:nombreInteresado ?Nombre. \n" +
                 "?Interesado OntoBLOGP:tipoInfluencia ?TipoInfluencia. \n" +
@@ -132,12 +116,22 @@ public class GenericResource
                 "?Interesado OntoBLOGP:rolProyecto ?RolProyecto. \n" +
                 "?Interesado OntoBLOGP:equipoProyecto ?EquipoProyecto. \n" +
                 "?Interesado OntoBLOGP:telefono ?Telefono. \n" +
-                "?Interesado OntoBLOGP:email ?Email.}";
+                "?Interesado OntoBLOGP:email ?Email.}";*/
+                String id          = atributo7;
+                String titulo      = atributo1;
+                String objetivo    = atributo2;
+                String descripcion = atributo3;
+                String fechainicio = atributo4;
+                String fechafin    = atributo5;
+                String presupuesto = atributo6;
+                Proyecto proyec = new Proyecto();
+                
+                query = proyec.editarProyectos(id, titulo, objetivo, descripcion, fechainicio, fechafin, presupuesto);
                 break; 
                 } 
             case "4": 
                 {   
-                    query = "SELECT ?first_name ?last_name ?age\n" +
+                    /*query = "SELECT ?first_name ?last_name ?age\n" +
                     " WHERE {\n" +
                     " ?Student ROSCC:First_Name ?first_name. \n" +
                     " ?Grading ROSCC:is_A_Student ?Student. \n" +
@@ -145,26 +139,30 @@ public class GenericResource
                     " ?Student ROSCC:Last_Name ?last_name.\n" +
                     " ?Grading ROSCC:Finish_Grade ?finish_grade. Filter(?finish_grade " + comparativeExpression +
                     "'" + grade + "') } \n" + 
-                    " Orderby ?first_name";
+                    " Orderby ?first_name"; */
+                String id = atributo7;
+                Proyecto proyec = new Proyecto();
+                query = proyec.eliminarProyectos(id);
                 break; 
                 }
             case "5":
                 {
-                    query = "SELECT ?first_name ?last_name ?age\n" +
+                    /*query = "SELECT ?first_name ?last_name ?age\n" +
                     " WHERE {\n" + 
                     " ?Teacher ROSCC:First_Name ?first_name. \n" +
                     " ?Teacher ROSCC:is_Imparted ?assignment. \n" +
                     " ?Teacher ROSCC:Last_Name ?last_name. \n" + 
                     " ?Teacher ROSCC:Age ?age. \n" + 
                     " ?Teacher ROSCC:Gender ?gender. Filter(?gender = '" + gender + "') } \n" + 
-                    " Orderby ?first_name"; 
+                    " Orderby ?first_name"; */
                     break;
                 }
             default: 
                 return " ";
         }
         //Listing students
-        return runQuery(query,model);//Add the query string
+        //return runQuery(query,model);//Add the query string
+       return query;
     }
     
     private String runQuery(String queryRequest, Model model)
@@ -174,7 +172,6 @@ public class GenericResource
         // Establish Prefixes 
         //Set default Name space first 
         queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
-        //queryStr.append("PREFIX ROSCC:<http://www.semanticweb.org/jegjo/ontologies/Myontology1#>");
         queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
         queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
         queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
@@ -183,18 +180,17 @@ public class GenericResource
         queryStr.append(queryRequest); 
         Query query = QueryFactory.create(queryStr.toString());
         QueryExecution qexec = QueryExecutionFactory.create(query, model); 
-        //ResultSet respuesta = qexec.execSelect();
-        System.out.println("en 184 ");
         String json = "";
         try 
         {
             ResultSet response = qexec.execSelect();
-            System.out.println("Starting search"); //System.out.println("en 189 "+response.hasNext());
+            System.out.println("Starting search");
+            
             while(response.hasNext())
-            {System.out.println("en 191 "+opciones);
+            {
                 switch(opciones)
                 {
-                    case 2:
+                    case 1:
                         QuerySolution soln = response.nextSolution();
                         RDFNode titulo = soln.get("?Titulo");
                         RDFNode objetivo = soln.get("?Objetivo");
@@ -247,38 +243,7 @@ public class GenericResource
                         }
                         break;
                 }
-                /* QuerySolution soln = response.nextSolution();
-                RDFNode nombreIN = soln.get("?nombreIN");
-                if((nombreIN!=null))
-                {
-                    json += "{\"nombre\":\""+ nombreIN.toString() +"\"}" ;
-                            
-                    if (response.hasNext())
-                    {
-                        json += ",";
-                    }
-                }
-                else
-                {
-                    System.out.println("No data found!"); 
-                } */
-                /* RDFNode firstname = soln.get("?first_name");
-                RDFNode lastname = soln.get("?last_name"); 
-                RDFNode age = soln.get("?age");
-                if( (firstname != null) && (lastname != null) && (age != null))
-                {
-                    json += "{\"name\":\""+ firstname.toString() +"\"," + 
-                            "\"last_name\":\""+ lastname.toString() +"\"," + 
-                            "\"age\":\""+ age.toString() +"\"}";
-                    if (response.hasNext())
-                    {
-                        json += ",";
-                    }
-                }
-                else
-                {
-                    System.out.println("No data found!"); 
-                } */
+                
             }
         }
         finally 
