@@ -217,9 +217,9 @@ const buscandoproyecto = async () => {
             <td style="text-align: left" data-placement="top" title="Título">${item.titulo}</td>
             <!-- comment <td data-placement="top" title="Objetivo">${item.objetivo}</td>
             <td data-placement="top" title="Descripción">${item.descripcion}</td>
-            <td data-placement="top" title="Presupuesto">${item.presupuesto}</td> 
+            <td data-placement="top" title="Presupuesto">${item.presupuesto}</td> -->
             <td data-placement="top" title="Fecha Inicio">${item.fechainicio}</td>
-            <td data-placement="top" title="Fecha Fin" contenteditable="false">${item.fechafin}</td> -->
+            <td data-placement="top" title="Fecha Fin" contenteditable="false">${item.fechafin}</td> 
             
             <td>
                 
@@ -283,12 +283,12 @@ const buscandoproyecto = async () => {
         <table class="table-editable table table-bordered table-responsive-md table-striped text-center">
             <thead>
                 <tr>
-                    <th class= "col-11" scope="col">Título</th>
+                    <th class= "col-8" scope="col">Título</th>
                     <!-- comment <th class= "col-4" scope="col">Objetivo</th>
                     <th class= "col-6" scope="col">Descripción</th>
-                    <th class= "col-2" scope="col">Presupuesto</th>
-                    <th class= "col-4" scope="col">Fecha Inicio</th>
-                    <th class= "col-4" scope="col">Fecha Fin</th> -->
+                    <th class= "col-2" scope="col">Presupuesto</th> -->
+                    <th class= "col-1" scope="col">Fecha Inicio</th>
+                    <th class= "col-1" scope="col">Fecha Fin</th> 
                     <th class= "col-1" scope="col">Acción</th> 
                 </tr>
             </thead>
