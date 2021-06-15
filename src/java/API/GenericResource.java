@@ -14,10 +14,12 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.*; 
+import com.hp.hpl.jena.sparql.resultset.JSONObjectResult;
 import com.hp.hpl.jena.util.FileManager; 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream; 
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.DefaultValue;
@@ -90,7 +92,8 @@ public class GenericResource
             case "1": 
                 {
                 Proyecto proyec = new Proyecto(); 
-                query = proyec.consultarProyectos(model);
+                query = proyec.consultarProyectos(model); 
+                //proyec.mostrarInteresadosPorProyecto("hola");
                 break;
                 }
             case "2": 
@@ -159,9 +162,13 @@ public class GenericResource
                 }
             default: 
                 return " ";
-        }
-        //Listing students
-        //return runQuery(query,model);//Add the query string
+        } 
+        /*StringTokenizer aux= new StringTokenizer(query,":");
+        System.out.println("LA cadena es ");
+        while(aux.hasMoreTokens())
+        {
+            System.out.println(""+aux.nextToken());
+        }*/
        return query;
     }
     
@@ -249,7 +256,7 @@ public class GenericResource
         finally 
         {
             qexec.close(); 
-        }
+        } 
         return "[" + json + "]";
     }
 }

@@ -142,7 +142,7 @@ const consultarproyecto = async () => {
                             <p id="fechafin-3"></p>
                         </div>
                         </div>
-                    <div> 
+                    <div id="divinteresado"> 
                         <h6>Interesado</h6> 
                         <p id="interesado"></p>
                     </div> 
@@ -212,22 +212,21 @@ const buscandoproyecto = async () => {
         {  
         const items = data.map(item =>  
         `
-        
         <tr>
             <td style="text-align: left" data-placement="top" title="Título">${item.titulo}</td>
             <!-- comment <td data-placement="top" title="Objetivo">${item.objetivo}</td>
             <td data-placement="top" title="Descripción">${item.descripcion}</td>
             <td data-placement="top" title="Presupuesto">${item.presupuesto}</td> -->
             <td data-placement="top" title="Fecha Inicio">${item.fechainicio}</td>
-            <td data-placement="top" title="Fecha Fin" contenteditable="false">${item.fechafin}</td> 
-            
+            <td data-placement="top" title="Fecha Fin" contenteditable="false">${item.fechafin}</td>            
+
             <td>
                 
                     <div class="btn-group">
                         <button class="btn btn-info btn-sm rounded-0" type="button" 
                                 style="background: #0A2269; border-color: #FFFFFF"
-                                data-toggle="modal" data-placement="right" title="Info" 
-                                data-original-title="Info" data-target="#modal-info" onclick="mostrarinfo('${item.idproyecto}','${item.objetivo}','${item.descripcion}','${item.presupuesto}','${item.fechainicio}','${item.fechafin}')"><i class="fas fa-info-circle"></i>
+                                data-toggle="modal" data-placement="right" title="Pulsa aquí para conocer toda la información de este proyecto" 
+                                data-original-title="Info" data-target="#modal-info" onclick="mostrarinfo('${item.idproyecto}','${item.objetivo}','${item.descripcion}','${item.presupuesto}','${item.fechainicio}','${item.fechafin}','${item.interesados}')"><i class="fas fa-info-circle"></i>
                         </button>
                     
                     
@@ -272,9 +271,6 @@ const buscandoproyecto = async () => {
                 <td data-placement="top" title="Fecha Fin" contenteditable="false">hola</td>
             </tr>
            
-            
-        
-        
         
         `
         ).join('')
@@ -415,7 +411,7 @@ const eliminarproyecto = async(aux) => {
     }
 }
 
-const mostrarinfo = async(aux,aux2,aux3,aux4,aux5,aux6) => {
+const mostrarinfo = async(aux,aux2,aux3,aux4,aux5,aux6,aux7) => {
     console.log("Mostrando toda la info ",aux);
     //document.getElementById('titulo-3').innerHTML = "Aquí va el titulo"
     document.getElementById('objetivo-3').innerHTML = aux2
@@ -423,10 +419,64 @@ const mostrarinfo = async(aux,aux2,aux3,aux4,aux5,aux6) => {
     document.getElementById('presupuesto-3').innerHTML = aux4
     document.getElementById('fechainicio-3').innerHTML = aux5
     document.getElementById('fechafin-3').innerHTML = aux6
-    document.getElementById('interesado').innerHTML = aux2
+    
+    let divinteresado = document.getElementById('divinteresado')
+    let h6= document.createElement("h6")
+    let textoH6 = document.createTextNode("Interesado")
+    divinteresado.innerHTML=""
+    h6.appendChild(textoH6)
+    divinteresado.append(h6)
+    /*<div id="divinteresado"> 
+                        <h6>Interesado</h6> 
+                        <p id="interesado"></p>
+                    </div> 
+     const tag= document.createElement("input")
+        tag.type="checkbox"
+        const text= document.createTextNode(aux7)
+        tag.appendChild(text)  
+        elemento.append(tag)
+     */
+    //let parragrafo = document.createElement("p")
+    //let interesado = document.createTextNode("chupamelo")
+    //var names = aux7
+    var interesados = aux7.split(',');
+    console.log("tamano es ",interesados.length)
+    /*for(let i=0;i<interesados.length;i++)
+    {
+        //console.log(interesados[i])
+        //console.log(interesados[i+1])
+        var auxi= interesados[i].split('&&')
+        var Nombre= auxi[0]
+        var Telefono= auxi[1]
+        <div class="col-md-4">
+                            <h6>Fecha Fin</h6> 
+                            <p id="fechafin-3"></p>
+                        </div>
+    }*/
+    for(let i=0;i<interesados.length;i++)
+    {
+        var auxi= interesados[i].split('&&')
+        var Nombre= auxi[0]
+        var Telefono= auxi[1]
+        let parragrafo1 = document.createElement("span");
+        let parragrafo2 = document.createElement("span")
+        let nombre= document.createTextNode(Nombre)
+        let telefono= document.createTextNode(Telefono)
+        parragrafo1.style="float: left; width: 34%"
+        parragrafo2.style="float: left; width: 30%"
+        parragrafo1.append(nombre)
+        parragrafo2.append(telefono)
+        divinteresado.append(parragrafo1)
+        divinteresado.append(parragrafo2)
+        divinteresado.append(document.createElement("br"))
+    }
+    
+    
+    
+    //document.getElementById('interesado').innerHTML = aux7
     document.getElementById('cvproyecto').innerHTML = aux3
     document.getElementById('entregable').innerHTML = aux2
-    document.getElementById('numprocesos').innerHTML = aux3
+    //document.getElementById('numprocesos').innerHTML = aux3
     document.getElementById('desrds').innerHTML = aux2
     document.getElementById('desriesgo').innerHTML = aux3
     document.getElementById('desri').innerHTML = aux2+('<br></br>')+aux3

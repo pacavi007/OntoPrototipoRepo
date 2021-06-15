@@ -163,15 +163,14 @@ public class Proyecto
         queryStr.append(queryRequest); 
         Query query = QueryFactory.create(queryStr.toString());
         QueryExecution qexec = QueryExecutionFactory.create(query, model); 
-        String json = "";int conta=0;
+        String json = "";int conta=0;String interesados="";
         try 
         {
             ResultSet response = qexec.execSelect();
             System.out.println("Starting searchita");
-            int cont=0;
             while(response.hasNext())
             {
-                conta++;
+                conta++;interesados="";
                 QuerySolution soln = response.nextSolution();
                 RDFNode titulo = soln.get("?Titulo");
                 RDFNode objetivo = soln.get("?Objetivo");
@@ -187,14 +186,16 @@ public class Proyecto
                 //System.out.println("Id individuo: "+soln);
                 //String idindividuo = "";
                 if( (titulo != null) && (objetivo != null) && (descripcion != null) && (fechainicio != null) && (fechafin != null))
-                {
+                { 
                     json += "{\"titulo\":\""+eliminarPrefijos(titulo.toString())  +"\"," + 
                             "\"objetivo\":\""+eliminarPrefijos(objetivo.toString())  +"\"," + 
                             "\"descripcion\":\""+eliminarPrefijos(descripcion.toString())  +"\"," +
                             "\"fechainicio\":\""+eliminarPrefijos(fechainicio.toString())  +"\"," +
                             "\"fechafin\":\""+eliminarPrefijos(fechafin.toString()) +"\"," + 
                             "\"presupuesto\":\""+eliminarPrefijos(presupuesto.toString()) +"\"," +
+                            "\"interesados\":\""+mostrarInteresadosPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\","+
                             "\"idproyecto\":\""+ eliminarPrefijos(idproyecto.toString()) +"\"}" ;
+                           //interesados= mostrarInteresadosPorProyecto(idproyecto.toString());
                             //"\"fechafin\":\""+eliminarPrefijos(fechafin.toString()) +"\"}" ;
                     if (response.hasNext())
                     {
@@ -213,8 +214,79 @@ public class Proyecto
         {
             qexec.close(); 
         }
-        
+        //String proyectos= "[" + json + "]";
+        //String aux[]= new String[2];
         return "[" + json + "]";
+    }
+    
+    public String mostrarInteresadosPorProyecto(String idproyecto){
+        //idproyecto="Proy003";
+        
+        StringBuffer queryStr = new StringBuffer();
+        String queryRequesteaux="SELECT ?Titulo ?Objetivo ?Descripcion ?FechaInicio ?FechaFin ?Presupuesto ?Nombre ?Telefono\n" +
+                                "WHERE \n" +
+                                "{\n" +
+                                "	?Interesado  OntoBLOGP:nombreInteresado ?Nombre.\n" +
+                                "    	?Interesado  OntoBLOGP:telefono ?Telefono.\n" +
+                                "	?Interesado OntoBLOGP:Int_pertenece_PDTI OntoBLOGP:"+idproyecto+" .\n" +
+                                "} \n" +
+                                "Orderby (?Nombre)";
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        queryStr.append(queryRequesteaux); 
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response = qexec.execSelect();
+            System.out.println("Starting interesados y proyectos");
+            int cont=0;
+            while(response.hasNext())
+            {
+                QuerySolution soln = response.nextSolution();
+                RDFNode nombre = soln.get("?Nombre");
+                RDFNode telefono = soln.get("?Telefono");
+                //RDFNode idproyecto = soln.get("?IdProyecto");
+                //Individual individuo = soln.getLiteral();
+                //modelo.getIndividual(NS+"Proy00"+String.valueOf(cont));
+                //cont++;
+                
+                //System.out.println("Id individuo: "+soln);
+                //String idindividuo = "";
+                if( (nombre != null) && (telefono != null) && (idproyecto != null))
+                {
+                    json += "Nombre: "+eliminarPrefijos(nombre.toString())+"&&"+ 
+                            "Teléfono: "+eliminarPrefijos(telefono.toString());
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                }
+                        
+            }
+                
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        System.out.println("IDProyecto: "+idproyecto);
+        System.out.println("Datos: "+json);
+        return json;
+        //return "[" + json+"]";
+    }
+    
+    public String mostrarInteresados(){
+        
+        return "";
     }
 
     public  int contarIndividuos( ){
