@@ -48,6 +48,17 @@ const consultarproyecto = async () => {
                         <h6>Fecha Fin</h6> 
                         <input id="fechafin" type="text" class="form-control mb-3" placeholder="Fecha Fin">
                     </div>
+<div id="divinteresado2"> 
+    <h6>Interesado</h6> 
+</div> 
+<div id="divcvp2"> 
+    <h6>Ciclo Vida Proyecto</h6>
+</div>
+<div id="diventregable2"> 
+    <h6>Entregable</h6> 
+</div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -144,19 +155,15 @@ const consultarproyecto = async () => {
                         </div>
                     <div id="divinteresado"> 
                         <h6>Interesado</h6> 
-                        <p id="interesado"></p>
                     </div> 
-                    <div> 
-                        <h6>Ciclo Vida Proyecto</h6> 
-                        <p id="cvproyecto"></p>
+                    <div id="divcvp"> 
+                        <h6>Ciclo Vida Proyecto</h6>
                     </div>
-                    <div> 
+                    <div id="diventregable"> 
                         <h6>Entregable</h6> 
-                        <p id="entregable"></p>
                     </div>
-                    <div> 
+                    <div id="divnombreproceso"> 
                         <h6>Número Procesos</h6> 
-                        <p id="numprocesos"></p>
                     </div>
                     <div> 
                         <h6>Descripción RDS</h6> 
@@ -194,12 +201,7 @@ const buscandoproyecto = async () => {
     const fechafin = ""
     const presupuesto = ""
     const id = ""
-    /*const titulo = document.getElementById('titulo')
-    const objetivo = document.getElementById('objetivo')
-    const descripcion = document.getElementById('descripcion')
-    const fechainicio = document.getElementById('fechainicio')
-    const fechafin = document.getElementById('fechafin')
-    const presupuesto = document.getElementById('presupuesto')*/
+    
     const queryParams = `?option=${option}&atributo1=${titulo}&atributo2=${objetivo}&atributo3=${descripcion}&atributo4=${fechainicio}&atributo5=${fechafin}&atributo6=${presupuesto}&atributo7=${id}`
     try 
     {
@@ -226,7 +228,7 @@ const buscandoproyecto = async () => {
                         <button class="btn btn-info btn-sm rounded-0" type="button" 
                                 style="background: #0A2269; border-color: #FFFFFF"
                                 data-toggle="modal" data-placement="right" title="Pulsa aquí para conocer toda la información de este proyecto" 
-                                data-original-title="Info" data-target="#modal-info" onclick="mostrarinfo('${item.idproyecto}','${item.objetivo}','${item.descripcion}','${item.presupuesto}','${item.fechainicio}','${item.fechafin}','${item.interesados}')"><i class="fas fa-info-circle"></i>
+                                data-original-title="Info" data-target="#modal-info" onclick="mostrarinfo('${item.idproyecto}','${item.objetivo}','${item.descripcion}','${item.presupuesto}','${item.fechainicio}','${item.fechafin}','${item.interesados}','${item.cvp}','${item.entregables}','${item.procesos}')"><i class="fas fa-info-circle"></i>
                         </button>
                     
                     
@@ -246,30 +248,6 @@ const buscandoproyecto = async () => {
             </td>
             
         </tr>
-        
-            
-        
-            <tr class="collapse multi-collapse" id="collapseExample${item.idproyecto}">
-                
-                <th class= "col-2" scope="col">Interesado</th>
-                <th class= "col-2" scope="col">CVProyecto</th>
-                <th class= "col-1" scope="col">Entregable</th>
-                <th class= "col-1" scope="col">Número Procesos</th>
-                <th class= "col-2" scope="col">Descripción RDS</th>
-                <th class= "col-2" scope="col">Descripción Riesgo</th>
-                <th class= "col-2" scope="col">Descripción RI</th>
-                
-            </tr>
-            
-            <tr class="collapse multi-collapse" id="collapseExample${item.idproyecto}">
-                <td data-placement="top" title="Título">${item.titulo}</td>
-                <td data-placement="top" title="Objetivo">${item.objetivo}</td>
-                <td data-placement="top" title="Descripción">${item.descripcion}</td>
-                <td data-placement="top" title="Presupuesto">${item.presupuesto}</td> 
-                <td data-placement="top" title="Fecha Inicio">${item.fechainicio}</td>
-                <td data-placement="top" title="Fecha Fin" contenteditable="false">${item.fechafin}</td>
-                <td data-placement="top" title="Fecha Fin" contenteditable="false">hola</td>
-            </tr>
            
         
         `
@@ -293,7 +271,8 @@ const buscandoproyecto = async () => {
         `
         }
         console.log("Entro a buscandoproyecto",data)
-    resultDiv.innerHTML = stringHtml
+        metodoauxiliar()
+        resultDiv.innerHTML = stringHtml
     }
     catch (err) 
     { 
@@ -411,7 +390,7 @@ const eliminarproyecto = async(aux) => {
     }
 }
 
-const mostrarinfo = async(aux,aux2,aux3,aux4,aux5,aux6,aux7) => {
+const mostrarinfo = async(aux,aux2,aux3,aux4,aux5,aux6,aux7,aux8,aux9,aux10) => {
     console.log("Mostrando toda la info ",aux);
     //document.getElementById('titulo-3').innerHTML = "Aquí va el titulo"
     document.getElementById('objetivo-3').innerHTML = aux2
@@ -424,62 +403,198 @@ const mostrarinfo = async(aux,aux2,aux3,aux4,aux5,aux6,aux7) => {
     let h6= document.createElement("h6")
     let textoH6 = document.createTextNode("Interesado")
     divinteresado.innerHTML=""
+    divinteresado.setAttribute("class","row")
     h6.appendChild(textoH6)
     divinteresado.append(h6)
-    /*<div id="divinteresado"> 
-                        <h6>Interesado</h6> 
-                        <p id="interesado"></p>
-                    </div> 
-     const tag= document.createElement("input")
-        tag.type="checkbox"
-        const text= document.createTextNode(aux7)
-        tag.appendChild(text)  
-        elemento.append(tag)
-     */
-    //let parragrafo = document.createElement("p")
-    //let interesado = document.createTextNode("chupamelo")
-    //var names = aux7
     var interesados = aux7.split(',');
-    console.log("tamano es ",interesados.length)
-    /*for(let i=0;i<interesados.length;i++)
-    {
-        //console.log(interesados[i])
-        //console.log(interesados[i+1])
-        var auxi= interesados[i].split('&&')
-        var Nombre= auxi[0]
-        var Telefono= auxi[1]
-        <div class="col-md-4">
-                            <h6>Fecha Fin</h6> 
-                            <p id="fechafin-3"></p>
-                        </div>
-    }*/
+    //console.log("tamano es ",interesados.length)
     for(let i=0;i<interesados.length;i++)
     {
         var auxi= interesados[i].split('&&')
         var Nombre= auxi[0]
         var Telefono= auxi[1]
-        let parragrafo1 = document.createElement("span");
-        let parragrafo2 = document.createElement("span")
+        let parragrafo1 = document.createElement("div")
+        let parragrafo2 = document.createElement("div")
         let nombre= document.createTextNode(Nombre)
         let telefono= document.createTextNode(Telefono)
-        parragrafo1.style="float: left; width: 34%"
-        parragrafo2.style="float: left; width: 30%"
+        parragrafo1.setAttribute("class","col-md-4")
+        parragrafo2.setAttribute("class","col-md-6")
+        //parragrafo1.style="float: left; width: 34%"
+        //parragrafo2.style="float: left; width: 30%"
         parragrafo1.append(nombre)
         parragrafo2.append(telefono)
         divinteresado.append(parragrafo1)
         divinteresado.append(parragrafo2)
-        divinteresado.append(document.createElement("br"))
+        let br = document.createElement("div")
+        br.setAttribute("class","col-md-2")
+        divinteresado.append(br)
     }
+    divinteresado.append(document.createElement("p"))
+    //console.log("aux8 es ",aux8)
+    let divcvp = document.getElementById('divcvp')
+    h6= document.createElement("h6")
+    textoH6 = document.createTextNode("Ciclo Vida Proyecto")
+    divcvp.innerHTML=""
+    divcvp.setAttribute("class","row")
+    h6.appendChild(textoH6)
+    divcvp.append(h6)
+    var cvp = aux8.split(',')
+    for(let i=0;i<cvp.length;i++)
+    {
+        var auxi= cvp[i].split(':')
+        var CicloVidaProyecto= auxi[1]
+        let parragrafo1 = document.createElement("div")
+        let ciclovidaproyecto= document.createTextNode(CicloVidaProyecto)
+        parragrafo1.setAttribute("class","col-md-12")
+        parragrafo1.append(ciclovidaproyecto)
+        divcvp.append(parragrafo1)
+        //let br = document.createElement("div")
+        //br.setAttribute("class","col-md-6")
+        //divcvp.append(br)
+    }
+    divcvp.append(document.createElement("p"))
     
+    let diventregable = document.getElementById('diventregable')
+    h6= document.createElement("h6")
+    textoH6 = document.createTextNode("Entregable")
+    diventregable.innerHTML=""
+    diventregable.setAttribute("class","row")
+    h6.appendChild(textoH6)
+    diventregable.append(h6)
+    var entre = aux9.split(',')
+    for(let i=0;i<entre.length;i++)
+    {
+        var auxi= entre[i].split(':')
+        var Entregable= auxi[1]
+        let parragrafo1 = document.createElement("div")
+        let entregable= document.createTextNode(Entregable)
+        parragrafo1.setAttribute("class","col-md-12")
+        parragrafo1.append(entregable)
+        diventregable.append(parragrafo1)
+        //let br = document.createElement("div")
+        //br.setAttribute("class","col-md-6")
+        //divcvp.append(br)
+    }
+    diventregable.append(document.createElement("p"))
     
+    let divnombreproceso = document.getElementById('divnombreproceso')
+    h6= document.createElement("h6")
+    textoH6 = document.createTextNode("Procesos")
+    divnombreproceso.innerHTML=""
+    divnombreproceso.setAttribute("class","row")
+    h6.appendChild(textoH6)
+    divnombreproceso.append(h6)
+    var nombreproceso = aux10.split(',')
+    for(let i=0;i<nombreproceso.length;i++)
+    {
+        var auxi= nombreproceso[i].split(':')
+        var NombreProceso= auxi[1]
+        let parragrafo1 = document.createElement("div")
+        let nompro= document.createTextNode(NombreProceso)
+        parragrafo1.setAttribute("class","col-md-12")
+        parragrafo1.append(nompro)
+        divnombreproceso.append(parragrafo1)
+        //let br = document.createElement("div")
+        //br.setAttribute("class","col-md-6")
+        //divcvp.append(br)
+    }
+    divnombreproceso.append(document.createElement("p"))
     
     //document.getElementById('interesado').innerHTML = aux7
-    document.getElementById('cvproyecto').innerHTML = aux3
-    document.getElementById('entregable').innerHTML = aux2
+    //document.getElementById('cvproyecto').innerHTML = aux3
+    //document.getElementById('entregable').innerHTML = aux2
     //document.getElementById('numprocesos').innerHTML = aux3
     document.getElementById('desrds').innerHTML = aux2
     document.getElementById('desriesgo').innerHTML = aux3
     document.getElementById('desri').innerHTML = aux2+('<br></br>')+aux3
+}
+
+const metodoauxiliar = async() => {
+    console.log("metodo auxiliar")
+    const option = 5
+    const titulo = ""
+    const objetivo = ""
+    const descripcion = ""
+    const fechainicio = ""
+    const fechafin = ""
+    const presupuesto = ""
+    const id = ""
+    
+    const queryParams = `?option=${option}&atributo1=${titulo}&atributo2=${objetivo}&atributo3=${descripcion}&atributo4=${fechainicio}&atributo5=${fechafin}&atributo6=${presupuesto}&atributo7=${id}`
+    try 
+    {
+        const ipserver = location.host
+        const { data } = await axios.get(`http://`+ipserver+`/OntoPrototipoRepo/webresources/generic${queryParams}`)
+        
+        /*
+        if (data.length > 0) 
+        {  
+        const items = data.map(item =>  
+        `
+        <tr>
+            <td style="text-align: left" data-placement="top" title="Título">${item.titulo}</td>
+            <!-- comment <td data-placement="top" title="Objetivo">${item.objetivo}</td>
+            <td data-placement="top" title="Descripción">${item.descripcion}</td>
+            <td data-placement="top" title="Presupuesto">${item.presupuesto}</td> -->
+            <td data-placement="top" title="Fecha Inicio">${item.fechainicio}</td>
+            <td data-placement="top" title="Fecha Fin" contenteditable="false">${item.fechafin}</td>            
+
+            <td>
+                
+                    <div class="btn-group">
+                        <button class="btn btn-info btn-sm rounded-0" type="button" 
+                                style="background: #0A2269; border-color: #FFFFFF"
+                                data-toggle="modal" data-placement="right" title="Pulsa aquí para conocer toda la información de este proyecto" 
+                                data-original-title="Info" data-target="#modal-info" onclick="mostrarinfo('${item.idproyecto}','${item.objetivo}','${item.descripcion}','${item.presupuesto}','${item.fechainicio}','${item.fechafin}','${item.interesados}','${item.cvp}','${item.entregables}','${item.procesos}')"><i class="fas fa-info-circle"></i>
+                        </button>
+                    
+                    
+                        <button class="btn btn-success btn-sm rounded-0" type="button" 
+                                style="background: #0A2269; border-color: #FFFFFF"
+                                data-toggle="modal" data-placement="right" title="Editar" 
+                                data-original-title="Edit" data-target="#modal-2" onclick="mostrareditar('${item.idproyecto}','${item.titulo}','${item.objetivo}','${item.descripcion}','${item.fechainicio}','${item.fechafin}','${item.presupuesto}')"><i class="fas fa-edit"></i>
+                        </button> 
+                    
+                    
+                        <button class="btn btn-danger btn-sm rounded-0" type="button"
+                                style="background: #0A2269; border-color: #FFFFFF"
+                                data-toggle="tooltip" data-placement="right" title="Eliminar" 
+                                data-original-title="Delete" onclick="eliminarproyecto('${item.idproyecto}')"><i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+            </td>
+            
+        </tr>
+           
+        
+        `
+        ).join('')
+        stringHtml =
+        `
+        <table class="table-editable table table-bordered table-responsive-md table-striped text-center">
+            <thead>
+                <tr>
+                    <th class= "col-8" scope="col">Título</th>
+                    <!-- comment <th class= "col-4" scope="col">Objetivo</th>
+                    <th class= "col-6" scope="col">Descripción</th>
+                    <th class= "col-2" scope="col">Presupuesto</th> -->
+                    <th class= "col-1" scope="col">Fecha Inicio</th>
+                    <th class= "col-1" scope="col">Fecha Fin</th> 
+                    <th class= "col-1" scope="col">Acción</th> 
+                </tr>
+            </thead>
+            <tbody>${items}</tbody>
+        </table>
+        `
+        } */
+        console.log("Entro a auxiliar ",data)
+        //metodoauxiliar()
+    }
+    catch (err) 
+    { 
+        console.log(err)
+    }
+    
 }
 
 

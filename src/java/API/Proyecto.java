@@ -193,7 +193,10 @@ public class Proyecto
                             "\"fechainicio\":\""+eliminarPrefijos(fechainicio.toString())  +"\"," +
                             "\"fechafin\":\""+eliminarPrefijos(fechafin.toString()) +"\"," + 
                             "\"presupuesto\":\""+eliminarPrefijos(presupuesto.toString()) +"\"," +
-                            "\"interesados\":\""+mostrarInteresadosPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\","+
+                            "\"interesados\":\""+mostrarInteresadosPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\"," +
+                            "\"cvp\":\""+mostrarCVPPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\"," +
+                            "\"entregables\":\""+mostrarEntregablesPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\"," +
+                            "\"procesos\":\""+mostrarProcesosPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\"," +
                             "\"idproyecto\":\""+ eliminarPrefijos(idproyecto.toString()) +"\"}" ;
                            //interesados= mostrarInteresadosPorProyecto(idproyecto.toString());
                             //"\"fechafin\":\""+eliminarPrefijos(fechafin.toString()) +"\"}" ;
@@ -216,18 +219,28 @@ public class Proyecto
         }
         //String proyectos= "[" + json + "]";
         //String aux[]= new String[2];
+        
         return "[" + json + "]";
+    }
+    
+    public String mostrarTodoPorTodo(Model modelo){
+        model = modelo;
+        String json="";
+        json = json+mostrarInteresados()+",";
+        json = json+mostrarCVP()+",";
+        json = json+mostrarEntregables()+",";
+        json = json+mostrarProcesos()+".";
+        return json;
     }
     
     public String mostrarInteresadosPorProyecto(String idproyecto){
         //idproyecto="Proy003";
-        
         StringBuffer queryStr = new StringBuffer();
         String queryRequesteaux="SELECT ?Titulo ?Objetivo ?Descripcion ?FechaInicio ?FechaFin ?Presupuesto ?Nombre ?Telefono\n" +
                                 "WHERE \n" +
                                 "{\n" +
-                                "	?Interesado  OntoBLOGP:nombreInteresado ?Nombre.\n" +
-                                "    	?Interesado  OntoBLOGP:telefono ?Telefono.\n" +
+                                "	?Interesado OntoBLOGP:nombreInteresado ?Nombre.\n" +
+                                "    	?Interesado OntoBLOGP:telefono ?Telefono.\n" +
                                 "	?Interesado OntoBLOGP:Int_pertenece_PDTI OntoBLOGP:"+idproyecto+" .\n" +
                                 "} \n" +
                                 "Orderby (?Nombre)";
@@ -243,8 +256,7 @@ public class Proyecto
         try 
         {
             ResultSet response = qexec.execSelect();
-            System.out.println("Starting interesados y proyectos");
-            int cont=0;
+            boolean flag= response.hasNext();
             while(response.hasNext())
             {
                 QuerySolution soln = response.nextSolution();
@@ -269,24 +281,382 @@ public class Proyecto
                 else
                 {
                     System.out.println("No data found!"); 
-                }
-                        
+                }          
             }
+            if(!flag)
+            {
+                json= "Nombre:SIN DEFINIR&&Teléfono:SIN DEFINIR";
+            }  
                 
         }
         finally 
         {
             qexec.close(); 
         } 
-        System.out.println("IDProyecto: "+idproyecto);
-        System.out.println("Datos: "+json);
+        //System.out.println("IDProyecto: "+idproyecto);
+        //System.out.println("Datos: "+json);
         return json;
         //return "[" + json+"]";
     }
     
     public String mostrarInteresados(){
-        
-        return "";
+        StringBuffer queryStr = new StringBuffer();
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        String queryRequesteaux="SELECT ?Nombre \n" +
+                                "WHERE \n" +
+                                "{\n" +
+                                "?Interesado OntoBLOGP:nombreInteresado ?Nombre.\n" +
+                                "}" ;
+        queryStr.append(queryRequesteaux);
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response  = qexec.execSelect();
+            boolean flag= response.hasNext();
+            while(response.hasNext())
+            {
+                QuerySolution soln = response.nextSolution();
+                RDFNode nombre = soln.get("?Nombre");
+                if(nombre!=null)
+                {
+                    json += "Nombre: "+eliminarPrefijos(nombre.toString());
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                }   
+            }  
+            if(!flag)
+            {
+                json= "SIN INTERESADOS";
+            }   
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        System.out.println("Datos Interesados: "+json);
+        return json;
+    }
+    
+    public String mostrarCVPPorProyecto(String idproyecto){
+        //System.out.println("Proyecto ID "+idproyecto);
+        StringBuffer queryStr = new StringBuffer();
+        String queryRequesteaux="SELECT ?Ciclo_De_Vida \n" +
+                                "WHERE \n" +
+                                "{\n" +
+                                "       ?Ciclo_Vida_Proyecto OntoBLOGP:nombreCicloVidaProyecto ?Ciclo_De_Vida.\n" +
+                                "    	?Proyecto_De_TI OntoBLOGP:PDTI_tiene_CVP ?Ciclo_Vida_Proyecto.\n" +
+                                "       OntoBLOGP:"+idproyecto+" OntoBLOGP:PDTI_tiene_CVP ?Ciclo_Vida_Proyecto. \n" +
+                                "}\n" ;
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        queryStr.append(queryRequesteaux); 
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response = qexec.execSelect();
+            boolean flag= response.hasNext();
+            while(response.hasNext())
+            {   
+                QuerySolution soln = response.nextSolution();
+                RDFNode ciclodevida = soln.get("?Ciclo_De_Vida");
+                if(ciclodevida != null) 
+                {
+                    json += "Ciclo_De_Vida:"+eliminarPrefijos(ciclodevida.toString());  
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                    
+                }        
+            }
+            if(!flag)
+            {
+                json= "Ciclo_De_Vida:SIN DEFINIR";
+            }     
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        return json;
+    }
+    
+    public String mostrarCVP(){
+        StringBuffer queryStr = new StringBuffer();
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        String queryRequesteaux="SELECT ?Ciclo_De_Vida\n" +
+                                "WHERE\n" +
+                                "{\n" +
+                                "?Ciclo_Vida_Proyecto OntoBLOGP:nombreCicloVidaProyecto ?Ciclo_De_Vida.\n" +
+                                "}" ;
+        queryStr.append(queryRequesteaux);
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response  = qexec.execSelect();
+            boolean flag= response.hasNext();
+            while(response.hasNext())
+            {
+                QuerySolution soln = response.nextSolution();
+                RDFNode cvp = soln.get("?Ciclo_De_Vida");
+                if(cvp!=null)
+                {
+                    json += "CVP: "+eliminarPrefijos(cvp.toString());
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                }   
+            }  
+            if(!flag)
+            {
+                json= "SIN CVP";
+            }   
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        System.out.println("Datos CVP: "+json);
+        return json;
+    }
+    
+    public String mostrarEntregablesPorProyecto(String idproyecto){
+        //System.out.println("línea 353 Proyecto ID "+idproyecto);
+        StringBuffer queryStr = new StringBuffer();
+        String queryRequesteaux="SELECT ?entregables \n" +
+                                "WHERE \n" +
+                                "{\n" +
+                                "	?Entregable   OntoBLOGP:nombreEntregable  ?entregables. \n" +
+                                "	?Entregable   OntoBLOGP:Ent_pertenece_PDTI  OntoBLOGP:"+idproyecto+" \n" +
+                                "}" ;
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        queryStr.append(queryRequesteaux); 
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response = qexec.execSelect();
+            boolean flag= response.hasNext();
+            while(response.hasNext())
+            {   
+                QuerySolution soln = response.nextSolution();
+                RDFNode entrega = soln.get("?entregables");
+                if(entrega != null) 
+                {
+                    json += "Entregable:"+eliminarPrefijos(entrega.toString());  
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                    
+                }
+                        
+            }
+            if(!flag)
+            {
+                json= "Entregable:SIN DEFINIR";
+            }     
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        return json;
+    }
+    
+    public String mostrarEntregables(){
+        StringBuffer queryStr = new StringBuffer();
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        String queryRequesteaux="SELECT ?Entregables\n" +
+                                "WHERE\n" +
+                                "{\n" +
+                                "?Entregable OntoBLOGP:nombreEntregable ?Entregables.\n" +
+                                "}" ;
+        queryStr.append(queryRequesteaux);
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response  = qexec.execSelect();
+            boolean flag= response.hasNext();
+            while(response.hasNext())
+            {
+                QuerySolution soln = response.nextSolution();
+                RDFNode entregable = soln.get("?Entregables");
+                if(entregable!=null)
+                {
+                    json += "Entregables: "+eliminarPrefijos(entregable.toString());
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                }   
+            }  
+            if(!flag)
+            {
+                json= "SIN ENTREGABLES";
+            }   
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        System.out.println("Datos Entregables: "+json);
+        return json;
+    }
+    
+    public String mostrarProcesosPorProyecto(String idproyecto){
+        //System.out.println("Proyecto ID "+idproyecto);
+        StringBuffer queryStr = new StringBuffer();
+        String queryRequesteaux="SELECT ?Nombre_Proceso \n" +
+                                "WHERE \n" +
+                                "{\n" +
+                                "	?Entregable OntoBLOGP:Ent_pertenece_PDTI OntoBLOGP:"+idproyecto+". \n" +
+                                "	?Proceso OntoBLOGP:nombreProceso ?Nombre_Proceso. \n" +
+                                "	?Entregable OntoBLOGP:Ent_se_genera_Pro ?Proceso. \n" +
+                                "}\n" ;
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        queryStr.append(queryRequesteaux); 
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response = qexec.execSelect();
+            boolean flag= response.hasNext();
+            while(response.hasNext())
+            {   
+                QuerySolution soln = response.nextSolution();
+                RDFNode nombreproceso = soln.get("?Nombre_Proceso");
+                if(nombreproceso != null) 
+                {
+                    json += "Proceso:"+eliminarPrefijos(nombreproceso.toString());  
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                    
+                }
+                        
+            }
+            if(!flag)
+            {
+                json= "Proceso:SIN DEFINIR";
+            }     
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        return json;
+    }
+    
+    public String mostrarProcesos(){
+        StringBuffer queryStr = new StringBuffer();
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        String queryRequesteaux="SELECT ?Nombre_Proceso\n" +
+                                "WHERE\n" +
+                                "{\n" +
+                                "?Proceso OntoBLOGP:nombreProceso ?Nombre_Proceso.\n" +
+                                "}" ;
+        queryStr.append(queryRequesteaux);
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response  = qexec.execSelect();
+            boolean flag= response.hasNext();
+            while(response.hasNext())
+            {
+                QuerySolution soln = response.nextSolution();
+                RDFNode proceso = soln.get("?Nombre_Proceso");
+                if(proceso!=null)
+                {
+                    json += "Procesos: "+eliminarPrefijos(proceso.toString());
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                }   
+            }  
+            if(!flag)
+            {
+                json= "SIN PROCESOS";
+            }   
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        System.out.println("Datos Procesos: "+json);
+        return json;
     }
 
     public  int contarIndividuos( ){

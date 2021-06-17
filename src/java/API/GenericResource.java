@@ -150,15 +150,9 @@ public class GenericResource
                 }
             case "5":
                 {
-                    /*query = "SELECT ?first_name ?last_name ?age\n" +
-                    " WHERE {\n" + 
-                    " ?Teacher ROSCC:First_Name ?first_name. \n" +
-                    " ?Teacher ROSCC:is_Imparted ?assignment. \n" +
-                    " ?Teacher ROSCC:Last_Name ?last_name. \n" + 
-                    " ?Teacher ROSCC:Age ?age. \n" + 
-                    " ?Teacher ROSCC:Gender ?gender. Filter(?gender = '" + gender + "') } \n" + 
-                    " Orderby ?first_name"; */
-                    break;
+                Proyecto proyec = new Proyecto();
+                query = proyec.mostrarTodoPorTodo(model);
+                break;
                 }
             default: 
                 return " ";
