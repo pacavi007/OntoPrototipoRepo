@@ -48,16 +48,17 @@ const consultarproyecto = async () => {
                         <h6>Fecha Fin</h6> 
                         <input id="fechafin" type="text" class="form-control mb-3" placeholder="Fecha Fin">
                     </div>
-<div id="divinteresado2"> 
-    <h6>Interesado</h6> 
-</div> 
-<div id="divcvp2"> 
-    <h6>Ciclo Vida Proyecto</h6>
+<div id="divauxcrear">
+    <div id="divinteresado2"> 
+        <h6>Interesado</h6> 
+    </div> 
+    <div id="divcvp2"> 
+        <h6>Ciclo Vida Proyecto</h6>
+    </div>
+    <div id="diventregable2"> 
+        <h6>Entregable</h6> 
+    </div>
 </div>
-<div id="diventregable2"> 
-    <h6>Entregable</h6> 
-</div>
-
 
                 </div>
                 <div class="modal-footer">
@@ -106,6 +107,17 @@ const consultarproyecto = async () => {
                         <h6>Fecha Fin</h6> 
                         <input id="fechafin-2" type="text" class="form-control mb-3">
                     </div>
+<div id="divauxeditar">
+    <div id="divinteresado3"> 
+        <h6>Interesado</h6> 
+    </div> 
+    <div id="divcvp3"> 
+        <h6>Ciclo Vida Proyecto</h6>
+    </div>
+    <div id="diventregable3"> 
+        <h6>Entregable</h6> 
+    </div>
+</div>
                     <input type="hidden" id="idproyecto">
                 </div>
                 <div class="modal-footer">
@@ -235,7 +247,7 @@ const buscandoproyecto = async () => {
                         <button class="btn btn-success btn-sm rounded-0" type="button" 
                                 style="background: #0A2269; border-color: #FFFFFF"
                                 data-toggle="modal" data-placement="right" title="Editar" 
-                                data-original-title="Edit" data-target="#modal-2" onclick="mostrareditar('${item.idproyecto}','${item.titulo}','${item.objetivo}','${item.descripcion}','${item.fechainicio}','${item.fechafin}','${item.presupuesto}')"><i class="fas fa-edit"></i>
+                                data-original-title="Edit" data-target="#modal-2" onclick="mostrareditar('${item.idproyecto}','${item.titulo}','${item.objetivo}','${item.descripcion}','${item.fechainicio}','${item.fechafin}','${item.presupuesto}','${item.interesados}','${item.cvp}','${item.entregables}')"><i class="fas fa-edit"></i>
                         </button> 
                     
                     
@@ -271,7 +283,7 @@ const buscandoproyecto = async () => {
         `
         }
         console.log("Entro a buscandoproyecto",data)
-        metodoauxiliar()
+        metodoauxiliarcrear()
         resultDiv.innerHTML = stringHtml
     }
     catch (err) 
@@ -283,15 +295,52 @@ const buscandoproyecto = async () => {
 const agregarproyecto = async () => {
     console.log("entrando a agregarproyecto");
     const option = 2
-    
     const titulo = document.getElementById('titulo').value
     const objetivo = document.getElementById('objetivo').value
     const descripcion = document.getElementById('descripcion').value
     const fechainicio = document.getElementById('fechainicio').value
     const fechafin = document.getElementById('fechafin').value
     const presupuesto = document.getElementById('presupuesto').value
+    var otrosvalores = ""
     const id = ""
-    const queryParams = `?option=${option}&atributo1=${titulo}&atributo2=${objetivo}&atributo3=${descripcion}&atributo4=${fechainicio}&atributo5=${fechafin}&atributo6=${presupuesto}&atributo7=${id}`
+    
+    var inputElements = document.getElementsByClassName('interesadosCheckbox');
+    for(var i=0; inputElements[i]; ++i){
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value
+            if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
+            {
+                //console.log("Entro interesados: ",inputElements[i+1].value)
+                otrosvalores += ","
+
+            }
+        }
+    }
+    otrosvalores += ";"
+    inputElements = document.getElementsByClassName('cvpCheckbox');
+    for(var i=0; inputElements[i]; ++i){
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value
+            if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
+            {
+                otrosvalores += ","
+            }
+        }
+    }
+    otrosvalores += ";"
+    inputElements = document.getElementsByClassName('entregablesCheckbox');
+    for(var i=0; inputElements[i]; ++i){
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value
+            if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
+            {
+                otrosvalores += ","
+            }
+        }
+    }
+//console.log("otros valores ",otrosvalores)
+    
+    const queryParams = `?option=${option}&atributo1=${titulo}&atributo2=${objetivo}&atributo3=${descripcion}&atributo4=${fechainicio}&atributo5=${fechafin}&atributo6=${presupuesto}&atributo7=${id}&superatributo=${otrosvalores}`
     try 
     {
         const ipserver = location.host
@@ -321,8 +370,45 @@ const editarproyecto = async (aux) => {
     const fechainicio = document.getElementById('fechainicio-2').value
     const fechafin = document.getElementById('fechafin-2').value
     const presupuesto = document.getElementById('presupuesto-2').value
+    var otrosvalores = ""
     const id = document.getElementById('idproyecto').value
-    const queryParams = `?option=${option}&atributo1=${titulo}&atributo2=${objetivo}&atributo3=${descripcion}&atributo4=${fechainicio}&atributo5=${fechafin}&atributo6=${presupuesto}&atributo7=${id}`
+    
+    var inputElements = document.getElementsByClassName('interesadosCheckbox2');
+    for(var i=0; inputElements[i]; ++i){
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value
+            if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
+            {
+                //console.log("Entro interesados: ",inputElements[i+1].value)
+                otrosvalores += ","
+
+            }
+        }
+    }
+    otrosvalores += ";"
+    inputElements = document.getElementsByClassName('cvpCheckbox2');
+    for(var i=0; inputElements[i]; ++i){
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value
+            if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
+            {
+                otrosvalores += ","
+            }
+        }
+    }
+    otrosvalores += ";"
+    inputElements = document.getElementsByClassName('entregablesCheckbox2');
+    for(var i=0; inputElements[i]; ++i){
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value
+            if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
+            {
+                otrosvalores += ","
+            }
+        }
+    }
+    
+    const queryParams = `?option=${option}&atributo1=${titulo}&atributo2=${objetivo}&atributo3=${descripcion}&atributo4=${fechainicio}&atributo5=${fechafin}&atributo6=${presupuesto}&atributo7=${id}&superatributo=${otrosvalores}`
     try 
     {
         const ipserver = location.host
@@ -338,8 +424,8 @@ const editarproyecto = async (aux) => {
     
 }
 
-const mostrareditar = async(aux1,aux2,aux3,aux4,aux5,aux6,aux7) => {
-    console.log("entrando a mostrareditar ",aux7);
+const mostrareditar = async(aux1,aux2,aux3,aux4,aux5,aux6,aux7,interesados,cvps,entregables) => {
+    console.log("entrando a mostrareditar ",aux1);
     //
     document.getElementById('titulo-2').value = aux2
     document.getElementById('objetivo-2').value = aux3
@@ -349,6 +435,7 @@ const mostrareditar = async(aux1,aux2,aux3,aux4,aux5,aux6,aux7) => {
     document.getElementById('presupuesto-2').value= aux7
     document.getElementById('idproyecto').value = aux1
     //limpiarmodal()
+    metodoauxiliareditar(aux1,interesados,cvps,entregables)
     
 }
 
@@ -509,8 +596,8 @@ const mostrarinfo = async(aux,aux2,aux3,aux4,aux5,aux6,aux7,aux8,aux9,aux10) => 
     document.getElementById('desri').innerHTML = aux2+('<br></br>')+aux3
 }
 
-const metodoauxiliar = async() => {
-    console.log("metodo auxiliar")
+const metodoauxiliarcrear = async() => {
+    //console.log("metodo auxiliar crear")
     const option = 5
     const titulo = ""
     const objetivo = ""
@@ -525,70 +612,114 @@ const metodoauxiliar = async() => {
     {
         const ipserver = location.host
         const { data } = await axios.get(`http://`+ipserver+`/OntoPrototipoRepo/webresources/generic${queryParams}`)
+        const info = data.split(';')
         
-        /*
-        if (data.length > 0) 
-        {  
-        const items = data.map(item =>  
-        `
-        <tr>
-            <td style="text-align: left" data-placement="top" title="Título">${item.titulo}</td>
-            <!-- comment <td data-placement="top" title="Objetivo">${item.objetivo}</td>
-            <td data-placement="top" title="Descripción">${item.descripcion}</td>
-            <td data-placement="top" title="Presupuesto">${item.presupuesto}</td> -->
-            <td data-placement="top" title="Fecha Inicio">${item.fechainicio}</td>
-            <td data-placement="top" title="Fecha Fin" contenteditable="false">${item.fechafin}</td>            
+        const interesados = info[0]
+        const cvps = info[1]
+        const entregables = info[2]
+        const procesos = info[3]
+        
+        const interesado = interesados.split(',')
+        const cvp = cvps.split(',')
+        const entregable = entregables.split(',')
+        const proceso = procesos.split(',')
+        
+        let divauxcrear = document.getElementById('divauxcrear')
+        divauxcrear.innerHTML=""
+        divauxcrear.setAttribute("class","row")
 
-            <td>
-                
-                    <div class="btn-group">
-                        <button class="btn btn-info btn-sm rounded-0" type="button" 
-                                style="background: #0A2269; border-color: #FFFFFF"
-                                data-toggle="modal" data-placement="right" title="Pulsa aquí para conocer toda la información de este proyecto" 
-                                data-original-title="Info" data-target="#modal-info" onclick="mostrarinfo('${item.idproyecto}','${item.objetivo}','${item.descripcion}','${item.presupuesto}','${item.fechainicio}','${item.fechafin}','${item.interesados}','${item.cvp}','${item.entregables}','${item.procesos}')"><i class="fas fa-info-circle"></i>
-                        </button>
-                    
-                    
-                        <button class="btn btn-success btn-sm rounded-0" type="button" 
-                                style="background: #0A2269; border-color: #FFFFFF"
-                                data-toggle="modal" data-placement="right" title="Editar" 
-                                data-original-title="Edit" data-target="#modal-2" onclick="mostrareditar('${item.idproyecto}','${item.titulo}','${item.objetivo}','${item.descripcion}','${item.fechainicio}','${item.fechafin}','${item.presupuesto}')"><i class="fas fa-edit"></i>
-                        </button> 
-                    
-                    
-                        <button class="btn btn-danger btn-sm rounded-0" type="button"
-                                style="background: #0A2269; border-color: #FFFFFF"
-                                data-toggle="tooltip" data-placement="right" title="Eliminar" 
-                                data-original-title="Delete" onclick="eliminarproyecto('${item.idproyecto}')"><i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-            </td>
+        let divinteresado = document.createElement("div")
+        let h6= document.createElement("h6")
+        let textoH6 = document.createTextNode("Interesados")
+        h6.appendChild(textoH6)
+        divinteresado.append(h6)
+        for(let i=0;i<interesado.length;i++)
+        {
+            let input = document.createElement("input")
+            let label = document.createElement("label")
+            let aux = interesado[i].split("&&")
+            let nombreinteresado = (aux[0].split(":"))[1]
+            let idinteresado = (aux[1].split(":"))[1]
+            //console.log("nominteresado en 0",nombreinteresado)
+            //console.log("idinteresado en 1",idinteresado)
+            //let inte = document.createTextNode(nombreinteresado)
+            input.setAttribute("type","checkbox")
+            //input.setAttribute("id",idinteresado)
+            input.setAttribute("value",idinteresado)
+            input.setAttribute("class","interesadosCheckbox")
+            //console.log("aux es ",aux)
+            label.setAttribute("class","col-md-3")
+            label.setAttribute("for",nombreinteresado)
+            label.append(""+nombreinteresado)
+            divinteresado.append(input)
+            divinteresado.append(label)
             
-        </tr>
-           
+        }
+        divauxcrear.append(divinteresado)
+        divauxcrear.append(document.createElement("p"))
         
-        `
-        ).join('')
-        stringHtml =
-        `
-        <table class="table-editable table table-bordered table-responsive-md table-striped text-center">
-            <thead>
-                <tr>
-                    <th class= "col-8" scope="col">Título</th>
-                    <!-- comment <th class= "col-4" scope="col">Objetivo</th>
-                    <th class= "col-6" scope="col">Descripción</th>
-                    <th class= "col-2" scope="col">Presupuesto</th> -->
-                    <th class= "col-1" scope="col">Fecha Inicio</th>
-                    <th class= "col-1" scope="col">Fecha Fin</th> 
-                    <th class= "col-1" scope="col">Acción</th> 
-                </tr>
-            </thead>
-            <tbody>${items}</tbody>
-        </table>
-        `
+        let divcvp = document.createElement("div")
+        h6= document.createElement("h6")
+        textoH6 = document.createTextNode("Ciclo Vida Proyecto")
+        h6.appendChild(textoH6)
+        divcvp.append(h6)
+        for(let i=0;i<cvp.length;i++)
+        {
+            //console.log("cvp ",cvp[i])
+            let input = document.createElement("input")
+            let label = document.createElement("label")
+            let aux = cvp[i].split("&&")
+            let nombrecvp = (aux[0].split(":"))[1]
+            let idcvp = (aux[1].split(":"))[1]
+            input.setAttribute("type","checkbox")
+            //input.setAttribute("id",idcvp)
+            input.setAttribute("value",idcvp)
+            input.setAttribute("class","cvpCheckbox")
+            //console.log("aux en cvp es ",aux)
+            label.setAttribute("class","col-md-3")
+            label.setAttribute("for",nombrecvp)
+            label.append(""+nombrecvp)
+            divcvp.append(input)
+            divcvp.append(label)
+        }
+        divauxcrear.append(divcvp)
+        divauxcrear.append(document.createElement("p"))
+        
+        let diventregable = document.createElement("div")
+        h6= document.createElement("h6")
+        textoH6 = document.createTextNode("Entregables")
+        h6.appendChild(textoH6)
+        diventregable.append(h6)
+        for(let i=0;i<entregable.length;i++)
+        {
+            //console.log("entregable ",entregable[i])
+            let input = document.createElement("input")
+            let label = document.createElement("label")
+            let aux = entregable[i].split("&&")
+            let nombreentregable = (aux[0].split(":"))[1]
+            let identregable = (aux[1].split(":"))[1]
+            input.setAttribute("type","checkbox")
+            //input.setAttribute("id",identregable)
+            input.setAttribute("value",identregable)
+            input.setAttribute("class","entregablesCheckbox")
+            //console.log("aux en entregable es ",nombreentregable)
+            
+            label.setAttribute("for",nombreentregable)
+            label.append(""+nombreentregable)
+            diventregable.append(input)
+            diventregable.append(label)
+            diventregable.append(document.createElement("p"))
+        }
+        divauxcrear.append(diventregable)
+        divauxcrear.append(document.createElement("p"))
+        
+        /*for(let i=0;i<proceso.length;i++)
+        {
+            //console.log("proceso ",proceso[i])
+        }
+        
         } */
-        console.log("Entro a auxiliar ",data)
-        //metodoauxiliar()
+        //console.log("Entro a auxiliar \n",data)
     }
     catch (err) 
     { 
@@ -596,5 +727,195 @@ const metodoauxiliar = async() => {
     }
     
 }
+
+const metodoauxiliareditar = async(aux1,inte,cvpss,entre) => {
+    console.log("metodo auxiliar editar ")
+    const option = 5
+    const titulo = ""
+    const objetivo = ""
+    const descripcion = ""
+    const fechainicio = ""
+    const fechafin = ""
+    const presupuesto = ""
+    const id = ""
+    //console.log("Inte ",inte);console.log("Cvps ",cvpss);console.log("Entre ",entre);
+    const queryParams = `?option=${option}&atributo1=${titulo}&atributo2=${objetivo}&atributo3=${descripcion}&atributo4=${fechainicio}&atributo5=${fechafin}&atributo6=${presupuesto}&atributo7=${id}`
+    try 
+    {
+        const ipserver = location.host
+        const { data } = await axios.get(`http://`+ipserver+`/OntoPrototipoRepo/webresources/generic${queryParams}`)
+        const info = data.split(';')
+        
+        const interesados = info[0]
+        const cvps = info[1]
+        const entregables = info[2]
+        const procesos = info[3]
+        
+        const interesado = interesados.split(',')
+        const cvp = cvps.split(',')
+        const entregable = entregables.split(',')
+        const proceso = procesos.split(',')
+        
+        //console.log("inte ",inte)
+        var inteaux1 = inte.split(',') 
+        var inteaux2 = "" 
+        var cvpaux1  = cvpss.split(',')
+        var cvpaux2  = ""
+        var entreaux1 = entre.split(',')
+        var entreaux2 = ""
+
+        /*for(let i=0; i<inteaux1.length ; i++){
+            inteaux2 = inteaux1[i].split('&&')
+            inteaux2 = inteaux2[0].split(':')
+            inteaux2 = inteaux2[1]
+            console.log("Dentro ",inteaux2)
+        }*/
+        //console.log("intere ",inteaux1)
+        
+        let divauxeditar = document.getElementById('divauxeditar')
+        divauxeditar.innerHTML=""
+        divauxeditar.setAttribute("class","row")
+
+        let divinteresado = document.createElement("div")
+        let h6= document.createElement("h6")
+        let textoH6 = document.createTextNode("Interesados")
+        h6.appendChild(textoH6)
+        divinteresado.append(h6)
+        for(let i=0;i<interesado.length;i++)
+        {
+            let input = document.createElement("input")
+            let label = document.createElement("label")
+            let aux = interesado[i].split("&&")
+            let nombreinteresado = (aux[0].split(":"))[1]
+            let idinteresado = (aux[1].split(":"))[1]
+            //console.log("nominteresado en 0",nombreinteresado)
+            //console.log("idinteresado en 1",idinteresado)
+            //let inte = document.createTextNode(nombreinteresado)
+            input.setAttribute("type","checkbox")
+            //input.setAttribute("id",idinteresado)
+            input.setAttribute("value",idinteresado)
+            input.setAttribute("class","interesadosCheckbox2")
+            
+            //24/06/2021
+            for(let j=0; j<inteaux1.length ; j++){
+                inteaux2 = inteaux1[j].split('&&')
+                inteaux2 = inteaux2[0].split(':')
+                inteaux2 = inteaux2[1]
+                inteaux2 = inteaux2.split(' ')
+                inteaux2 = inteaux2[1]+" "+inteaux2[2]
+                //console.log("inteaux2 ",inteaux2)
+                //console.log("nombrein ",nombreinteresado)
+                if(inteaux2===nombreinteresado){
+                    //console.log("i ",i)
+                    //console.log("j ",j)
+                    input.setAttribute("checked",true)
+                }
+            }
+            label.setAttribute("class","col-md-3")
+            label.setAttribute("for",nombreinteresado)
+            label.append(""+nombreinteresado)
+            divinteresado.append(input)
+            divinteresado.append(label) 
+        }
+        divauxeditar.append(divinteresado)
+        divauxeditar.append(document.createElement("p"))
+        
+        let divcvp = document.createElement("div")
+        h6= document.createElement("h6")
+        textoH6 = document.createTextNode("Ciclo Vida Proyecto")
+        h6.appendChild(textoH6)
+        divcvp.append(h6)
+        for(let i=0;i<cvp.length;i++)
+        {
+            //console.log("cvp ",cvp[i])
+            let input = document.createElement("input")
+            let label = document.createElement("label")
+            let aux = cvp[i].split("&&")
+            let nombrecvp = (aux[0].split(":"))[1]
+            let idcvp = (aux[1].split(":"))[1]
+            input.setAttribute("type","checkbox")
+            //input.setAttribute("id",idcvp)
+            input.setAttribute("value",idcvp)
+            input.setAttribute("class","cvpCheckbox2")
+            for(let j=0; j<cvpaux1.length ; j++){
+                cvpaux2 = cvpaux1[j].split('&&')
+                cvpaux2 = cvpaux2[0].split(':')
+                cvpaux2 = cvpaux2[1]
+                //cvpaux2 = cvpaux2.split(' ')
+                //cvpaux2 = cvpaux2[1]
+                //console.log("cvpaux222 ",cvpaux2)
+                //console.log("nombrecvp ",nombrecvp)
+                if(cvpaux2===nombrecvp){
+                    //console.log("i ",i)
+                    //console.log("j ",j)
+                    input.setAttribute("checked",true)
+                }
+            }
+            //console.log("aux en cvp es ",aux)
+            label.setAttribute("class","col-md-3")
+            label.setAttribute("for",nombrecvp)
+            label.append(""+nombrecvp)
+            divcvp.append(input)
+            divcvp.append(label)
+        }
+        divauxeditar.append(divcvp)
+        divauxeditar.append(document.createElement("p"))
+        
+        let diventregable = document.createElement("div")
+        h6= document.createElement("h6")
+        textoH6 = document.createTextNode("Entregables")
+        h6.appendChild(textoH6)
+        diventregable.append(h6)
+        for(let i=0;i<entregable.length;i++)
+        {
+            //console.log("entregable ",entregable[i])
+            let input = document.createElement("input")
+            let label = document.createElement("label")
+            let aux = entregable[i].split("&&")
+            let nombreentregable = (aux[0].split(":"))[1]
+            let identregable = (aux[1].split(":"))[1]
+            input.setAttribute("type","checkbox")
+            //input.setAttribute("id",identregable)
+            input.setAttribute("value",identregable)
+            input.setAttribute("class","entregablesCheckbox2")
+            for(let j=0; j<entreaux1.length ; j++){
+                entreaux2 = entreaux1[j].split('&&')
+                entreaux2 = entreaux2[0].split(':')
+                entreaux2 = entreaux2[1]
+                //cvpaux2 = cvpaux2.split(' ')
+                //cvpaux2 = cvpaux2[1]
+                //console.log("entreaux2 ",entreaux2)
+                //console.log("nombreentregable ",nombreentregable)
+                if(entreaux2===nombreentregable){
+                    //console.log("i ",i)
+                    //console.log("j ",j)
+                    input.setAttribute("checked",true)
+                }
+            }
+            //console.log("aux en entregable es ",nombreentregable)
+            label.setAttribute("for",nombreentregable)
+            label.append(""+nombreentregable)
+            diventregable.append(input)
+            diventregable.append(label)
+            diventregable.append(document.createElement("p"))
+        }
+        divauxeditar.append(diventregable)
+        divauxeditar.append(document.createElement("p"))
+        
+        /*for(let i=0;i<proceso.length;i++)
+        {
+            //console.log("proceso ",proceso[i])
+        }
+        
+        } */
+        //console.log("Entro a auxiliar \n",data)
+    }
+    catch (err) 
+    { 
+        console.log(err)
+    }
+    
+}
+
 
 

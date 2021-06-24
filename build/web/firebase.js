@@ -1,7 +1,7 @@
 //var bandera= false
   // Your web app's Firebase configurationw
 var iniciarfire = async () => {
-    console.log("Iniciando firebase");
+    //console.log("Iniciando firebase");
     
     //if(bandera==false)
     //{

@@ -6,6 +6,7 @@ import com.hp.hpl.jena.ontology.ObjectProperty;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntModelSpec;
+import com.hp.hpl.jena.ontology.impl.ObjectPropertyImpl;
 import javax.ws.rs.core.Context; 
 import javax.ws.rs.core.UriInfo; 
 import javax.ws.rs.Produces; 
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream; 
 import java.io.OutputStream;
 import java.util.Iterator;
+import java.util.StringTokenizer;
 import javax.ws.rs.DefaultValue;
 
 public class Proyecto 
@@ -70,7 +72,7 @@ public class Proyecto
         return ejecutarConsulta(this.model);
     }
     
-    public String crearProyectos(String tit, String obj, String des, String fechai, String fechaf, String pre) throws FileNotFoundException{
+    public String crearProyectos(String tit, String obj, String des, String fechai, String fechaf, String pre, String otroscon) throws FileNotFoundException{
         cargarOntologia();
         int cont = contarIndividuos();
         OntClass proyectos = modelo.getOntClass(NS+"Proyecto_De_TI");
@@ -81,9 +83,17 @@ public class Proyecto
         DatatypeProperty fechafin = modelo.getDatatypeProperty(NS+"fechaFin");
         DatatypeProperty presupuesto = modelo.getDatatypeProperty(NS+"presupuesto");
         DatatypeProperty idproyecto = modelo.getDatatypeProperty(NS+"idProyecto");
-        //DatatypeProperty presupuesto = modelo.getDatatypeProperty(NS+"descripcionPDTI");
+        //System.out.println("Otroscon "+otroscon);
         //ObjectProperty objp = modelo.getObjectProperty(NS+"is_Enrrolled");
-
+        String[] auxotroscon = otroscon.split(";");
+        String[] interesados = auxotroscon[0].split(",");
+        String[] cvps        = auxotroscon[1].split(",");
+        String[] entregables = auxotroscon[2].split(",");
+        
+        
+        
+        //ObjectProperty objp = modelo.getObjectProperty(NS+"Int_pertenece_PDTI");
+        
         Individual nuevoProyecto = modelo.createIndividual(NS+"Proy00"+String.valueOf(cont),proyectos);
         nuevoProyecto.setPropertyValue(titulo, modelo.createTypedLiteral(tit,NS));
         nuevoProyecto.setPropertyValue(objetivo, modelo.createTypedLiteral(obj,NS));
@@ -92,11 +102,30 @@ public class Proyecto
         nuevoProyecto.setPropertyValue(fechafin, modelo.createTypedLiteral(fechaf,NS));
         nuevoProyecto.setPropertyValue(presupuesto, modelo.createTypedLiteral(pre,NS));
         nuevoProyecto.setPropertyValue(idproyecto, modelo.createTypedLiteral("Proy00"+String.valueOf(cont),NS));
-
+        for (int i = 0; i < interesados.length; i++) {
+            //System.out.println("auxotroscon "+interesados[i]);            
+            Individual interesado = modelo.getIndividual(NS+interesados[i]);
+            ObjectProperty objp = modelo.getObjectProperty(NS+"Int_pertenece_PDTI");
+            interesado.addProperty(objp, modelo.getIndividual(NS+"Proy00"+String.valueOf(cont)));
+            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_tiene_Int");
+            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+interesados[i]));
+        }
+        for (int i = 0; i < cvps.length; i++) {
+            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_tiene_CVP");
+            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+cvps[i]));
+        }
+        for (int i = 0; i < entregables.length; i++) {            
+            Individual entregable = modelo.getIndividual(NS+entregables[i]);
+            ObjectProperty objp = modelo.getObjectProperty(NS+"Ent_pertenece_PDTI");
+            entregable.addProperty(objp, modelo.getIndividual(NS+"Proy00"+String.valueOf(cont)));
+            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_comprende_E");
+            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+entregables[i]));
+        }
+        
+        //nuevoProyecto.setPropertyValue(objp, modelo.getIndividual(NS+"Inte001"));
         //newEstudiante.setPropertyValue(objp, modelo.getIndividual(NS+"Grp0001"));
 
         OutputStream out = new FileOutputStream("Onto/OntoBLOGP1.0.owl");
-        
         modelo.write(out, "RDF/XML");
         /*System.out.println("Proyecto agregado "+cont);
         System.out.println("titulo "+tit);
@@ -108,7 +137,7 @@ public class Proyecto
         return "Proyecto creado";
     }
     
-    public String editarProyectos(String id, String tit, String obj, String des, String fechai, String fechaf, String pre) throws IOException{
+    public String editarProyectos(String id, String tit, String obj, String des, String fechai, String fechaf, String pre, String otroscon) throws IOException{
         cargarOntologia();
         //DatatypeProperty nombre = modelo.getDatatypeProperty(NS+"First_Name");
         DatatypeProperty titulo = modelo.getDatatypeProperty(NS+"titulo");
@@ -117,7 +146,12 @@ public class Proyecto
         DatatypeProperty fechainicio = modelo.getDatatypeProperty(NS+"fechaInicio");
         DatatypeProperty fechafin = modelo.getDatatypeProperty(NS+"fechaFin");
         DatatypeProperty presupuesto = modelo.getDatatypeProperty(NS+"presupuesto");
+        System.out.println("Otroscon "+otroscon);
         //DatatypeProperty presupuesto = modelo.getDatatypeProperty(NS+"fechaFin");
+        String[] auxotroscon = otroscon.split(";");
+        String[] interesados = auxotroscon[0].split(",");
+        String[] cvps        = auxotroscon[1].split(",");
+        String[] entregables = auxotroscon[2].split(",");
         
         //Individual newEstudiante = modelo.getIndividual(NS+"Std0014");
         Individual nuevoProyecto = modelo.getIndividual(NS+id);
@@ -128,12 +162,40 @@ public class Proyecto
         nuevoProyecto.setPropertyValue(fechainicio, modelo.createTypedLiteral(fechai,NS));
         nuevoProyecto.setPropertyValue(fechafin, modelo.createTypedLiteral(fechaf,NS));
         nuevoProyecto.setPropertyValue(presupuesto, modelo.createTypedLiteral(pre,NS));
-        System.out.println("Proyecto editado");
+        
+        ObjectProperty prop1 = modelo.getObjectProperty(NS+"PDTI_tiene_Int");
+        ObjectProperty prop2 = modelo.getObjectProperty(NS+"PDTI_tiene_CVP");
+        ObjectProperty prop3 = modelo.getObjectProperty(NS+"PDTI_comprende_E");
+        //RDFNode objp33 = ; 
+        nuevoProyecto.removeAll(prop1);
+        nuevoProyecto.removeAll(prop2);
+        nuevoProyecto.removeAll(prop3);
+        for (int i = 0; i < interesados.length; i++) {
+            //System.out.println("auxotroscon "+interesados[i]);            
+            Individual interesado = modelo.getIndividual(NS+interesados[i]);
+            ObjectProperty objp = modelo.getObjectProperty(NS+"Int_pertenece_PDTI");
+            interesado.removeAll(objp);
+            interesado.addProperty(objp, modelo.getIndividual(NS+id));
+            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_tiene_Int");
+            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+interesados[i]));
+        }
+        for (int i = 0; i < cvps.length; i++) {
+            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_tiene_CVP");
+            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+cvps[i]));
+        }
+        for (int i = 0; i < entregables.length; i++) {            
+            Individual entregable = modelo.getIndividual(NS+entregables[i]);
+            ObjectProperty objp = modelo.getObjectProperty(NS+"Ent_pertenece_PDTI");
+            entregable.addProperty(objp, modelo.getIndividual(NS+id));
+            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_comprende_E");
+            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+entregables[i]));
+        }
+        /*System.out.println("Proyecto editado");
         System.out.println("titulo "+tit);
         System.out.println("objetivo "+obj);
         System.out.println("descripcion "+des);
         System.out.println("inicio "+fechai);
-        System.out.println("fin "+fechaf);
+        System.out.println("fin "+fechaf);*/
         OutputStream out = new FileOutputStream("Onto/OntoBLOGP1.0.owl");
         modelo.write(out, "RDF/XML");
         return "Proyecto editado";
@@ -226,10 +288,10 @@ public class Proyecto
     public String mostrarTodoPorTodo(Model modelo){
         model = modelo;
         String json="";
-        json = json+mostrarInteresados()+",";
-        json = json+mostrarCVP()+",";
-        json = json+mostrarEntregables()+",";
-        json = json+mostrarProcesos()+".";
+        json = json+mostrarInteresados()+";";
+        json = json+mostrarCVP()+";";
+        json = json+mostrarEntregables()+";";
+        json = json+mostrarProcesos()+"";
         return json;
     }
     
@@ -285,7 +347,7 @@ public class Proyecto
             }
             if(!flag)
             {
-                json= "Nombre:SIN DEFINIR&&Teléfono:SIN DEFINIR";
+                json= "Nombre: SIN DEFINIR&&Teléfono: SIN DEFINIR";
             }  
                 
         }
@@ -306,11 +368,13 @@ public class Proyecto
         queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
         queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
         queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
-        String queryRequesteaux="SELECT ?Nombre \n" +
+        String queryRequesteaux="SELECT ?Nombre ?idinteresado \n" +
                                 "WHERE \n" +
                                 "{\n" +
                                 "?Interesado OntoBLOGP:nombreInteresado ?Nombre.\n" +
-                                "}" ;
+                                "?Interesado OntoBLOGP:idInteresado ?idinteresado" +
+                                "}" +
+                                "Orderby (?Nombre) \n";
         queryStr.append(queryRequesteaux);
         Query query = QueryFactory.create(queryStr.toString());
         QueryExecution qexec = QueryExecutionFactory.create(query, model); 
@@ -323,9 +387,11 @@ public class Proyecto
             {
                 QuerySolution soln = response.nextSolution();
                 RDFNode nombre = soln.get("?Nombre");
+                RDFNode idinteresado = soln.get("?idinteresado");
                 if(nombre!=null)
                 {
-                    json += "Nombre: "+eliminarPrefijos(nombre.toString());
+                    json += "Nombre:"+eliminarPrefijos(nombre.toString())+"&&";
+                    json += "idInteresado:"+eliminarPrefijos(idinteresado.toString());
                     if (response.hasNext())
                     {
                         json += ",";
@@ -345,7 +411,7 @@ public class Proyecto
         {
             qexec.close(); 
         } 
-        System.out.println("Datos Interesados: "+json);
+        //System.out.println("Datos Interesados: "+json);
         return json;
     }
     
@@ -356,7 +422,7 @@ public class Proyecto
                                 "WHERE \n" +
                                 "{\n" +
                                 "       ?Ciclo_Vida_Proyecto OntoBLOGP:nombreCicloVidaProyecto ?Ciclo_De_Vida.\n" +
-                                "    	?Proyecto_De_TI OntoBLOGP:PDTI_tiene_CVP ?Ciclo_Vida_Proyecto.\n" +
+                                "    	#?Proyecto_De_TI OntoBLOGP:PDTI_tiene_CVP ?Ciclo_Vida_Proyecto.\n" +
                                 "       OntoBLOGP:"+idproyecto+" OntoBLOGP:PDTI_tiene_CVP ?Ciclo_Vida_Proyecto. \n" +
                                 "}\n" ;
         queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
@@ -399,6 +465,7 @@ public class Proyecto
         {
             qexec.close(); 
         } 
+        //System.out.println("Datos CVP por proyecto: "+json);
         return json;
     }
     
@@ -409,11 +476,12 @@ public class Proyecto
         queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
         queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
         queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
-        String queryRequesteaux="SELECT ?Ciclo_De_Vida\n" +
+        String queryRequesteaux="SELECT ?Ciclo_De_Vida ?idcvp \n" +
                                 "WHERE\n" +
                                 "{\n" +
                                 "?Ciclo_Vida_Proyecto OntoBLOGP:nombreCicloVidaProyecto ?Ciclo_De_Vida.\n" +
-                                "}" ;
+                                "?Ciclo_Vida_Proyecto OntoBLOGP:idCVP ?idcvp.\n" +
+                                "}\n" ;
         queryStr.append(queryRequesteaux);
         Query query = QueryFactory.create(queryStr.toString());
         QueryExecution qexec = QueryExecutionFactory.create(query, model); 
@@ -426,9 +494,11 @@ public class Proyecto
             {
                 QuerySolution soln = response.nextSolution();
                 RDFNode cvp = soln.get("?Ciclo_De_Vida");
+                RDFNode idcvp = soln.get("?idcvp");
                 if(cvp!=null)
                 {
-                    json += "CVP: "+eliminarPrefijos(cvp.toString());
+                    json += "CVP:"+eliminarPrefijos(cvp.toString())+"&&";
+                    json += "idCVP:"+eliminarPrefijos(idcvp.toString());
                     if (response.hasNext())
                     {
                         json += ",";
@@ -448,7 +518,7 @@ public class Proyecto
         {
             qexec.close(); 
         } 
-        System.out.println("Datos CVP: "+json);
+        //System.out.println("Datos CVP por todo: "+json);
         return json;
     }
     
@@ -512,11 +582,12 @@ public class Proyecto
         queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
         queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
         queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
-        String queryRequesteaux="SELECT ?Entregables\n" +
+        String queryRequesteaux="SELECT ?Entregables ?identregable\n" +
                                 "WHERE\n" +
                                 "{\n" +
                                 "?Entregable OntoBLOGP:nombreEntregable ?Entregables.\n" +
-                                "}" ;
+                                "?Entregable OntoBLOGP:idEntregable ?identregable.\n" +
+                                "}";
         queryStr.append(queryRequesteaux);
         Query query = QueryFactory.create(queryStr.toString());
         QueryExecution qexec = QueryExecutionFactory.create(query, model); 
@@ -529,9 +600,11 @@ public class Proyecto
             {
                 QuerySolution soln = response.nextSolution();
                 RDFNode entregable = soln.get("?Entregables");
+                RDFNode identregable = soln.get("?identregable");
                 if(entregable!=null)
                 {
-                    json += "Entregables: "+eliminarPrefijos(entregable.toString());
+                    json += "Entregable:"+eliminarPrefijos(entregable.toString())+"&&";
+                    json += "idEntregable:"+eliminarPrefijos(identregable.toString());
                     if (response.hasNext())
                     {
                         json += ",";
@@ -551,7 +624,7 @@ public class Proyecto
         {
             qexec.close(); 
         } 
-        System.out.println("Datos Entregables: "+json);
+        //System.out.println("Datos Entregables: "+json);
         return json;
     }
     
@@ -635,7 +708,7 @@ public class Proyecto
                 RDFNode proceso = soln.get("?Nombre_Proceso");
                 if(proceso!=null)
                 {
-                    json += "Procesos: "+eliminarPrefijos(proceso.toString());
+                    json += "Proceso:"+eliminarPrefijos(proceso.toString());
                     if (response.hasNext())
                     {
                         json += ",";
@@ -655,7 +728,7 @@ public class Proyecto
         {
             qexec.close(); 
         } 
-        System.out.println("Datos Procesos: "+json);
+        //System.out.println("Datos Procesos: "+json);
         return json;
     }
 

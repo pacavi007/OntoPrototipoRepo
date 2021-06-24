@@ -64,13 +64,14 @@ public class GenericResource
         @DefaultValue("") @QueryParam("atributo4") String atributo4, 
         @DefaultValue("") @QueryParam("atributo5") String atributo5, 
         @DefaultValue("") @QueryParam("atributo6") String atributo6,
-        @DefaultValue("") @QueryParam("atributo7") String atributo7
+        @DefaultValue("") @QueryParam("atributo7") String atributo7,
+        @DefaultValue("") @QueryParam("superatributo") String superatributo
     ) throws IOException
             
     {
         GenericResource myontology = new GenericResource();
         myontology.populateFOAFFriends();
-        String json = myontology.myStudents(myontology._student, option, atributo1, atributo2, atributo3, atributo4, atributo5, atributo6, atributo7); 
+        String json = myontology.myStudents(myontology._student, option, atributo1, atributo2, atributo3, atributo4, atributo5, atributo6, atributo7, superatributo); 
         return json;
     }
     
@@ -83,7 +84,7 @@ public class GenericResource
         //System.out.println("Ruta es: "+System.getProperty("user.dir" ));
     }
     
-    private String myStudents(Model model, String option, String atributo1, String atributo2, String atributo3, String atributo4, String atributo5, String atributo6, String atributo7) throws IOException
+    private String myStudents(Model model, String option, String atributo1, String atributo2, String atributo3, String atributo4, String atributo5, String atributo6, String atributo7, String superatributo) throws IOException
     { 
         String query = "";
         opciones = Integer.parseInt(option);
@@ -104,9 +105,10 @@ public class GenericResource
                 String fechainicio = atributo4;
                 String fechafin    = atributo5;
                 String presupuesto = atributo6;
+                String otrosconceptos = superatributo;
                 Proyecto proyec = new Proyecto();
-                
-                query = proyec.crearProyectos(titulo,objetivo,descripcion,fechainicio,fechafin,presupuesto);
+                    //System.out.println("Otros concep "+superatributo);
+                query = proyec.crearProyectos(titulo,objetivo,descripcion,fechainicio,fechafin,presupuesto,otrosconceptos);
                 break;
                 }
             case "3": 
@@ -127,9 +129,10 @@ public class GenericResource
                 String fechainicio = atributo4;
                 String fechafin    = atributo5;
                 String presupuesto = atributo6;
+                String otrosconceptos = superatributo;
                 Proyecto proyec = new Proyecto();
                 
-                query = proyec.editarProyectos(id, titulo, objetivo, descripcion, fechainicio, fechafin, presupuesto);
+                query = proyec.editarProyectos(id, titulo, objetivo, descripcion, fechainicio, fechafin, presupuesto,otrosconceptos);
                 break; 
                 } 
             case "4": 
