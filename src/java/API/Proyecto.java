@@ -1,5 +1,6 @@
 package API;
 
+import com.hp.hpl.jena.graph.Node;
 import com.hp.hpl.jena.ontology.DatatypeProperty;
 import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.ObjectProperty;
@@ -21,6 +22,7 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.*; 
+import com.hp.hpl.jena.rdf.model.impl.ResourceImpl;
 import com.hp.hpl.jena.util.FileManager; 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,6 +32,7 @@ import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 import javax.ws.rs.DefaultValue;
+import org.apache.jasper.tagplugins.jstl.ForEach;
 
 public class Proyecto 
 {
@@ -103,23 +106,30 @@ public class Proyecto
         nuevoProyecto.setPropertyValue(presupuesto, modelo.createTypedLiteral(pre,NS));
         nuevoProyecto.setPropertyValue(idproyecto, modelo.createTypedLiteral("Proy00"+String.valueOf(cont),NS));
         for (int i = 0; i < interesados.length; i++) {
-            //System.out.println("auxotroscon "+interesados[i]);            
-            Individual interesado = modelo.getIndividual(NS+interesados[i]);
-            ObjectProperty objp = modelo.getObjectProperty(NS+"Int_pertenece_PDTI");
-            interesado.addProperty(objp, modelo.getIndividual(NS+"Proy00"+String.valueOf(cont)));
-            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_tiene_Int");
-            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+interesados[i]));
+            //System.out.println("auxotroscon "+interesados[i]);
+          
+            if ((interesados[i].split(":"))[1].equals("S")) {
+                Individual interesado = modelo.getIndividual(NS + (interesados[i].split(":"))[0]);
+                ObjectProperty objp = modelo.getObjectProperty(NS + "Int_pertenece_PDTI");
+                interesado.addProperty(objp, modelo.getIndividual(NS + "Proy00" + String.valueOf(cont)));
+                ObjectProperty objp2 = modelo.getObjectProperty(NS + "PDTI_tiene_Int");
+                nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS + (interesados[i].split(":"))[0]));
+            }
         }
         for (int i = 0; i < cvps.length; i++) {
-            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_tiene_CVP");
-            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+cvps[i]));
+            if ((cvps[i].split(":"))[1].equals("S")) {
+                ObjectProperty objp2 = modelo.getObjectProperty(NS + "PDTI_tiene_CVP");
+                nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS + (cvps[i].split(":"))[0]));
+            }
         }
         for (int i = 0; i < entregables.length; i++) {            
-            Individual entregable = modelo.getIndividual(NS+entregables[i]);
-            ObjectProperty objp = modelo.getObjectProperty(NS+"Ent_pertenece_PDTI");
-            entregable.addProperty(objp, modelo.getIndividual(NS+"Proy00"+String.valueOf(cont)));
-            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_comprende_E");
-            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+entregables[i]));
+            if (((entregables[i].split(":"))[1].equals("S"))) {
+                Individual entregable = modelo.getIndividual(NS + (entregables[i].split(":"))[0]);
+                ObjectProperty objp = modelo.getObjectProperty(NS + "Ent_pertenece_PDTI");
+                entregable.addProperty(objp, modelo.getIndividual(NS + "Proy00" + String.valueOf(cont)));
+                ObjectProperty objp2 = modelo.getObjectProperty(NS + "PDTI_comprende_E");
+                nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS + (entregables[i].split(":"))[0]));
+            }
         }
         
         //nuevoProyecto.setPropertyValue(objp, modelo.getIndividual(NS+"Inte001"));
@@ -170,25 +180,58 @@ public class Proyecto
         nuevoProyecto.removeAll(prop1);
         nuevoProyecto.removeAll(prop2);
         nuevoProyecto.removeAll(prop3);
+        //ObjectProperty objobj = modelo.getObjectProperty(NS+"Int_petenece_PDTI");
+        
         for (int i = 0; i < interesados.length; i++) {
-            //System.out.println("auxotroscon "+interesados[i]);            
-            Individual interesado = modelo.getIndividual(NS+interesados[i]);
-            ObjectProperty objp = modelo.getObjectProperty(NS+"Int_pertenece_PDTI");
-            interesado.removeAll(objp);
-            interesado.addProperty(objp, modelo.getIndividual(NS+id));
-            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_tiene_Int");
-            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+interesados[i]));
+            //System.out.println("auxotroscon "+interesados[i]); 
+            Individual interesado = modelo.getIndividual(NS + (interesados[i].split(":"))[0]); //
+            ObjectProperty objp = modelo.getObjectProperty(NS + "Int_pertenece_PDTI"); //
+            ObjectProperty objp2 = modelo.getObjectProperty(NS + "PDTI_tiene_Int");
+            
+            if ((interesados[i].split(":"))[1].equals("S")) {
+                //Individual interesado = modelo.getIndividual(NS + (interesados[i].split(":"))[0]); //
+                //ObjectProperty objp = modelo.getObjectProperty(NS + "Int_pertenece_PDTI"); //
+                //interesado.removeAll(objp);
+                interesado.addProperty(objp, modelo.getIndividual(NS+id)); // 
+                
+                
+                //interesado.removeProperty(predicate, rdf);
+                //Statement sta = modelo.createStatement(subject, predicate, "Proy003");
+                //modelo.remove(subject, predicate, rdf);
+                //modelo.remove(sta);
+                //ObjectProperty objp2 = modelo.getObjectProperty(NS + "PDTI_tiene_Int");
+                nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS + (interesados[i].split(":"))[0]));
+            } 
+            else {
+                Resource subject = modelo.getIndividual(NS + (interesados[i].split(":"))[0]);
+                Property predicate = modelo.getObjectProperty(NS + "Int_pertenece_PDTI");
+                RDFNode rdf = modelo.getIndividual(NS + id);
+                modelo.remove(subject, predicate, rdf);
+            }
         }
         for (int i = 0; i < cvps.length; i++) {
             ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_tiene_CVP");
-            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+cvps[i]));
+            if ((cvps[i].split(":"))[1].equals("S")) {
+                nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS + (cvps[i].split(":"))[0]));
+            } 
+            else {
+                
+            }
         }
         for (int i = 0; i < entregables.length; i++) {            
-            Individual entregable = modelo.getIndividual(NS+entregables[i]);
+            Individual entregable = modelo.getIndividual(NS+ (entregables[i].split(":"))[0]);
             ObjectProperty objp = modelo.getObjectProperty(NS+"Ent_pertenece_PDTI");
-            entregable.addProperty(objp, modelo.getIndividual(NS+id));
-            ObjectProperty objp2 = modelo.getObjectProperty(NS+"PDTI_comprende_E");
-            nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS+entregables[i]));
+            ObjectProperty objp2 = modelo.getObjectProperty(NS + "PDTI_comprende_E");
+            if ((entregables[i].split(":"))[1].equals("S")) {
+                entregable.addProperty(objp, modelo.getIndividual(NS + id));
+                nuevoProyecto.addProperty(objp2, modelo.getIndividual(NS + (entregables[i].split(":"))[0]));
+            } 
+            else {
+                Resource subject = modelo.getIndividual(NS + (entregables[i].split(":"))[0]);
+                Property predicate = modelo.getObjectProperty(NS + "Ent_pertenece_PDTI");
+                RDFNode rdf = modelo.getIndividual(NS + id);
+                modelo.remove(subject, predicate, rdf);
+            }
         }
         /*System.out.println("Proyecto editado");
         System.out.println("titulo "+tit);
@@ -203,7 +246,7 @@ public class Proyecto
     
     public String eliminarProyectos (String id) throws FileNotFoundException{
         cargarOntologia();
-        System.out.println("Eliminando individuo ");System.out.println(" "+id);
+        System.out.println("Eliminando proyecto");System.out.println(" "+id);
         //Individual individuo = modelo.getIndividual(NS+"Std0014");
         Individual individuo = modelo.getIndividual(NS+id);
         individuo.remove();      
@@ -259,6 +302,9 @@ public class Proyecto
                             "\"cvp\":\""+mostrarCVPPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\"," +
                             "\"entregables\":\""+mostrarEntregablesPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\"," +
                             "\"procesos\":\""+mostrarProcesosPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\"," +
+                            "\"incidentes\":\""+mostrarIncidentesPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\"," +
+                            "\"supuestos\":\""+mostrarSupuestosPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\"," +
+                            "\"riesgos\":\""+mostrarRiesgosPorProyecto(eliminarPrefijos(idproyecto.toString()))+"\"," +
                             "\"idproyecto\":\""+ eliminarPrefijos(idproyecto.toString()) +"\"}" ;
                            //interesados= mostrarInteresadosPorProyecto(idproyecto.toString());
                             //"\"fechafin\":\""+eliminarPrefijos(fechafin.toString()) +"\"}" ;
@@ -404,7 +450,7 @@ public class Proyecto
             }  
             if(!flag)
             {
-                json= "SIN INTERESADOS";
+                json= "Nombre:SIN INTERESADOS";
             }   
         }
         finally 
@@ -617,7 +663,7 @@ public class Proyecto
             }  
             if(!flag)
             {
-                json= "SIN ENTREGABLES";
+                json= "Entregable:SIN ENTREGABLES";
             }   
         }
         finally 
@@ -721,7 +767,7 @@ public class Proyecto
             }  
             if(!flag)
             {
-                json= "SIN PROCESOS";
+                json= "Proceso:SIN PROCESOS";
             }   
         }
         finally 
@@ -730,6 +776,206 @@ public class Proyecto
         } 
         //System.out.println("Datos Procesos: "+json);
         return json;
+    }
+    
+    public String mostrarIncidentesPorProyecto(String idproyecto){
+        //System.out.println("Proyecto ID "+idproyecto);
+        StringBuffer queryStr = new StringBuffer();
+        String queryRequesteaux="SELECT   ?registroIncidente ?Proyecto  ?incertidumbre ?nombreincidente \n" +
+                                "WHERE \n " +
+                                "{\n" +
+                                "	# Busca la incertidumbre de un proyecto\n" +
+                                "	?Proyecto_De_TI OntoBLOGP:titulo  ?Proyecto.\n" +
+                                "	?Incertidumbre OntoBLOGP:PDTI_presenta_Inc ?incertidumbre.\n" +
+                                "	?Proyecto_De_TI  OntoBLOGP:PDTI_presenta_Inc  ?incertidumbre.\n" +
+                                "	OntoBLOGP:"+idproyecto+" OntoBLOGP:PDTI_presenta_Inc  ?incertidumbre.\n" +
+                                "       ?Registro_Incidente OntoBLOGP:nombreRI ?nombreincidente. \n" +
+                                "	?Registro_Incidente OntoBLOGP:descripcionRI ?registroIncidente.\n" +
+                                "	?incertidumbre OntoBLOGP:Inc_puede_ser_RI ?Registro_Incidente.\n" +
+                                "}\n";
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        queryStr.append(queryRequesteaux); 
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response = qexec.execSelect();
+            boolean flag= response.hasNext();
+            while(response.hasNext())
+            {   
+                QuerySolution soln = response.nextSolution();
+                RDFNode registroIncidente = soln.get("?registroIncidente");
+                RDFNode Proyecto = soln.get("?Proyecto");
+                RDFNode incertidumbre = soln.get("?incertidumbre");
+                RDFNode nombreincidente = soln.get("?nombreincidente");
+                if((registroIncidente != null) && (nombreincidente != null) ) 
+                {
+                    json += "descripcionRI: "+eliminarPrefijos(registroIncidente.toString());  
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                    
+                }
+                        
+            }
+            if(!flag)
+            {
+                json= "descripcionRI:SIN INCIDENTES";
+            }     
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        return json;
+    }
+    
+    public String mostrarSupuestosPorProyecto(String idproyecto){
+        //idproyecto="Proy003";
+        StringBuffer queryStr = new StringBuffer();
+        String queryRequesteaux="SELECT   ?Proyecto ?registroSupuesto ?nombreSupuesto\n" +
+                                "WHERE \n " +
+                                "{\n" +
+                                "	# Busca la incertidumbre de un proyecto\n" +
+                                "	?Proyecto_De_TI OntoBLOGP:titulo  ?Proyecto.\n" +
+                                "	?Incertidumbre OntoBLOGP:PDTI_presenta_Inc ?incertidumbre.\n" +
+                                "	?Proyecto_De_TI  OntoBLOGP:PDTI_presenta_Inc  ?incertidumbre.\n" +
+                                "	OntoBLOGP:"+idproyecto+" OntoBLOGP:PDTI_presenta_Inc  ?incertidumbre.\n" +
+                                "	?Registro_De_Supuesto OntoBLOGP:nombreRDS ?nombreSupuesto.\n" +
+                                "	?Registro_De_Supuesto OntoBLOGP:descripcionRDS ?registroSupuesto.\n" +
+                                "	?incertidumbre OntoBLOGP:Inc_puede_ser_S ?Registro_De_Supuesto.\n" +
+                                "}\n";
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        queryStr.append(queryRequesteaux); 
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response = qexec.execSelect();
+            boolean flag= response.hasNext();
+            while(response.hasNext())
+            {
+                QuerySolution soln = response.nextSolution();
+                RDFNode registroSupuesto = soln.get("?registroSupuesto");
+                RDFNode nombreSupuesto = soln.get("?nombreSupuesto");
+                //RDFNode idproyecto = soln.get("?IdProyecto");
+                //Individual individuo = soln.getLiteral();
+                //modelo.getIndividual(NS+"Proy00"+String.valueOf(cont));
+                //cont++;
+                
+                //System.out.println("Id individuo: "+soln);
+                //String idindividuo = "";
+                if( (registroSupuesto != null) && (nombreSupuesto != null) )
+                {
+                    json += "descripciónRDS: "+eliminarPrefijos(registroSupuesto.toString());
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                }          
+            }
+            if(!flag)
+            {
+                json= "descripciónRDS:SIN SUPUESTOS";
+            }  
+                
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        //System.out.println("IDProyecto: "+idproyecto);
+        System.out.println("DatosSupuestos: "+json);
+        return json;
+        //return "[" + json+"]";
+    }
+        
+    public String mostrarRiesgosPorProyecto(String idproyecto){
+        //idproyecto="Proy003";
+        StringBuffer queryStr = new StringBuffer();
+        String queryRequesteaux="SELECT   ?Proyecto ?registroRiesgo ?nombreRiesgo\n" +
+                                "WHERE \n" +
+                                "{\n" +
+                                "	# Busca la incertidumbre de un proyecto\n" +
+                                "	?Proyecto_De_TI OntoBLOGP:titulo  ?Proyecto.\n" +
+                                "	?Incertidumbre OntoBLOGP:PDTI_presenta_Inc ?incertidumbre.\n" +
+                                "	?Proyecto_De_TI  OntoBLOGP:PDTI_presenta_Inc  ?incertidumbre.\n" +
+                                "	OntoBLOGP:"+idproyecto+" OntoBLOGP:PDTI_presenta_Inc  ?incertidumbre.\n" +
+                                "	?Riesgo OntoBLOGP:nombreRiesgo ?nombreRiesgo.\n" +
+                                "	?Riesgo OntoBLOGP:descripcionRiesgo ?registroRiesgo.\n" +
+                                "	?incertidumbre OntoBLOGP:Inc_puede_ser_RP ?Riesgo.\n" +
+                                "}\n";
+        queryStr.append("PREFIX OntoBLOGP: <http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#>"); 
+        queryStr.append("PREFIX owl: <http://www.w3.org/2002/07/owl#>\n") ;
+        queryStr.append("PREFIX rdf" + ": <" + "http://www.w3.org/1999/02/22-rdfsyntax-ns#" + "> "); 
+        queryStr.append("PREFIX rdfs" + ": <" + "http://www.w3.org/2000/01/rdfschema#" + "> ");
+        queryStr.append("PREFIX foaf" + ": <" + "http://xmlns.com/foaf/0.1/" + ">");
+        queryStr.append(queryRequesteaux); 
+        Query query = QueryFactory.create(queryStr.toString());
+        QueryExecution qexec = QueryExecutionFactory.create(query, model); 
+        String json = "";
+        try 
+        {
+            ResultSet response = qexec.execSelect();
+            boolean flag= response.hasNext();
+            while(response.hasNext())
+            {
+                QuerySolution soln = response.nextSolution();
+                RDFNode registroriesgo = soln.get("?registroRiesgo");
+                RDFNode nombreRiesgo = soln.get("?nombreRiesgo");
+                //RDFNode idproyecto = soln.get("?IdProyecto");
+                //Individual individuo = soln.getLiteral();
+                //modelo.getIndividual(NS+"Proy00"+String.valueOf(cont));
+                //cont++;
+                
+                //System.out.println("Id individuo: "+soln);
+                //String idindividuo = "";
+                if( (registroriesgo != null) && (nombreRiesgo != null) )
+                {
+                    json += "descripciónRiesgo: "+eliminarPrefijos(registroriesgo.toString());
+                    if (response.hasNext())
+                    {
+                        json += ",";
+                    }
+                }
+                else
+                {
+                    System.out.println("No data found!"); 
+                }          
+            }
+            if(!flag)
+            {
+                json= "descripciónRiesgo:SIN RIESGOS";
+            }  
+                
+        }
+        finally 
+        {
+            qexec.close(); 
+        } 
+        //System.out.println("IDProyecto: "+idproyecto);
+        //System.out.println("Datos: "+json);
+        return json;
+        //return "[" + json+"]";
     }
 
     public  int contarIndividuos( ){
@@ -751,7 +997,7 @@ public class Proyecto
         modelo.read(inFoafInstance,NS);
     }
     
-    public String  eliminarPrefijos (String linea){
+    public String  eliminarPrefijos (String linea){  // System.out.println("Entrando a eliminar pre");
         linea=linea.replace("^^http://www.semanticweb.org/asus/ontologies/2019/10/OntoBLOGP#","");
         return linea;   
     }

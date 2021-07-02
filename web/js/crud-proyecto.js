@@ -177,17 +177,14 @@ const consultarproyecto = async () => {
                     <div id="divnombreproceso"> 
                         <h6>Número Procesos</h6> 
                     </div>
-                    <div> 
+                    <div id="desrds"> 
                         <h6>Descripción RDS</h6> 
-                        <p id="desrds"></p>
                     </div>
-                    <div> 
+                    <div id="desriesgo"> 
                         <h6>Descripción Riesgo</h6> 
-                        <p id="desriesgo"></p>
                     </div>
-                    <div> 
+                    <div id="desri"> 
                         <h6>Descripción RI</h6> 
-                        <p id="desri"></p>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -240,7 +237,7 @@ const buscandoproyecto = async () => {
                         <button class="btn btn-info btn-sm rounded-0" type="button" 
                                 style="background: #0A2269; border-color: #FFFFFF"
                                 data-toggle="modal" data-placement="right" title="Pulsa aquí para conocer toda la información de este proyecto" 
-                                data-original-title="Info" data-target="#modal-info" onclick="mostrarinfo('${item.idproyecto}','${item.objetivo}','${item.descripcion}','${item.presupuesto}','${item.fechainicio}','${item.fechafin}','${item.interesados}','${item.cvp}','${item.entregables}','${item.procesos}')"><i class="fas fa-info-circle"></i>
+                                data-original-title="Info" data-target="#modal-info" onclick="mostrarinfo('${item.idproyecto}','${item.objetivo}','${item.descripcion}','${item.presupuesto}','${item.fechainicio}','${item.fechafin}','${item.interesados}','${item.cvp}','${item.entregables}','${item.procesos}','${item.incidentes}','${item.supuestos}','${item.riesgos}')"><i class="fas fa-info-circle"></i>
                         </button>
                     
                     
@@ -306,7 +303,7 @@ const agregarproyecto = async () => {
     
     var inputElements = document.getElementsByClassName('interesadosCheckbox');
     for(var i=0; inputElements[i]; ++i){
-        if(inputElements[i].checked){
+        /*if(inputElements[i].checked){
             otrosvalores += inputElements[i].value
             if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
             {
@@ -314,28 +311,58 @@ const agregarproyecto = async () => {
                 otrosvalores += ","
 
             }
+        }*/
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value+":"+"S"
+        }
+        else
+        {
+            otrosvalores += inputElements[i].value+":"+"N"
+        }
+        if(i<(inputElements.length-1)){
+            otrosvalores += ","
         }
     }
     otrosvalores += ";"
     inputElements = document.getElementsByClassName('cvpCheckbox');
     for(var i=0; inputElements[i]; ++i){
-        if(inputElements[i].checked){
+        /*if(inputElements[i].checked){
             otrosvalores += inputElements[i].value
             if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
             {
                 otrosvalores += ","
             }
+        }*/
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value+":"+"S"
+        }
+        else
+        {
+            otrosvalores += inputElements[i].value+":"+"N"
+        }
+        if(i<(inputElements.length-1)){
+            otrosvalores += ","
         }
     }
     otrosvalores += ";"
     inputElements = document.getElementsByClassName('entregablesCheckbox');
     for(var i=0; inputElements[i]; ++i){
-        if(inputElements[i].checked){
+        /*if(inputElements[i].checked){
             otrosvalores += inputElements[i].value
             if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
             {
                 otrosvalores += ","
             }
+        }*/
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value+":"+"S"
+        }
+        else
+        {
+            otrosvalores += inputElements[i].value+":"+"N"
+        }
+        if(i<(inputElements.length-1)){
+            otrosvalores += ","
         }
     }
 //console.log("otros valores ",otrosvalores)
@@ -375,7 +402,7 @@ const editarproyecto = async (aux) => {
     
     var inputElements = document.getElementsByClassName('interesadosCheckbox2');
     for(var i=0; inputElements[i]; ++i){
-        if(inputElements[i].checked){
+        /*if(inputElements[i].checked){
             otrosvalores += inputElements[i].value
             if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
             {
@@ -383,28 +410,58 @@ const editarproyecto = async (aux) => {
                 otrosvalores += ","
 
             }
+        }*/
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value+":"+"S"
+        }
+        else
+        {
+            otrosvalores += inputElements[i].value+":"+"N"
+        }
+        if(i<(inputElements.length-1)){
+            otrosvalores += ","
         }
     }
     otrosvalores += ";"
     inputElements = document.getElementsByClassName('cvpCheckbox2');
     for(var i=0; inputElements[i]; ++i){
-        if(inputElements[i].checked){
+        /*if(inputElements[i].checked){
             otrosvalores += inputElements[i].value
             if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
             {
                 otrosvalores += ","
             }
+        }*/
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value+":"+"S"
+        }
+        else
+        {
+            otrosvalores += inputElements[i].value+":"+"N"
+        }
+        if(i<(inputElements.length-1)){
+            otrosvalores += ","
         }
     }
     otrosvalores += ";"
     inputElements = document.getElementsByClassName('entregablesCheckbox2');
     for(var i=0; inputElements[i]; ++i){
-        if(inputElements[i].checked){
+        /*if(inputElements[i].checked){
             otrosvalores += inputElements[i].value
             if((i<=(inputElements.length-2))&&(inputElements[i+1].checked))
             {
                 otrosvalores += ","
             }
+        }*/
+        if(inputElements[i].checked){
+            otrosvalores += inputElements[i].value+":"+"S"
+        }
+        else
+        {
+            otrosvalores += inputElements[i].value+":"+"N"
+        }
+        if(i<(inputElements.length-1)){
+            otrosvalores += ","
         }
     }
     
@@ -477,7 +534,7 @@ const eliminarproyecto = async(aux) => {
     }
 }
 
-const mostrarinfo = async(aux,aux2,aux3,aux4,aux5,aux6,aux7,aux8,aux9,aux10) => {
+const mostrarinfo = async(aux,aux2,aux3,aux4,aux5,aux6,aux7,aux8,aux9,aux10,aux11,aux12,aux13) => {
     console.log("Mostrando toda la info ",aux);
     //document.getElementById('titulo-3').innerHTML = "Aquí va el titulo"
     document.getElementById('objetivo-3').innerHTML = aux2
@@ -587,13 +644,92 @@ const mostrarinfo = async(aux,aux2,aux3,aux4,aux5,aux6,aux7,aux8,aux9,aux10) => 
     }
     divnombreproceso.append(document.createElement("p"))
     
+    let divsupuesto = document.getElementById('desrds')
+    h6= document.createElement("h6")
+    textoH6 = document.createTextNode("Descripción RDS")
+    divsupuesto.innerHTML=""
+    divsupuesto.setAttribute("class","row")
+    h6.appendChild(textoH6)
+    divsupuesto.append(h6)
+    var nombresupuesto = aux12.split(',')
+    for(let i=0;i<nombresupuesto.length;i++)
+    {
+        var auxi= nombresupuesto[i].split(':')
+        var descripcionSupuesto= auxi[1]
+        let parragrafo1 = document.createElement("div")
+        let dessupuesto= document.createTextNode(descripcionSupuesto)
+        parragrafo1.setAttribute("class","col-md-12")
+        parragrafo1.append(dessupuesto)
+        divsupuesto.append(parragrafo1)
+        //let br = document.createElement("div")
+        //br.setAttribute("class","col-md-6")
+        //divcvp.append(br)
+    }
+    divsupuesto.append(document.createElement("p"))
+    
+    let divriesgo = document.getElementById('desriesgo')
+    h6= document.createElement("h6")
+    textoH6 = document.createTextNode("Descripción Riesgo")
+    divriesgo.innerHTML=""
+    divriesgo.setAttribute("class","row")
+    h6.appendChild(textoH6)
+    divriesgo.append(h6)
+    var nombreriesgo = aux13.split(',')
+    for(let i=0;i<nombreriesgo.length;i++)
+    {
+        var auxi= nombreriesgo[i].split(':')
+        var descripcionRiesgo= auxi[1]
+        let parragrafo1 = document.createElement("div")
+        let desriesgo= document.createTextNode(descripcionRiesgo)
+        parragrafo1.setAttribute("class","col-md-12")
+        parragrafo1.append(desriesgo)
+        divriesgo.append(parragrafo1)
+        //let br = document.createElement("div")
+        //br.setAttribute("class","col-md-6")
+        //divcvp.append(br)
+    }
+    divriesgo.append(document.createElement("p"))
+    
+    let divincidente = document.getElementById('desri')
+    h6= document.createElement("h6")
+    textoH6 = document.createTextNode("Descripción RI")
+    divincidente.innerHTML=""
+    divincidente.setAttribute("class","row")
+    h6.appendChild(textoH6)
+    divincidente.append(h6)
+    var nombreincidente = aux11.split(',')
+    for(let i=0;i<nombreincidente.length;i++)
+    {
+        var auxi= nombreincidente[i].split(':')
+        var descripcionIncidente= auxi[1]
+        let parragrafo1 = document.createElement("div")
+        let desincidente= document.createTextNode(descripcionIncidente)
+        parragrafo1.setAttribute("class","col-md-12")
+        parragrafo1.append(desincidente)
+        divincidente.append(parragrafo1)
+        //let br = document.createElement("div")
+        //br.setAttribute("class","col-md-6")
+        //divcvp.append(br)
+    }
+    divincidente.append(document.createElement("p"))
+    /* 
+     <div id="desrds"> 
+                        <h6>Descripción RDS</h6> 
+                    </div>
+                    <div id="desriesgo"> 
+                        <h6>Descripción Riesgo</h6> 
+                    </div>
+                    <div id="desri"> 
+                        <h6>Descripción RI</h6> 
+                    </div>
+    */
     //document.getElementById('interesado').innerHTML = aux7
     //document.getElementById('cvproyecto').innerHTML = aux3
     //document.getElementById('entregable').innerHTML = aux2
     //document.getElementById('numprocesos').innerHTML = aux3
-    document.getElementById('desrds').innerHTML = aux2
-    document.getElementById('desriesgo').innerHTML = aux3
-    document.getElementById('desri').innerHTML = aux2+('<br></br>')+aux3
+    //document.getElementById('desrds').innerHTML = aux2
+    //document.getElementById('desriesgo').innerHTML = aux3
+    //document.getElementById('desri').innerHTML = aux2+('<br></br>')+aux3
 }
 
 const metodoauxiliarcrear = async() => {
