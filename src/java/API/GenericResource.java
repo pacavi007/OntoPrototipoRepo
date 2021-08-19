@@ -1,5 +1,11 @@
 package API;
 
+import Conceptos.Entregable;
+import Conceptos.Riesgo;
+import Conceptos.Incidente;
+import Conceptos.Interesado;
+import Conceptos.Supuesto;
+import Conceptos.Proyecto;
 import javax.ws.rs.core.Context; 
 import javax.ws.rs.core.UriInfo; 
 import javax.ws.rs.Produces; 
@@ -65,13 +71,14 @@ public class GenericResource
         @DefaultValue("") @QueryParam("atributo5") String atributo5, 
         @DefaultValue("") @QueryParam("atributo6") String atributo6,
         @DefaultValue("") @QueryParam("atributo7") String atributo7,
+        @DefaultValue("") @QueryParam("atributo8") String atributo8,
         @DefaultValue("") @QueryParam("superatributo") String superatributo
     ) throws IOException
             
     {
         GenericResource myontology = new GenericResource();
         myontology.populateFOAFFriends();
-        String json = myontology.myStudents(myontology._student, option, atributo1, atributo2, atributo3, atributo4, atributo5, atributo6, atributo7, superatributo); 
+        String json = myontology.myStudents(myontology._student, option, atributo1, atributo2, atributo3, atributo4, atributo5, atributo6, atributo7, atributo8, superatributo); 
         return json;
     }
     
@@ -84,10 +91,11 @@ public class GenericResource
         //System.out.println("Ruta es: "+System.getProperty("user.dir" ));
     }
     
-    private String myStudents(Model model, String option, String atributo1, String atributo2, String atributo3, String atributo4, String atributo5, String atributo6, String atributo7, String superatributo) throws IOException
+    private String myStudents(Model model, String option, String atributo1, String atributo2, String atributo3, String atributo4, String atributo5, String atributo6, String atributo7, String atributo8, String superatributo) throws IOException
     { 
         String query = "";
-        opciones = Integer.parseInt(option);
+        opciones = Integer.parseInt(option); 
+        //System.out.println("option es "+option);
         switch (option) 
         { 
             case "1": 
@@ -107,21 +115,11 @@ public class GenericResource
                 String presupuesto = atributo6;
                 String otrosconceptos = superatributo;
                 Proyecto proyec = new Proyecto();
-                    //System.out.println("Otros concep "+superatributo);
                 query = proyec.crearProyectos(titulo,objetivo,descripcion,fechainicio,fechafin,presupuesto,otrosconceptos);
                 break;
                 }
             case "3": 
                 {   
-                /*query = "SELECT ?Nombre ?TipoInfluencia ?Cargo ?RolProyecto ?EquipoProyecto ?Telefono ?Email \n" +
-                "WHERE { \n" +
-                "?Interesado OntoBLOGP:nombreInteresado ?Nombre. \n" +
-                "?Interesado OntoBLOGP:tipoInfluencia ?TipoInfluencia. \n" +
-                "?Interesado OntoBLOGP:cargo ?Cargo. \n" +
-                "?Interesado OntoBLOGP:rolProyecto ?RolProyecto. \n" +
-                "?Interesado OntoBLOGP:equipoProyecto ?EquipoProyecto. \n" +
-                "?Interesado OntoBLOGP:telefono ?Telefono. \n" +
-                "?Interesado OntoBLOGP:email ?Email.}";*/
                 String id          = atributo7;
                 String titulo      = atributo1;
                 String objetivo    = atributo2;
@@ -131,21 +129,11 @@ public class GenericResource
                 String presupuesto = atributo6;
                 String otrosconceptos = superatributo;
                 Proyecto proyec = new Proyecto();
-                
                 query = proyec.editarProyectos(id, titulo, objetivo, descripcion, fechainicio, fechafin, presupuesto,otrosconceptos);
                 break; 
                 } 
             case "4": 
                 {   
-                    /*query = "SELECT ?first_name ?last_name ?age\n" +
-                    " WHERE {\n" +
-                    " ?Student ROSCC:First_Name ?first_name. \n" +
-                    " ?Grading ROSCC:is_A_Student ?Student. \n" +
-                    " ?Student ROSCC:Age ?age. \n" +
-                    " ?Student ROSCC:Last_Name ?last_name.\n" +
-                    " ?Grading ROSCC:Finish_Grade ?finish_grade. Filter(?finish_grade " + comparativeExpression +
-                    "'" + grade + "') } \n" + 
-                    " Orderby ?first_name"; */
                 String id = atributo7;
                 Proyecto proyec = new Proyecto();
                 query = proyec.eliminarProyectos(id);
@@ -157,16 +145,233 @@ public class GenericResource
                 query = proyec.mostrarTodoPorTodo(model);
                 break;
                 }
+            case "11": 
+                {
+                Interesado inte = new Interesado(); 
+                query = inte.consultarInteresados(model); 
+                //proyec.mostrarInteresadosPorProyecto("hola");
+                break;
+                }
+            case "12": 
+                {
+                String nombre      = atributo1;
+                String influencia    = atributo2;
+                String cargo = atributo3;
+                String rol = atributo4;
+                String equipo    = atributo5;
+                String telefono = atributo6;
+                String email = atributo8;
+                String otrosconceptos = superatributo;
+                Interesado inte = new Interesado();
+                query = inte.crearInteresados(nombre,influencia,cargo,rol,equipo,telefono,email,otrosconceptos);
+                break;
+                }
+            case "13": 
+                {   
+                String id          = atributo7;
+                String nombre      = atributo1;
+                String influencia    = atributo2;
+                String cargo = atributo3;
+                String rol = atributo4;
+                String equipo    = atributo5;
+                String telefono = atributo6;
+                String email = atributo8;
+                String otrosconceptos = superatributo;
+                Interesado inte = new Interesado();
+                query = inte.editarInteresados(id, nombre, influencia, cargo, rol, equipo, telefono,email,otrosconceptos);
+                break; 
+                } 
+            case "14": 
+                {   
+                String id = atributo7;
+                Interesado inte = new Interesado();
+                query = inte.eliminarInteresados(id);
+                break; 
+                }
+            case "15":
+                {
+                Interesado inte = new Interesado();
+                query = inte.mostrarProyectos(model);
+                break;
+                }
+            case "21": 
+                {
+                Entregable entr = new Entregable(); 
+                query = entr.consultarEntregables(model); 
+                //proyec.mostrarInteresadosPorProyecto("hola");
+                break;
+                }
+            case "22": 
+                {
+                String nombre      = atributo1;
+                String tipo    = atributo2;
+                String estado = atributo3;
+                String version = atributo4;
+                String fechaentrega    = atributo5;
+                String url = atributo6;
+                String proceso = atributo8;
+                String otrosconceptos = superatributo;
+                Entregable entr = new Entregable();
+                query = entr.crearEntregables(nombre,tipo,estado,version,fechaentrega,url,otrosconceptos);
+                break;
+                }
+            case "23": 
+                {   
+                String id          = atributo7;
+                String nombre      = atributo1;
+                String tipo    = atributo2;
+                String estado = atributo3;
+                String version = atributo4;
+                String fechaentrega    = atributo5;
+                String url = atributo6;
+                String otrosconceptos = superatributo;
+                Entregable entr = new Entregable();
+                query = entr.editarEntregables(id, nombre, tipo, estado, version, fechaentrega, url,otrosconceptos);
+                break; 
+                } 
+            case "24": 
+                {   
+                String id = atributo7;
+                Entregable entr = new Entregable();
+                query = entr.eliminarEntregables(id);
+                break; 
+                }
+            case "25":
+                {
+                Entregable entr = new Entregable();
+                query = entr.mostrarTodoPorTodo(model);
+                break;
+                }
+            case "26":
+                {
+                //System.out.println("url "+atributo1);
+                //System.out.println("token "+atributo2);
+                String id  = atributo7;
+                String url = atributo1;
+                String token = atributo2;
+                Entregable entr = new Entregable();
+                query = entr.editarURL(id, url,token);
+                break;
+                }
+            case "31":
+                {
+                Supuesto supues = new Supuesto();
+                query= supues.consultarSupuestos(model);
+                break;
+                }
+            case "32":
+                {
+                String nombreRDS      = atributo1;
+                String descripcionRDS    = atributo2;
+                String otrosconceptos = superatributo;
+                Supuesto supues = new Supuesto(); 
+                //System.out.println("proyec "+otrosconceptos);
+                query= supues.crearSupuestos(nombreRDS,descripcionRDS,otrosconceptos);
+                break;
+                }
+            case "33":
+                {
+                String id          = atributo7;
+                String nombreRDS      = atributo1;
+                String descripcionRDS    = atributo2;
+                String otrosconceptos = superatributo;
+                Supuesto supues = new Supuesto();
+                query= supues.editarSupuestos(id,nombreRDS,descripcionRDS,otrosconceptos);
+                break;
+                }
+            case "34":
+                {
+                String id = atributo7;
+                Supuesto supues = new Supuesto();
+                query= supues.eliminarSupuestos(id);
+                break;
+                }
+            case "35":
+                {
+                Supuesto supues = new Supuesto();
+                query= supues.mostrarProyectos(model);
+                break;
+                }
+            case "41":
+                {
+                Incidente inciden = new Incidente();
+                query= inciden.consultarIncidentes(model);
+                break;
+                }
+            case "42":
+                {
+                String nombreRDS      = atributo1;
+                String descripcionRDS    = atributo2;
+                String otrosconceptos = superatributo;
+                Incidente inciden = new Incidente(); 
+                query= inciden.crearIncidentes(nombreRDS,descripcionRDS,otrosconceptos);
+                break;
+                }
+            case "43":
+                {
+                String id          = atributo7;
+                String nombreRDS      = atributo1;
+                String descripcionRDS    = atributo2;
+                String otrosconceptos = superatributo;
+                Incidente inciden = new Incidente();
+                query= inciden.editarIncidentes(id,nombreRDS,descripcionRDS,otrosconceptos);
+                break;
+                }
+            case "44":
+                {
+                String id = atributo7;
+                Incidente inciden = new Incidente();
+                query= inciden.eliminarIncidentes(id);
+                break;
+                }
+            case "45":
+                {
+                Incidente inciden = new Incidente();
+                query= inciden.mostrarProyectos(model);
+                break;
+                }
+            case "51":
+                {
+                Riesgo ries = new Riesgo();
+                query= ries.consultarRiesgos(model);
+                break;
+                }
+            case "52":
+                {
+                String nombreRDS      = atributo1;
+                String descripcionRDS    = atributo2;
+                String otrosconceptos = superatributo;
+                Riesgo ries = new Riesgo(); 
+                query= ries.crearRiesgos(nombreRDS,descripcionRDS,otrosconceptos);
+                break;
+                }
+            case "53":
+                {
+                String id          = atributo7;
+                String nombreRDS      = atributo1;
+                String descripcionRDS    = atributo2;
+                String otrosconceptos = superatributo;
+                Riesgo ries = new Riesgo();
+                query= ries.editarRiesgos(id,nombreRDS,descripcionRDS,otrosconceptos);
+                break;
+                }
+            case "54":
+                {
+                String id = atributo7;
+                Riesgo ries = new Riesgo();
+                query= ries.eliminarRiesgos(id);
+                break;
+                }
+            case "55":
+                {
+                Riesgo ries = new Riesgo();
+                query= ries.mostrarProyectos(model);
+                break;
+                }
             default: 
-                return " ";
+                return "DEFAULT";
         } 
-        /*StringTokenizer aux= new StringTokenizer(query,":");
-        System.out.println("LA cadena es ");
-        while(aux.hasMoreTokens())
-        {
-            System.out.println(""+aux.nextToken());
-        }*/
-       return query;
+        return query;
     }
     
     private String runQuery(String queryRequest, Model model)

@@ -3,15 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" 
-      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" 
-      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
-      crossorigin="anonymous"> 
-<link rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" 
-      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" 
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
+      rel="stylesheet" 
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" 
       crossorigin="anonymous">
-<link rel="icon"   href="imagenes/favicon.ico" type="image/ico" />
+<link rel="stylesheet" 
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<!--<link rel="stylesheet" 
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" 
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" 
+      crossorigin="anonymous" 
+      referrerpolicy="no-referrer" />-->
+
+<!--<link rel="stylesheet" crossorigin="anonymous"
+      href="https://gitcdn.link/repo/pacavi007/RemoteFiles/main/css/bootstrap.min.css">-->
+<!--<link rel="stylesheet" crossorigin="anonymous"
+      href="https://gitcdn.link/repo/pacavi007/RemoteFiles/main/css/bootstrap-icons.css">-->
+
+
+<link rel="icon"   href="imagenes/favicon.ico" type="image/ico"/>
 <title>ONTOBLOGP</title> 
 </head>
 
@@ -20,81 +32,39 @@
         <div class="row">
         <h4 class="mb-4" align="center" style="color: #E6E6E6 ">BIENVENIDO A ONTOBLOGP</h4>
             <nav class="navbar border rounded p-2 mb-2" style="background: #E6E6E6">
-                <div class="container-fluid">
-                    <a data-toggle="tooltip" data-placement="right" title="Pulsa  aquí para consultar, crear, modificar o eliminar proyectos." style="color: #0A2269" class="navbar-brand" href="#" onclick="consultarproyecto()">Proyecto</a>
-                    <a data-toggle="tooltip" data-placement="right" title="Pulsa  aquí para consultar, crear, modificar o eliminar interesados." style="color: #0A2269" class="navbar-brand" href="#" onclick="crudinteresado()">Interesado</a>
-                    <a data-toggle="tooltip" data-placement="right" title="Pulsa  aquí para consultar, crear, modificar o eliminar entregables." style="color: #0A2269" class="navbar-brand" href="#" onclick="crudinteresado()">Entregable</a>
-                    <a style="color: #0A2269" class="navbar-brand" href="#" onclick="crudinteresado()">Registro De Supuesto</a>
-                    <a style="color: #0A2269" class="navbar-brand" href="#" onclick="crudinteresado()">Registro Incidente</a>
-                    <a style="color: #0A2269" class="navbar-brand" href="#" onclick="crudinteresado()">Riesgo</a>
+                <div class="container-fluid ">
+                    <!-- <ul class="nav nav-pills">   
+                    <li class="nav-item"> --> <a id="linkproyecto"   data-toggle="tooltip" data-placement="right" title="Pulsa aquí para consultar, crear, modificar o eliminar proyectos."    style="color: #0A2269" class="navbar-brand" href="#" onclick="consultarproyecto()">Proyecto</a> 
+                    <a id="linkinteresado" data-toggle="tooltip" data-placement="right" title="Pulsa aquí para consultar, crear, modificar o eliminar interesados."  style="color: #0A2269" class="navbar-brand" href="#" onclick="consultarinteresado()">Interesado</a> 
+                    <a id="linkentregable" data-toggle="tooltip" data-placement="right" title="Pulsa aquí para consultar, crear, modificar o eliminar entregables."  style="color: #0A2269" class="navbar-brand" href="#" onclick="consultarentregable()">Entregable</a> 
+                    <a id="linksupuesto" data-toogle="tooltip" data-placement="left"  title="Pulsa aquí para consultar, crear, modificar o eliminar supuestos."    style="color: #0A2269" class="navbar-brand" href="#" onclick="consultarsupuesto()">Registro De Supuestos</a> 
+                    <a id="linkincidente" data-toggle="tooltip" data-placement="left"  title="Pulsa aquí para consultar, crear, modificar o eliminar incidentes."   style="color: #0A2269" class="navbar-brand" href="#" onclick="consultarincidente()">Registro De Incidentes</a>
+                    <a id="linkriesgo" data-toggle="tooltip" data-placement="left"  title="Pulsa aquí para consultar, crear, modificar o eliminar riesgos."      style="color: #0A2269" class="navbar-brand" href="#" onclick="consultarriesgo()">Registro De Riesgos</a>
                 </div>
             </nav>
-        <!-- comment 
-            <div class="col-2"> 
-                <div class="border rounded p-2 mb-2" style="background: #E6E6E6">
-                    
-                    <div >
-                        <div class="col-12"> 
-                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
-                                    btn-block"
-                                    onclick="consultarproyecto()">Proyecto
-                            </button>
-                            <p></p>
-                        </div>
-                        <div class="col-12">
-                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
-                                    btn-block"
-                                    onclick="crudinteresado()">Interesado
-                            </button>
-                            <p></p>
-                        </div>
-                        <div class="col-12"> 
-                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
-                                    btn-block"
-                                    onclick="crudentregable()">Entregable
-                            </button> 
-                            <p></p>
-                        </div> 
-                         
-                        <div class="col-12"> 
-                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">Registro De Supuesto
-                            </button> 
-                            <p></p>
-                        </div>  
-                        <div class="col-12"> 
-                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">Registro Incidente
-                            </button> 
-                            <p></p>
-                        </div>
-                        <div class="col-12"> 
-                            <button style="background: #0A2269; border-color: #E6E6E6" class="bt btn-primary
-                                    btn-block"
-                                    onclick="send()">Riesgo
-                            </button> 
-                            <p></p>
-                        </div>
-                    </div>
-                </div>    
-            </div>
-            -->
             <div class="col-12 border rounded p-2 mb-2" style="background: #E6E6E6">
+                <div class="col-12 row"> 
                 <div class="col-2" id="nuevoboton">
 
                 </div> 
-                
+                <div  style="position: fixed; width: 30%; left: 30%" id="div-alert">   
+                    
+                </div>
+                </div>
                 <div id="div-modal">
                 
-                </div>
+                </div> 
+                
                 <div id="div-modal-2">
                     
                 </div>
                 <div id="div-info">
                     
                 </div>
+                <div id="div-archivo">
+                    
+                </div>
+
                 <h4 class="mb-4" align="center" style="color: #0A2269" id="mensaje">Selecciona algún concepto</h4>   
                 <div class="row rounded p-2 mb-2" id="result"> 
 
@@ -104,45 +74,75 @@
             
            
             
-            <div>
-                <progress style="height: 30px" value="0" max="100" id="uploader">0%</progress>
-                <input type="file" class="form-control" id="fileButton"/>
-                <button onclick="cargararchivo()">
-                    Subir
-                </button>
-            </div>
+            
              
         </div> 
     </div>
     
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.js" 
+            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
             crossorigin="anonymous">
-                
-    </script> 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" 
-            integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" 
-            crossorigin="anonymous">
-                
-    </script> 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
         
+    </script> -->
+    <script src="./js/jquery-3.6.0.js"> 
+        
+    </script> 
+    <!-- <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" 
+            crossorigin="anonymous"> 
+                
+    </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" 
+            integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" 
+            crossorigin="anonymous">
+                
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" 
+            integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" 
+            crossorigin="anonymous">
+                
     </script>
     
     
+    <!--<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+        
+    </script>-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js">
+        
+    </script>
+    
+
     <script src="./index.js">
         
     </script>
-    <script src="./js/crud-proyecto.js">
+    <script src="https://firebasestorage.googleapis.com/v0/b/ontoblogp.appspot.com/o/Recursos%2Fcrud-proyecto.js?alt=media&token=58667912-a923-4664-bbbb-85f1a95c1cc5">
+    
+    </script> 
+    <!--<script src="./js/crud-proyecto.js">
+                
+    </script> --> 
+    <script src="https://firebasestorage.googleapis.com/v0/b/ontoblogp.appspot.com/o/Recursos%2Fcrud-interesado.js?alt=media&token=b866d65b-9024-4c00-8335-37e8db042fe7">
+    
+    </script> 
+    <!--<script src="./js/crud-interesado.js">
+        
+    </script> -->  
+    <script src="https://firebasestorage.googleapis.com/v0/b/ontoblogp.appspot.com/o/Recursos%2Fcrud-entregable.js?alt=media&token=2e66ddd8-9b6c-4e8c-975a-214ae5c85cb3">
         
     </script>
-    <script src="./js/crud-interesado.js">
+    <!--<script src="./js/crud-entregable.js">
+        
+    </script>-->
+    <script src="./js/crud-supuesto.js">
         
     </script>
-    <script src="./js/crud-entregable.js">
+    <script src="./js/crud-incidente.js">
         
     </script>
-    <script src="./firebase.js">
+    <script src="./js/crud-riesgo.js">
+        
+    </script>
+    <script src="./js/firebase.js">
         
     </script>
     
@@ -152,10 +152,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js">
         
     </script>
-
-
-
-
 
 </body> 
 </html>
