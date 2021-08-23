@@ -19,6 +19,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream; 
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Iterator;
 
 
@@ -224,12 +229,19 @@ public class Entregable
         return "Entregable editado";
     }
     
-    public String editarURL (String id, String url,String token) throws IOException{
+    public String editarURL (String id, String nombrearchi, String token) throws IOException{
         cargarOntologia();
         DatatypeProperty urlweb = modelo.getDatatypeProperty(NS+"URL");
         //System.out.println("id "+id);
-        System.out.println("url "+url);
-        System.out.println("token "+token);
+        //System.out.println("url "+url);
+        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        //String timeStamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        //String fecha = dtf.toString();
+        //System.out.println("fecha "+timeStamp);
+        String url = "https://firebasestorage.googleapis.com/v0/b/ontoblogp.appspot.com/o/Files%2F";
+        //System.out.println("token "+token);
+        nombrearchi = nombrearchi.replace(" ","%20");
+        url = url+nombrearchi+"?alt=media&token="+token;
         //String enlace =url+"&token="+token;
         Individual nuevoEntregable = modelo.getIndividual(NS+id);
         //nuevoEntregable.setPropertyValue(urlweb, modelo.createTypedLiteral(url,NS));

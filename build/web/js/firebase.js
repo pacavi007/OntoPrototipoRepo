@@ -1,13 +1,16 @@
 
-var firebase;  
-  
+var firebase; 
+var date = new Date();
+var anio = date.getFullYear();
+var mes  = date.getMonth()+1
+var dia  = date.getDate()
+var hora = date.getHours()
+var minuto = date.getMinutes()
+var segundo = date.getSeconds()
+var fecha = ""
+
 var iniciarfire = async () => {
     //console.log("Iniciando firebase");
-    
-    //if(bandera==false)
-    //{
-    //bandera = true
-    
     var firebaseConfig = {
     apiKey: "AIzaSyC7SFAE_PMtP05n7nRVCV1kcy6GbCB97yg",
     authDomain: "ontoblogp.firebaseapp.com",
@@ -17,62 +20,38 @@ var iniciarfire = async () => {
     appId: "1:914521866441:web:0db9e847663467cde94d18"
     };
     firebase.initializeApp(firebaseConfig);
-    //}
   
 }
 
 function cargararchivo(){
     console.log("En cargar archivo")
-//descargararchivo()
-        /*var starsRef = storageRef;
-         starsRef.getDownloadURL().then(function(url) {
-  console.log("url ",url)
-}).catch(function(error) {
-  switch (error.code) {
-    case 'storage/object-not-found':
-        console.log("url2 ")
-      console.log("Descarga no encontrada")
-      break;
-    case 'storage/unauthorized':
-      // User doesn't have permission to access the object
-      console.log("Descarga no autorizada")
-      break;
-    case 'storage/unknown':
-      console.log("Descarga desconocida")
-      break;
-  }
-}); */
     var targetDiv = document.getElementById("div-alert");
-    /*targetDiv.innerHTML = 
-    `
-    <div class="alert" id="success-alert" style="display: none" >
-        <div style="width: 300px">
-            <label><strong>Progreso de la carga</strong></label>
-        </div>
-        <div style="width: 300px">
-            <progress style="height: 30px" value="0" max="100" id="uploader">0%</progress>
-        </div>
-    </div>
-    `*/
     targetDiv.innerHTML = 
     `
     <div class="progress" id="success-alert" style="display: none">
-        <div id="uploader" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 10%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+        <div id="uploader" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 10%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+        </div>
+        <small id="numprogreso" class="justify-content-center d-flex position-absolute w-100" style="font-weight: bolder"></small>
     </div>
     `
     $("#success-alert").fadeIn(1000);
-    
-    
-    
     const nombrearchivo = document.getElementById('fileButton').value
     //console.log("nombre archivo ",nombrearchivo.length)
     if (nombrearchivo.length>0) {
         console.log("Cargando archivo")
         var completada= false;
         var uploader = document.getElementById('uploader');
+        var progresimetro = document.getElementById('numprogreso');
         var fileButton = document.getElementById('fileButton').files[0];
-        
-        var storageRef= firebase.storage().ref('Files/'+fileButton.name);
+        date = new Date();
+        anio = date.getFullYear();
+        mes  = date.getMonth()+1
+        dia  = date.getDate()
+        hora = date.getHours()
+        minuto = date.getMinutes()
+        segundo = date.getSeconds()
+        fecha = anio+"-"+mes+"-"+dia+" "+hora+":"+minuto+":"+segundo+" "
+        var storageRef= firebase.storage().ref('Files/'+fecha+fileButton.name);
         
         var task=  storageRef.put(fileButton);
         
@@ -81,30 +60,18 @@ function cargararchivo(){
                 var percentage = (snapshot.bytesTransferred/snapshot.totalBytes)*100;
                 //uploader.value = percentage;
                 //console.log("% ",percentage)
-                uploader.setAttribute("style","width:"+percentage+"%"+";"+"text:"+percentage+"%"+";"+"color: #FFFFFF")
-                //uploader.setAttribute("")
+                uploader.setAttribute("style","width:"+percentage+"%")
+                progresimetro.innerHTML = ""
+                progresimetro.append(percentage.toFixed(2)+"%")
                 if(percentage===100)
                 {
-                    //ompletada= true
                     //console.log("Se completo")
-                    //publicarenlace()
                     setTimeout(function(){ publicarenlace(); }, 3000);
                     $("#success-alert").fadeOut(3000);
                 }
             }
         )
         $('#modal-archivo').modal('hide')
-        //timeFunction()
-        //setTimeout(function(){ publicarenlace(); }, 3000);
-        //document.getElementById("uploader").value= 0
-        //document.getElementById("fileButton").value= ""
-        
-        
-
-
-
-
-   
     
     }
     else 
@@ -119,22 +86,25 @@ function cargararchivo(){
 const publicarenlace = async () => {
     //console.log("En publicar enlace")
     const nombrearchivo = document.getElementById('fileButton').value
-    var link="";
-    var token="";
-    const id = document.getElementById('idcarga').value;
-    const option = 26
     
+    var link="";
+    var nombre="";
+    var token="";
     if (nombrearchivo.length>0) {
     var fileButton = document.getElementById('fileButton').files[0];
-    var storageRef= firebase.storage().ref('Files/'+fileButton.name);
+    //var storageRef= firebase.storage().ref('Files/'+fecha+fileButton.name);
+    console.log("fecha ",'Files/'+fecha+fileButton.name)
+    var storageRef= firebase.storage().ref('Files/'+fecha+fileButton.name);
     var archivoRef = storageRef;
-    
     archivoRef.getDownloadURL().then(function(url) {
-        //console.log("url2 ",url);
             link = url;
-        //console.log("linkcito ",link);
-            //token = link.split("&token=")
-            mandarenlace(link,token)
+            //nombre = nombrearchivo.split("fakepath\\")[1] 
+            nombre = fecha+fileButton.name
+            token  = (link.split("&token=")[1])
+            //token = token[1]
+            console.log("Nombrearchi ",nombre);
+            //console.log("url2 ",url);
+            mandarenlace(nombre,token)
         }).catch(function(error) {
                 switch (error.code) {
                     case 'storage/object-not-found':
@@ -151,15 +121,17 @@ const publicarenlace = async () => {
                 }
     });
     
+    document.getElementById('fileButton').value= ""
     
-
+    }
 }
 
-const mandarenlace = async (link,token) =>{
+const mandarenlace = async (nombre,token) =>{
     //console.log("enlace ",link)
     //console.log("token ",token)
-    
-    const queryParams = `?option=${option}&atributo1=${link}&atributo2=${token}&atributo7=${id}`
+    const option = 26
+    const id = document.getElementById('idcarga').value;
+    const queryParams = `?option=${option}&atributo1=${nombre}&atributo2=${token}&atributo7=${id}`
     //const queryParams = `?option=${option}&atributo1=${link}&atributo7=${id}`
     try 
     {   
@@ -173,12 +145,11 @@ const mandarenlace = async (link,token) =>{
         console.log(err)
     }
     
-    }
 }
 
 const resetprogreso = async () =>{
     //console.log("reset barra progreso")
-    document.getElementById("uploader").value= 0
+    //document.getElementById("uploader").value= 0
     
 }
  

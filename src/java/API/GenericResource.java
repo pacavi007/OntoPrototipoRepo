@@ -247,10 +247,10 @@ public class GenericResource
                 //System.out.println("url "+atributo1);
                 //System.out.println("token "+atributo2);
                 String id  = atributo7;
-                String url = atributo1;
+                String nombrearchi = atributo1;
                 String token = atributo2;
                 Entregable entr = new Entregable();
-                query = entr.editarURL(id, url,token);
+                query = entr.editarURL(id,nombrearchi,token);
                 break;
                 }
             case "31":
